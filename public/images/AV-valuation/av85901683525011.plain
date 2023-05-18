@@ -1,0 +1,128 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Apr 13, 2023 at 12:15 PM
+-- Server version: 10.1.46-MariaDB
+-- PHP Version: 7.2.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `webmedia_simakii`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bussiness_types`
+--
+
+CREATE TABLE `bussiness_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `bussiness_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bussiness_type1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `charges` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bussiness_types`
+--
+
+INSERT INTO `bussiness_types` (`id`, `bussiness_type`, `bussiness_type1`, `charges`, `created_at`, `updated_at`) VALUES
+(6, 'All Kinds of Utensils Selling HomeAppliances', 'सर्व प्रकारचे भांडी विक्रतेहोमअप्प्लिएन्सेस', '800', '2023-04-09 04:07:54', '2023-04-09 04:07:54'),
+(5, 'Gold and Silver Jewelers', 'सोने चांदीचे दागीनेचे कारागीर', '700', '2023-04-09 04:06:51', '2023-04-09 04:06:51'),
+(7, 'Religious Worship Literature Dealer Cutting Salon Beauty Parlor', 'धार्मिक पूजा साहित्य विक्रेतकटिंग सलून बुय्टी पार्लर', '500', '2023-04-09 04:08:30', '2023-04-09 04:08:30'),
+(8, 'Coal Scrap Mattress House', 'कोळसा स्क्रप भंगार गादी घ', '700', '2023-04-09 04:09:16', '2023-04-09 04:09:16'),
+(9, 'Handcart sellers of all types', 'सर्व प्रकरचे  रस्यावर फिरते हातगाडी विक्रेते', '700', '2023-04-09 04:10:23', '2023-04-09 04:10:23'),
+(10, 'Cutting Salo Beauty Parlour', 'कटिंग सलून ब्युटी पार्लर', '700', '2023-04-09 09:34:36', '2023-04-09 09:34:36'),
+(11, 'General Store Book Center Pen Stationery Crockery Ladies Stores Opticals Cosmetic Toys Center etc All', 'जनरल स्टोअर बुक सेंटर पेन स्टेशनरी क्रोकरी लेडीज स्टोअर्स ऑप्टिकल्स कॉस्मेटिक खेळणी सेंटर इत्यादी सर्व', '700', '2023-04-09 09:35:31', '2023-04-09 09:35:31'),
+(12, 'Agricultural Implements Seed Fertilizers and Pesticides Medicines Agriculture Center', 'शेती अवजार बी बियाणे फर्टीलायझर व कीटकनाशक औषधी कृषी केंद्र', '700', '2023-04-09 09:36:23', '2023-04-09 09:36:23'),
+(13, 'Tatta Bamboo Saruboly', 'तत्ता बांबू सारुबॉली', '700', '2023-04-09 09:36:54', '2023-04-09 09:36:54'),
+(14, 'All types of Readymade Handloom Carpet Garment and Hosiery Tailoring and Textile Merchants Small etc', 'सर्व प्रकारचे रेडिमेट हॅन्डलूम कार्पेट गारमेंट व होजरी टेलरिंग व कापड व्यापारी लहान इत्यादी', '700', '2023-04-09 09:37:24', '2023-04-09 09:37:24'),
+(15, 'All kinds of street cart vendors', 'सर्व प्रकारचे रस्त्यावर फिरते हात गाडी विक्रेते', '700', '2023-04-09 09:37:45', '2023-04-09 09:37:45'),
+(16, 'All Clinic Dispensary Clinics OPD only', 'सर्व क्लिनिक डिस्पेंसरी दवाखाने फक्त ओपीडी', '1500', '2023-04-09 09:38:18', '2023-04-09 09:38:18'),
+(17, 'All Motor Mechanics Garage Servicing Centers Old Cars Buying & Selling Automobiles Motor Oils & Lubricating', 'सर्व मोटार मेकॅनिक गॅरेज सर्विसिंग सेंटर जुने गाड्या खरेदी व विक्री ऑटोमोबाईल्स मोटार ऑइल व लुब्रिकेटिंग ग्रीस', '1500', '2023-04-09 09:38:53', '2023-04-09 09:38:53'),
+(18, 'xerox undi dp job work and typing work', 'झेरॉक्स अंडी डीपी जॉब वर्क व टायपिंग वर्क', '1000', '2023-04-09 09:39:42', '2023-04-09 09:39:42'),
+(19, 'Tours and Travels Booking Office Transport', 'टूर्स आणि प्रवास बुकिंग कार्यालय वाहतूक', '1500', '2023-04-09 09:40:17', '2023-04-09 09:40:17'),
+(20, 'Patrawali Drona', 'पात्रावली द्रोणाचार्य', '1000', '2023-04-09 09:40:54', '2023-04-09 09:40:54'),
+(21, 'Tax Consultant Architect Voice to Art Sculpture Expert Map Making Chartered Accountant Company', 'कर सल्लागार आर्किटेक्ट आवाज टू कला शिल्पशास्त्र तज्ञ नकाशा तयार करणे चार्टर्ड अकाउंटंट कंपनी', '2500', '2023-04-09 09:42:08', '2023-04-09 09:42:08'),
+(22, 'All types of Machinery Sales and Repairs Mandap Decorations Tent Houses and Catering etc', 'सर्व प्रकारचे मशिनरी विक्री व दुरुस्ती मंडप डेकोरेशन टेन्ट हाऊस व केटरिंग इत्यादी', '1500', '2023-04-09 09:42:51', '2023-04-09 09:42:51'),
+(23, 'Photo Studio Video Shooting Photo Color Lab', 'फोटो स्टुडिओ व्हिडिओ शूटिंग फोटो कलर लॅब इत्यादी', '2000', '2023-04-09 09:43:21', '2023-04-09 09:43:21'),
+(24, 'All Clinics Pathology Diagnostic Center Sonography Center Blood Bank Blood Bank', 'सर्व दवाखाने पॅथॉलॉजी डोग्नोस्टिक सेंटर सोनोग्राफी सेंटर ब्लड बँक रक्तपेढी', '2500', '2023-04-09 09:43:57', '2023-04-09 09:43:57'),
+(25, 'Gold and Silver Jewellery', 'सोने चांदी दागिणीचे व्यापारी', '2500', '2023-04-09 09:44:25', '2023-04-09 09:44:25'),
+(26, 'All textile dealers Area less than 250 square feet', 'सर्व कापड व्यापारी 250 चौकट पेक्षा कमी क्षेत्रफळ', '1500', '2023-04-09 09:45:26', '2023-04-09 09:45:26'),
+(27, 'All textile dealers  Area more than 250 square feet', 'सर्व कापड व्यापारी 250 चौफुटपेक्षा जास्त क्षेत्रफळ', '2500', '2023-04-09 09:46:56', '2023-04-09 09:46:56'),
+(28, 'Electricals Electronics Inverter Battery Computer Equipment Internet Cafe Sanam Parlor Music Center Mobile Sales & Repairs SIM Card Sales Recharge Watches Weights Forks Scales Etc Also Electronics Agencies', 'इलेक्ट्रिकल्स इलेक्ट्रॉनिक्स इन्व्हर्टर बॅटरी संगणक उपकरणे इंटरनेट कॅफे सनम पार्लर म्युझिक सेंटर मोबाईल विक्री व दुरुस्ती सिम कार्ड विक्री रिचार्ज घडाळे वजन काटे मापे इत्यादी तसेच इलेक्ट्रॉनिक्स एजन्सी शोरूम', '2500', '2023-04-09 09:47:45', '2023-04-09 09:47:45'),
+(29, 'Electricals Electronics Inverter Battery Computer Equipment Internet Cafe Sanam Parlor Music Center Mobile Sales & Repairs SIM Card Sales Recharge Watches Weights Forks Scales Etc Also Electronics Agencies', 'इलेक्ट्रिकल्स इलेक्ट्रॉनिक्स इन्व्हर्टर बॅटरी संगणक उपकरणे इंटरनेट कॅफे सनम पार्लर म्युझिक सेंटर मोबाईल विक्री व दुरुस्ती सिम कार्ड विक्री रिचार्ज घडाळे वजन काटे मापे इत्यादी तसेच इलेक्ट्रॉनिक्स एजन्सी शोरूम', '2500', '2023-04-10 02:49:18', '2023-04-10 02:49:18'),
+(30, 'All Kinds Of Wood Iron Furniture Dealers Saw Mill Saw Machine', 'सर्व प्रकारचे लाकूड लोखंडी फर्निचर विक्रेते सॉ मिल आरा मशीन', '3000', '2023-04-10 02:53:10', '2023-04-10 02:53:10'),
+(31, 'Coaching Classes Less than 250 Students per Day Typing Institute Computer Training Center and All Other Training  Center etc', 'कोचिंग क्लासेस 250 पेक्षा कमी विद्यार्थी प्रतिदिन टायपिंग इन्स्टिट्यूट संगणक प्रशिक्षण केंद्र व इतर सर्व प्रकारचे ट्रेनिंग  सेंटर इत्यादी', '1500', '2023-04-10 02:55:49', '2023-04-10 02:55:49'),
+(32, 'Private Tuition More than 250 Students per Day Typing Institute Computer Training Center and All Other Training  Center etc', 'खाजगी शिकवणी 250 पेक्षा जास्त विद्यार्थी प्रतिदिन टायपिंग इन्स्टिट्यूट संगणक प्रशिक्षण केंद्र व इतर सर्व प्रकारचे ट्रेनिंग  सेंटर इत्यादी', '5000', '2023-04-10 02:57:06', '2023-04-10 02:57:06'),
+(33, 'Sanitary Hardware Footwear and Color Paints', 'सॅनिटरी हार्डवेअर फुटवेअर व रंग पेंट्स', '2500', '2023-04-10 03:00:35', '2023-04-10 03:00:35'),
+(34, 'Multi Super Specialty Hospital', 'मल्टी सुपर स्पेशालिटी हॉस्पिटल', '5000', '2023-04-10 03:01:16', '2023-04-10 03:01:16'),
+(35, 'Marriage Office Fashion Hall Movie House Theater and Auditorium Cable Operator etc', 'मंगल कार्यालय फॅशन हॉल चित्रपट गृह नाट्यगृह व सभागृह केबल ऑपरेटर इत्यादी', '10000', '2023-04-10 03:02:40', '2023-04-10 03:18:56'),
+(36, 'Sale/Distribution of All Kinds of Flooring Marble Granite, Kota Stone, Cement, Lime', 'सर्व प्रकारच्या फरशी मार्बल ग्रॅनाइट, कोटा स्टोन, सिमेंट, चुना यांची विक्री/वितरण', '6000', '2023-04-10 03:50:46', '2023-04-10 03:50:46'),
+(37, 'Mobile tower', 'मोबाइल टॉवर', '10000', '2023-04-10 03:51:15', '2023-04-10 03:51:15'),
+(38, 'Fitness Center Health Club Gym', 'फिटनेस सेंटर हेल्थ क्लब जिम', '5000', '2023-04-10 03:51:57', '2023-04-10 03:51:57'),
+(39, 'Petrol Diesel Kerosene Gas Spirit Agency Distributors', 'पेट्रोल डिझेल केरोसीन गॅस स्पिरिट एजन्सी वितरक', '6000', '2023-04-10 03:53:55', '2023-04-10 03:53:55'),
+(40, 'Super Big Bazaar Market Mall', 'सुपर बिग बाजार बाजारपेठ मॉल', '8000', '2023-04-10 03:54:36', '2023-04-10 03:54:36'),
+(41, 'Motor Vehicle Dealer Distributor (Agency) for Two-Three', 'दोन-तीन साठी मोटार वाहन विक्रेता वितरक (एजन्सी)', '7000', '2023-04-10 03:57:09', '2023-04-10 03:57:09'),
+(42, 'Four Wheeler Motor Vehicle Dealer Distributor (Agency)', 'चार चाकी मोटार वाहन विक्रेता वितरक (एजन्सी)', '10000', '2023-04-10 03:57:48', '2023-04-10 03:57:48'),
+(43, 'Miscellaneous Items not mentioned above', 'संकीर्ण (वरील वस्तूची उल्लेख नसलेले)', '1000', '2023-04-10 03:59:48', '2023-04-10 03:59:48'),
+(44, 'Tea shops Tapari Panpatti/ Street vendors Handcarts', 'चहाचे दुकान टपरी पानपट्टी/ रस्त्यावरची फिरते विक्रेते हातगाडे', '500', '2023-04-10 04:02:22', '2023-04-10 04:02:22'),
+(45, 'All kinds of flour mills/ turmeric masala and chilli kandap', 'सर्व प्रकारचे पिठाची गिरणी/ हळदी मसाला व मिरची कांडप', '500', '2023-04-10 04:03:42', '2023-04-10 04:03:42'),
+(46, 'Slaughterhouses Mutton Chicken Fish Eggs and Other Meat Dealers (Small and Large)', 'कत्तलखाने मटण चिकन मासे अंडी आणि इतर मांस विक्रेते (लहान आणि मोठे)', '700', '2023-04-10 04:05:34', '2023-04-10 04:05:34'),
+(47, 'Pan Masala Aromatic Betel Nut, Mukhwas Non Alcoholic Bivol', 'पान मसाला सुगंधी सुपारी, मुखवास नॉन अल्कोहोलिक बिव्होल', '800', '2023-04-10 04:07:50', '2023-04-10 04:07:50'),
+(48, 'Seller of Kirana Bhusar Shop Provisions Teapatti Salt Sale etc', 'किराणा भुसार दुकान प्रोविजन चहापत्ती मीठ विक्री इत्यादी विक्रेता', '1000', '2023-04-10 04:09:10', '2023-04-10 04:09:10'),
+(49, 'Hotel / Canteen / Restaurant / Tea House, Mithai Ghar, Raswanti House, Ice Cream Parlour, Fast Food/Pavbhaji Centre/Juice Centre/Italian Centre etc.', 'हॉटेल / कॅन्टीन / रेस्टॉरंट / टी हाऊस, मिठाई घर, रसवंती हाऊस, आईस्क्रीम पार्लर, फास्टफूड/पावभाजी सेंटर/ज्युस सेंटर/इटली सेंटर इत्यादी', '1000', '2023-04-10 04:18:57', '2023-04-10 04:18:57'),
+(50, 'Restaurant', 'खानावळ / भोजनालय', '500', '2023-04-10 04:35:29', '2023-04-10 04:35:29'),
+(51, 'All Drug Stores Medical / Allopathic Homeopathic Ayurvedic Surgical Thoka Retail', 'सर्व औषधी दुकाने वैद्यकीय / अ‍ॅलोपोटिक होमिओपॅथिक आयुर्वेदिक सर्जिकल ठोक किरकोळ', '2000', '2023-04-10 04:39:16', '2023-04-10 04:39:16'),
+(52, 'Sugarcane Spices Bhagar Rice Poha Dal Mill Baby Food etc.', 'कुठलेले मसाले पदार्थ भगर तांदूळ पोहा दाल मिल शिशु आहार इत्यादी', '1500', '2023-04-10 04:41:22', '2023-04-10 04:41:22'),
+(53, 'Milk Dairy Milk Powder (All Kinds) Artificial Sweeteners Food Colors Preparation Flavors', 'दूध डेअरी मिल्क पावडर (सर्व प्रकारचे) कृत्रिम स्वीटनर्स फूड कलर्स तयारी फ्लेवर्स', '1500', '2023-04-10 04:42:55', '2023-04-10 04:42:55'),
+(54, 'Food Preparation (Aloo Chips Crispy Nalde Murkul etc)', 'खाद्यपदार्थ तयार करण्याचे(आलू चिप्स क्रिस्पी नल्डे मुरकुल इ.)', '1000', '2023-04-10 04:45:12', '2023-04-10 04:45:12'),
+(55, 'Edible Oil Plant Foot Spread Goat Products and Confectionery etc Factories', 'खाद्य तेल वनस्पती फूट स्प्रेड बकरी पदार्थ व कन्फेक्शनरी इत्यादी कारखाने', '2500', '2023-04-10 04:47:28', '2023-04-10 04:47:28'),
+(56, 'Hotel Bar & Restaurant Dhaba etc', 'हॉटेल बार अँड रेस्टॉरंट ढाबा इत्यादी', '2500', '2023-04-10 04:49:01', '2023-04-10 04:49:01'),
+(57, 'Sales shop in (country liquor, wine mart, beer shop, toddy shop etc', 'विक्रीचे दुकान (देशी दारू, वाईन मार्ट, बिअर शॉप, ताडी दुकान) इत्यादी', '5000', '2023-04-10 04:51:06', '2023-04-10 04:51:06'),
+(58, 'Bidi factory', 'बिडी कारखाना', '5000', '2023-04-10 04:52:29', '2023-04-10 04:52:29'),
+(59, 'Manufacturers of all types of oil mills, mineral water, closed pallets/jars, etc. and all types of cold drinks agencies.', 'सर्व प्रकारचे ऑइल मिल,मिनरल वॉटर, बंद वाटली /जार, इत्यादी उत्पादक व सर्व प्रकारचे थंड पेय येजन्सी', '6000', '2023-04-10 04:55:22', '2023-04-10 04:55:22'),
+(60, 'Sales Center for Candidate Promotional Materials', 'निवडनुक प्रचार साहित्य विक्री केंद्र', '2000', '2023-04-10 05:01:03', '2023-04-10 05:01:03'),
+(61, 'Exhibitions, crackers and sweater sellers etc per stall', 'प्रदर्शन, फटाके आणि स्वेटर विक्रेते इ प्रति स्टॉल', '1500', '2023-04-10 05:05:39', '2023-04-10 05:05:39'),
+(62, 'For health and hygiene fitness certificate for various works', 'विविध कामसाठी आरोग्य व स्वच्छतेच्या दृष्टिने योग्य असल्य बाबतचा प्रमाणपत्रासाठी', '1000', '2023-04-10 05:17:53', '2023-04-10 05:17:53'),
+(63, 'For Non-Agricultural Residential/Non-Residential/Educational Purposes Use for Health and Sanitation Reasonable Permit', 'अकृषीक निवासी/अनिवासी/शैशनिक प्रयोजनास वापर करन्यासाठी आरोग्य व स्वच्छतेच्या दृष्टिने योग्य  असल्य बाबत परवनागीसाठी', '1000', '2023-04-10 05:27:17', '2023-04-10 05:27:17'),
+(64, 'For certificate of health and cleanliness of premises for organizing circus, festival, exhibition', 'सर्कस,उत्सव मेळा भरण्यासाठी जागा आरोग्य व स्वच्छतेच्या दृष्टिने योग्य असल्य बाबतचा प्रमाणपत्रासाठी', '7000', '2023-04-10 05:34:51', '2023-04-10 05:37:04');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `bussiness_types`
+--
+ALTER TABLE `bussiness_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `bussiness_types`
+--
+ALTER TABLE `bussiness_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
