@@ -21,10 +21,12 @@ class Valuation_ReportController extends Controller
 
     public function index_model(request $request)
    {
-  
     $add_new = Add_news ::
-    // where('field_executive_id',Auth::user()->role_name_id)
-    leftjoin('locations','locations.id','=','add_news.location_id')
+      when(Auth::user()->role_name_id!=26, function ($q)  { 
+        //this condition will apply when user is not admin. admin has role 26
+        return $q->where('field_executive_id', Auth::id());
+    })
+    ->leftjoin('locations','locations.id','=','add_news.location_id')
     ->select('add_news.*','locations.locations')
     ->get();
 

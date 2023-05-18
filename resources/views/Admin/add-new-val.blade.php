@@ -5,6 +5,7 @@
 
     <div class="page-wrapper" style="margin-left:70px !important;">
         <div class="page-content">
+            @include('alerts')
 
             <div class="col">
                 <h6 class="mb-0 text-uppercase">Valuations</h6>
@@ -2762,10 +2763,11 @@
                         cache: false,
                         success: function(result) {
 
-                            console.log(result);
                             $("#field").empty();
                            // $("#field").append(' <option value=""> Select </option>');
                             $.each(result, function(a, b) {
+                                
+                                //27 is id for field executive role in user_roles table
                                 if (b.role_name_id == 27)
                                  {
 
@@ -2773,6 +2775,7 @@
                                         .id + '">' + b.name + '</option>');
                                 }
 
+                                //29 is id for assitant valuer role in user_roles table
                                 if (b.role_name_id == 29) 
                                 {
                                     $("#assist").empty();
@@ -2780,7 +2783,8 @@
                                     $("#assist").append(' <option value="' + b
                                         .id + '">' + b.name + '</option>');
                                 }
-
+                            
+                                //30 is id for technical manager in user_roles table
                                 if (b.role_name_id == 30) 
                                 {
                                     $("#tech").empty();
@@ -2789,6 +2793,7 @@
                                         .id + '">' + b.name + '</option>');
                                 }
 
+                                //31 is id for technical head in user_roles table
                                 if (b.role_name_id == 31)
                                  {
                                     $("#tech_head").empty();
