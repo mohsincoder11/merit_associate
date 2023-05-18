@@ -52,6 +52,9 @@ class RolesAndPermission
             }
 
    
+      }else{
+        return redirect()->route('login');
+
       }
    
     }

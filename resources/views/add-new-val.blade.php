@@ -4,6 +4,7 @@
 
     <div class="page-wrapper" style="margin-left:70px !important;">
         <div class="page-content">
+            @include('alerts')
 
 
             <!-- <div class="card">

@@ -5,9 +5,11 @@
 		<div class="page-wrapper">
 			<div class="page-content">
 				<div class="row">
+					
 					<div class="col-md-12 mx-auto" style="margin-top: -10%;">
+						@include('alerts')
+
 						<div class="card">
-							{{-- @include('alert') --}}
 							<div class="card-body">
 								<div class="card-title d-flex align-items-center">
 								
@@ -220,9 +222,9 @@
 										<td>{{ $emp->pan}}</td>
 										<td>{{ $emp->photo}}</td>
 										<td>{{ $emp->other}}</td>
-										<td><a href="{{ route('empregistedit', $emp->id) }}">	<button type="button" class="btn1 btn-outline-success"><i class='bx bx-edit-alt me-0'></i></button> </a>
+										<td><a href="{{ route('empregistedit', $emp->user_id) }}">	<button type="button" class="btn1 btn-outline-success"><i class='bx bx-edit-alt me-0'></i></button> </a>
 
-											<a href="{{ route('empregistdelete', $emp->id) }}"><button type="button" class="btn1 btn-outline-danger" onclick="return confirm('Are You Sure To Delete This?')"><i class='bx bx-trash me-0'></i></button> </a>	
+											<a href="{{ route('empregistdelete', $emp->user_id) }}"><button type="button" class="btn1 btn-outline-danger" onclick="return confirm('Are You Sure To Delete This?')"><i class='bx bx-trash me-0'></i></button> </a>	
 								
 
 											

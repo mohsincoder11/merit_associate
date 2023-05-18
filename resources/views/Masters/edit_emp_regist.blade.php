@@ -15,7 +15,7 @@
 								<hr>
 			<form class="row g-2" action="{{route('empregistupdate')}}" method="post" enctype="multipart/form-data">
 									@csrf 
-									<input type="hidden" name="id" value="{{$edit_data->id}}">		
+									<input type="hidden" name="id" value="{{$edit_data->user_id}}">		
 
 									<div class="col-md-2">
 										<label for="inputFirstName" class="form-label">Role <span style="color:red">*</span></label>
@@ -88,7 +88,7 @@
 									<div class="col-md-2">
 										<label for="inputFirstName" class="form-label">User ID<span style="color:red"><span style="color:red">*</span></span></label>
 										<input type="text" class="form-control" id="inputFirstName" placeholder=" User id"
-											name="user_id" value="{{$edit_data->user_id}}" required>
+											name="user_id" value="{{$edit_data->user_unique_id}}" required>
 									</div>
 
 									<div class="col-md-2">
@@ -261,9 +261,9 @@
 										<td>{{ $emp->pan}}</td>
 										<td>{{ $emp->photo}}</td>
 										<td>{{ $emp->other}}</td>
-										<td><a href="{{ route('empregistedit', $emp->id) }}">	<button type="button" class="btn1 btn-outline-success"><i class='bx bx-edit-alt me-0'></i></button> </a>
+										<td><a href="{{ route('empregistedit', $emp->user_id) }}">	<button type="button" class="btn1 btn-outline-success"><i class='bx bx-edit-alt me-0'></i></button> </a>
 
-											<a href="{{ route('empregistdelete', $emp->id) }}"><button type="button" class="btn1 btn-outline-danger" onclick="return confirm('Are You Sure To Delete This?')"><i class='bx bx-trash me-0'></i></button> </a>	
+											<a href="{{ route('empregistdelete', $emp->user_id) }}"><button type="button" class="btn1 btn-outline-danger" onclick="return confirm('Are You Sure To Delete This?')"><i class='bx bx-trash me-0'></i></button> </a>	
 								
 
 											

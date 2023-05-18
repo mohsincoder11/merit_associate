@@ -129,7 +129,6 @@ $status = Status:: where('role_name_id',Auth::user()->role_name_id)
 ->get();
 // echo json_encode($status);
 // exit();
-
         return view('Admin.add-new-val',compact('add_new_all','addnew_forlocation','location','associatesbank','product','area','loc','area_all','ongoing','completed','cancelled','pending','status'));
        
     }
@@ -204,7 +203,7 @@ $data= new Add_news;
     $data->save();
   
 
- return redirect(route('addnew'))->with(['success' => true, 'message' => 'Data Successfully Submitted !']);
+    return back()->with(['success'=>'Data succesfully sumbmitted.']);
 
 
         
@@ -233,15 +232,13 @@ public function area(Request $request)
 //logic for the name of field executive, assistant valuer, technical head, tech manager
         public function emp_name(Request $request)
         {
-        $drschem=DB::table('employee_registraions')
-        // ->leftjoin('locations','locations.id','=','add_news.location_id')
-        // ->leftjoin('areas','areas.id','=','add_news.area_id')
-        
+
+        $drschem=DB::table('users')
+         ->join('employee_registraions','employee_registraions.user_id','=','users.id')
         ->where([
             'employee_registraions.area_id'=>$request->field,
         ])
-
-        ->select('employee_registraions.name','employee_registraions.id','employee_registraions.role_name_id')
+        ->select('users.id','users.name','users.role_name_id')
         ->get();
         //dd($request->all());
         return response()->json($drschem);

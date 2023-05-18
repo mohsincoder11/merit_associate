@@ -656,7 +656,7 @@
                             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('images/avatars/user.png') }}" class="user-img" alt="user avatar">
                             <div class="user-info ps-3">
-                                <p class="user-name mb-0">Sharique Shekh</p>
+                                <p class="user-name mb-0">{{auth()->user()->name}}</p>
                                 <p class="designattion mb-0"></p>
                             </div>
                         </a>

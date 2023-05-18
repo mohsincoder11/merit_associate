@@ -1,0 +1,19 @@
+git clone step
+1)you must have git folder in root,i not, run
+git init
+
+2)clone the project using https url
+git clone https://github.com/mohsincoder11/merit_associate.git
+it will create project folder.
+3)go into folder and checkoout branch
+git checkout -b shiba
+
+if you make any changes run this command to push code
+1)git add .
+it will add all your chnages into tree
+2)git commit -m 'changes related to thelogin functionality'
+it will commit your changes with specific message to track your code
+3)git pull origin master
+it will pull all the changes from main branch in your code
+4)git push origin shiba
+it will push all your code into server
