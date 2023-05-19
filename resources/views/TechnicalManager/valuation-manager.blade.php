@@ -119,82 +119,64 @@
                                                                     <label for="inputFirstName" class="form-label">Area</label>
                                                                     <a  href="" data-bs-toggle="modal" data-bs-target="#exampleScrollableModal" style="color:blue">[Add New]</a> 
                                                                                         </label>
-                                                                                        <select class="form-select mb-3 areas" aria-label="Default select example" name="area_id"
-                                                                                        id="area">
-                                                                                        <option selected>Select </option>
-                                                                                        @foreach ($area as $area)
-                                                                                            <option value="{{ $area->id }}" @if ($edit_data->area_id == $area->id) selected @endif>
-                                                                                                {{ $area->area }} </option>
-                                                                                        @endforeach
-                                                        
-                                                                                    </select>
+                                                                                        <select class="form-select mb-3 areas" aria-label="Default select example"
+                                                                                            name="area_id" id="area">
+                                                                                            <option selected>Select </option>
+                                                                                        </select>
                                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td border="1" width="15%">
                                                                 <div style="padding:2px;">
                                                                     <label for="inputFirstName" class="form-label">Field Executive</label>
-                                                                    <select class="form-select mb-3" aria-label="Default select example" name="field_executive_id"
-                                                                    id="field">
-                                                                    <option selected>Select</option>
-                                        
-                                                                    @foreach ($emp as $emp1)
-                                                                        <option value="{{ $emp1->id }}" @if ($edit_data->field_executive_id == $emp1->id) selected @endif>
-                                                                            {{ $emp1->name }} </option>
-                                                                    @endforeach
-                                        
-                                                                </select>
+                                                                    <select class="form-select mb-3" aria-label="Default select example"
+                                                                                            name="field_executive_id" id="field">
+                                                                                            <option selected>Select Field Executive</option>
+                                                                                        </select>
                                         
                                                                 </div>
                                                             </td>
                                                             <td border="1" width="15%">
                                                                 <div style="padding:2px;">
                                                                     <label for="inputFirstName" class="form-label"  style="margin-top:5px;">Assistant Valuer</label>
-                                                                    <select class="form-select mb-3" aria-label="Default select example" name="assistant_valuer_id"
-                                                                        id="assist">
-                                                                        <option selected>Select Assistant Valuer</option>
-                                                                        @foreach ($emp as $emp2)
-                                                                            <option value="{{ $emp2->id }}" @if ($edit_data->assistant_valuer_id == $emp2->id) selected @endif>
-                                                                                {{ $emp2->name }} </option>
-                                                                        @endforeach
+                                                                    <select class="form-select mb-3" aria-label="Default select example"
+                                                                    name="assistant_valuer_id" id="assist">
+                                                                    <option selected>Select Assistant Valuer</option>
+                                                                    {{-- <option></option> --}}
                                         
-                                        
-                                                                    </select>
+                                                                </select>
                                         
                                                                 </div> 
                                                             </td>
                                                             <td border="1" width="15%">
                                                                 <div style="padding:2px;">
                                                                 <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Manager</label>
-                                                                <select class="form-select mb-3" aria-label="Default select example" name="technical_manager_id"
-                                                                id="tech">
-                                                                <option selected>Select Technical Manager</option>
-                                                                @foreach ($emp as $emp3)
-                                                                    <option value="{{ $emp3->id }}" @if ($edit_data->technical_manager_id == $emp3->id) selected @endif>
-                                                                        {{ $emp3->name }} </option>
-                                                                @endforeach
+                                                                <select class="form-select mb-3" aria-label="Default select example"
+                                                                                            name="technical_manager_id" id="tech">
+                                                                                            <option selected>Select Technical Manager</option>
+                                                                                            {{-- <option></option> --}}
                                         
-                                                            </select>
+                                                                                        </select>
                                         
                                                                 </div>
                                                             </td>
                                                             <td border="1" width="15%">
                                                                 <div style="padding:2px;">
                                                                 <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Head</label>
-                                                                <select class="form-select mb-3" aria-label="Default select example" name="technical_head_id"
-                                                                id="tech_head">
-                                                                <option selected>Select Technical Head</option>
-                                                                @foreach ($emp as $emp4)
-                                                                    <option value="{{ $emp4->id }}" @if ($edit_data->technical_head_id == $emp4->id) selected @endif>
-                                                                        {{ $emp4->name }} </option>
-                                                                @endforeach
+                                                                <select class="form-select mb-3" aria-label="Default select example"
+                                                                                            name="technical_head_id" id="tech_head">
+                                                                                            <option selected>Select Technical Head</option>
+                                                                                            {{-- <option></option> --}}
                                         
-                                        
-                                                            </select>
+                                                                                        </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         </table> 
+    
+
+
+
                                         
                                         
                                         
@@ -1679,52 +1661,33 @@ $update ->valuation_id= $request->valuation_id; --}}
 @stop
 @section('js')
 
-    <script>
-       
-$(document).ready(function() 
-        {
-            setTimeout(() => 
-            {
-                console.clear();
-            }, 1500);
-
-            var src;
-            var blob;
-
-          
-
-           
-// admin
-
-//to get location 
-
-
-
-
-$("#location").on('change', function() {
+<script>
+    $(document).ready(function() {
+        $("#location").on('change', function() {
                 $.ajax({
-                    url: "{{ route('get_area_id') }}",
-                    type: 'get',
+                    url: "{{route('get_area_id')}}",
                     data: {
-                        area: $(this).val()
+                        id: $(this).val(),
                     },
-                    cache: false,
-                    success: function(result) {
-                        console.log(result);
+                    success: function(data) {
                         $("#area").empty();
-                        $("#area").append(' <option value=""> Select </option>');
-                        $.each(result, function(a, b) {
-                            $("#area").append(' <option value="' + b.id + '">' + b
-                                .area + '</option>');
+                        $("#area").append(' <option selected>Select </option>');
+                        $.each(data, function(a, b)
+                         {
+                            $("#area").append('<option value="' + b.id + '">' + b.area + '</option>');
                         })
+                        // $("#area").selectpicker('refresh');
                     }
                 });
-                });
+            })
+    
+        });
+    
+        </script>
 
-
-
-
-                  //to get area  wise role names
+    <script>
+         $(document).ready(function() {
+            //to get area  wise role names
 
             $("#area").on('change', function() {
                     //alert($(this).val());
@@ -1738,10 +1701,11 @@ $("#location").on('change', function() {
                         cache: false,
                         success: function(result) {
 
-                            console.log(result);
                             $("#field").empty();
-                            $("#field").append(' <option value=""> Select </option>');
+                           // $("#field").append(' <option value=""> Select </option>');
                             $.each(result, function(a, b) {
+                                
+                                //27 is id for field executive role in user_roles table
                                 if (b.role_name_id == 27)
                                  {
 
@@ -1749,15 +1713,17 @@ $("#location").on('change', function() {
                                         .id + '">' + b.name + '</option>');
                                 }
 
-                                if (b.role_name_id == 28) 
+                                //29 is id for assitant valuer role in user_roles table
+                                if (b.role_name_id == 29) 
                                 {
                                     $("#assist").empty();
 
                                     $("#assist").append(' <option value="' + b
                                         .id + '">' + b.name + '</option>');
                                 }
-
-                                if (b.role_name_id == 29) 
+                            
+                                //30 is id for technical manager in user_roles table
+                                if (b.role_name_id == 30) 
                                 {
                                     $("#tech").empty();
 
@@ -1765,7 +1731,8 @@ $("#location").on('change', function() {
                                         .id + '">' + b.name + '</option>');
                                 }
 
-                                if (b.role_name_id == 30)
+                                //31 is id for technical head in user_roles table
+                                if (b.role_name_id == 31)
                                  {
                                     $("#tech_head").empty();
 
@@ -1777,7 +1744,6 @@ $("#location").on('change', function() {
                         }
                     })
                 });
-
 
 //append document
 

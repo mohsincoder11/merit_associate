@@ -222,8 +222,8 @@ public function area(Request $request)
         ])
         ->select('areas.id','areas.area')
         ->get();
-        echo json_encode($drschem);
-        exit();
+        // echo json_encode($drschem);
+        // exit();
         return response()->json($drschem);
         }
 
@@ -240,7 +240,9 @@ public function area(Request $request)
         ])
         ->select('users.id','users.name','users.role_name_id')
         ->get();
-        //dd($request->all());
+
+        // echo json_encode($drschem);
+        // dd($request->all());
         return response()->json($drschem);
         }
 

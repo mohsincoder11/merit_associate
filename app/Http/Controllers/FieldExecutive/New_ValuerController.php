@@ -17,6 +17,7 @@ use App\Models\Masters\Products;
 use App\Models\Masters\Area;
 use App\Models\Status;
 use auth;
+use App\Models\User;
 
 class New_ValuerController extends Controller
 {
@@ -98,7 +99,24 @@ class New_ValuerController extends Controller
 
         $new_edit = Add_news::find($id);
         
-        
+        //$all_user = EmployeeRegistration :: 
+        //where('area_id',$new_edit->area_id)
+        $all_user = User ::
+        where('id',$new_edit->field_executive_id)
+        ->orwhere('id',$new_edit->assistant_valuer_id)
+        ->orwhere('id',$new_edit->technical_manager_id)
+        ->orwhere('id',$new_edit->technical_head_id)
+        ->select('users.id','users.name','users.role_name_id')
+        ->get();
+
+        $new_location = Location:: where('locations.id', $new_edit->location_id)
+        ->join('areas','areas.location_id','=','locations.id')
+        ->select('locations.locations','areas.area')
+       ->get();
+
+// echo json_encode($new_edit->area_id);
+// exit();
+
           
         // $new_edit = Add_news :: leftjoin('propertys','propertys.id','=','.property_type_id') 
         // ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
@@ -115,7 +133,7 @@ class New_ValuerController extends Controller
         ->select('add_news.*','employee_registraions.role_name_id','locations.locations')
         ->get();
 
-        return view('FieldExecutive.new_valuation',compact('new','data','emp','area','product','associatesbank','edit_data','property_type','tag','category','location','new_edit','add_new','ongoing','com','cancelled','pending','location1','tags','status'));
+        return view('FieldExecutive.new_valuation',compact('new','data','emp','area','product','associatesbank','edit_data','property_type','tag','category','location','new_edit','add_new','ongoing','com','cancelled','pending','location1','tags','status','all_user','new_location'));
     }
 
     public function create(Request $request)
@@ -217,6 +235,7 @@ class New_ValuerController extends Controller
         ->first();
 // echo json_encode($edit_new);
 // exit();
+
 
         $property_type = Property :: all();
         $category = Category :: all();

@@ -6,7 +6,8 @@
     <div class="page-wrapper" style="margin-left:70px !important;">
         <div class="page-content">
             @include('alerts')
-
+{{-- @json(Auth::user())
+@json(get_user_permission()) --}}
             <div class="col">
                 <h6 class="mb-0 text-uppercase">Valuations</h6>
                 <hr/>
@@ -23,7 +24,7 @@
                                     </div>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation">
                                 <a class="nav-link" data-bs-toggle="pill" href="#primary-pills-profile" role="tab"
                                     aria-selected="false">
                                     <div class="d-flex align-items-center">
@@ -66,7 +67,7 @@
                                         <div class="tab-title">Pending</div>
                                     </div>
                                 </a>
-                            </li> --}}
+                            </li>
 
 
                         </ul>
@@ -146,7 +147,7 @@
             </tr>
             </table> 
 
-
+{{-- @json($new_edit->location_id) --}}
             <table width="100%" style="margin-top:0;">
                 <tr border="1" width="100%">
                     <td border="1" width="15%">
@@ -2727,7 +2728,7 @@
     $(document).ready(function() {
         $("#location").on('change', function() {
                 $.ajax({
-                    url: "{{route('get_area_by_id_for_new')}}",
+                    url: "{{route('get_area_id')}}",
                     data: {
                         id: $(this).val(),
                     },
