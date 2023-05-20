@@ -29,5 +29,6 @@ Route::get('client', [ApiController::class, 'client']);
 Route::get('product', [ApiController::class, 'product']);
 Route::post('field_executive', [ApiController::class, 'field_executive']);
 Route::post('emp_name', [ApiController::class, 'emp_name']);
+Route::get('property_type', [ApiController::class, 'property_type']);
 
 

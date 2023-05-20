@@ -13,6 +13,9 @@ use App\Models\Masters\EmployeeRegistration;
 use App\Models\Masters\Location;
 use App\Models\Masters\Tags;
 use App\Models\Admin\Add_news;
+use App\Models\User;
+use DB;
+
 class AssitNewValuationController extends Controller
 {
     public function index(Request $request)
@@ -37,6 +40,26 @@ class AssitNewValuationController extends Controller
 
         // echo json_encode($request->id);
         // exit();
+
+        $all_user = User ::
+        where('id',$edit_data->field_executive_id)
+        ->orwhere('id',$edit_data->assistant_valuer_id)
+        ->orwhere('id',$edit_data->technical_manager_id)
+        ->orwhere('id',$edit_data->technical_head_id)
+        ->select('users.id','users.name','users.role_name_id')
+        ->get();
+
+        $new_location = Location:: where('locations.id', $edit_data->location_id)
+        ->join('areas','areas.location_id','=','locations.id')
+        ->select('locations.locations','areas.area')
+       ->get();
+
+       
+       $role=DB::table('user_roles')
+       ->select('role_name','id')
+       ->orderby('order_no','asc')
+       ->get();
+
         
         $associatesbank=AssociatesBank::all();
         $property_type = Property :: all();
@@ -78,7 +101,11 @@ class AssitNewValuationController extends Controller
 
         $product=Products::all();
         $product=Products::all();
-        return view('AssistantValuer.assit_new_valuation',compact('new','data'  ,'area','emp','product','edit_data','associatesbank','property_type','tag','category','location','new_edit','add_new','category1','tag2','property_type1','property_type2','location1','location2'));
+
+       
+
+
+        return view('AssistantValuer.assit_new_valuation',compact('new','data'  ,'area','emp','product','edit_data','associatesbank','property_type','tag','category','location','new_edit','add_new','category1','tag2','property_type1','property_type2','location1','location2','all_user','new_location','role'));
 
     }
 

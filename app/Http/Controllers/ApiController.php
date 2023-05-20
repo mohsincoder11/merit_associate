@@ -11,6 +11,7 @@ use App\Models\Masters\Area;
 use App\Models\Masters\Location;
 use App\Models\Masters\AssociatesBank;
 use App\Models\Masters\Products;
+use App\Models\Masters\Property;
 use DB;
 
 class ApiController extends Controller
@@ -274,7 +275,15 @@ function get_area_by_id(Request $request)
         return response()->json(['status' => false, 'message' => 'User not found']);
     }
     }
-
+    public function property_type(Request $request)
+    {
+        $property_type=Property::all();
+        if ($property_type) {
+            return response()->json(['status' => true, 'data' => $property_type]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'User not found']);
+        }
+    }
 
 
 }

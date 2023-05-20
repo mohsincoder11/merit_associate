@@ -11,7 +11,8 @@ use App\Models\Masters\EmployeeRegistration;
 use App\Models\Masters\Area;
 use App\Models\User;
 use DB;
-use App\Models\Status;
+use App\Http\Controllers\Admin\Status;
+// use App\Models\Status;
 use Illuminate\Http\Request;
 use auth;
 
@@ -297,20 +298,26 @@ public function area(Request $request)
         
    public function update(Request $request)
   {
+ $data =Add_news::find($request->id); //name to diff rakha karo
 
- $data =Add_news::find($request->id);
-     $image_name_array=[];
-     if (isset($request->image)  && !empty($request->image_files) 
-     && count($request->image_files)>0) {
-         foreach ($request->image as $key => $image) {
-         $extension= explode('/', mime_content_type($image))[1];
-         $data = base64_decode(substr($image, strpos($image, ',') + 1));
-         $imgname='nv'.rand(000,999).$key . time() . '.' .$extension;
-         file_put_contents(public_path('images/New-valuation') . '/' . $imgname, $data);
-         $image_name_array[]=$imgname;
+     $image_name_array=[]; //yaha blank array define kiya
+     if($request->old_image){ //yah check kiya old images hi kya
+     $image_name_array=$request->old_image;//agar hai to black array me use push karege
+
      }
-     $data->image = $image_name_array;
+     if (isset($request->image)  && !empty($request->image) 
+     && count($request->image)>0) { //new file rahegi tab ye code chalegea
+               foreach ($request->image as $key => $image) {
+         $extension= explode('/', mime_content_type($image))[1];
+         $base_encode = base64_decode(substr($image, strpos($image, ',') + 1));
+          //yaha bhi $data tha override nahi hoga kya wo
+         $imgname='nv'.rand(000,999).$key . time() . '.' .$extension;
+         file_put_contents(public_path('images/New-valuation') . '/' . $imgname, $base_encode);
+         array_push($image_name_array,$imgname); //agar new images fle upload karege tab usi array me new file push hogi, so wo new file + old files aise hoga
+     }
     }
+   
+    $data->image = $image_name_array;
     $data->firstname=$request->get('firstname');
     $data->middelname=$request->get('middelname');
     $data->lastname=$request->get('lastname');
@@ -336,15 +343,15 @@ public function area(Request $request)
     $data->comment=$request->get('comment');
     $data->status=$request->get('status');
     $data->document_name=$request->get('document_name');
-   
+    // echo json_encode($data);
+    // exit();
+
 
      $data->save();
     // dd($data);
 
-//  echo json_encode($data);
-//     exit();
 
- return redirect()->back()->with(['success' => true, 'message' => 'Data Update Successfully  !']);
+ return redirect()->back()->with(['success'=>'Data succesfully updated.']);
 
   }
 

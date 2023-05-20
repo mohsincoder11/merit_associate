@@ -14,6 +14,8 @@ use App\Models\Masters\EmployeeRegistration;
 use App\Models\Masters\Area;
 use App\Models\Masters\Products;
 use DB;
+use App\Models\User;
+
 
 class ValuationManagerController extends Controller
 {
@@ -62,7 +64,24 @@ class ValuationManagerController extends Controller
 
         // echo json_encode( $edit_data);
         // exit();
+        $all_user = User ::
+        where('id',$edit_data->field_executive_id)
+        ->orwhere('id',$edit_data->assistant_valuer_id)
+        ->orwhere('id',$edit_data->technical_manager_id)
+        ->orwhere('id',$edit_data->technical_head_id)
+        ->select('users.id','users.name','users.role_name_id')
+        ->get();
 
+        $new_location = Location:: where('locations.id', $edit_data->location_id)
+        ->join('areas','areas.location_id','=','locations.id')
+        ->select('locations.locations','areas.area')
+       ->get();
+
+       
+       $role=DB::table('user_roles')
+       ->select('role_name','id')
+       ->orderby('order_no','asc')
+       ->get();
 
         
         // $property_type1 = Property :: all();
@@ -99,7 +118,7 @@ class ValuationManagerController extends Controller
        
 
         
-        return view('TechnicalManager.valuation-manager',compact('new_valuer_all','new_edit','property_type','category','tag','location','edit_data','property_type1','category1','tag1','location1','associatesbank','product','area','emp','data','location2','category2','category3','property_type2','tag2','tag3','property_type3','location2','location3'));
+        return view('TechnicalManager.valuation-manager',compact('new_valuer_all','new_edit','property_type','category','tag','location','edit_data','property_type1','category1','tag1','location1','associatesbank','product','area','emp','data','location2','category2','category3','property_type2','tag2','tag3','property_type3','location2','location3','all_user','new_location'));
     }
 
 
@@ -107,19 +126,24 @@ class ValuationManagerController extends Controller
     {
      
  
-
+//dd($request->all());
 $update = New_Valuer::where('id', $request->id)->first();
     
 
 $first_file = $update -> file_name;
 $update -> file_name  = $request-> file_name;
-
+// echo json_encode($first_file);
+// exit();
 $file_merge = array_merge($first_file,$update -> file_name);
 $update -> file_name =$file_merge;
+
+//$update -> file_name  = $request-> file_name;
 
 $update ->status = $request->status;
 
 $update ->reason = $request->reason;
+
+
 
 $image_name_array=[];
 if (isset($request->image_filess) && !empty($request->image_filess) 

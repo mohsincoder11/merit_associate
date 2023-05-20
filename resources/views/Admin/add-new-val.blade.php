@@ -36,7 +36,7 @@
                             </li>
 
 
-                            <li class="nav-item" role="presentation">
+                            {{-- <li class="nav-item" role="presentation">
                                 <a class="nav-link" data-bs-toggle="pill" href="#primary-pills-complete" role="tab"
                                     aria-selected="false">
                                     <div class="d-flex align-items-center">
@@ -67,7 +67,7 @@
                                         <div class="tab-title">Pending</div>
                                     </div>
                                 </a>
-                            </li>
+                            </li> --}}
 
 
                         </ul>
@@ -292,20 +292,20 @@
                                                     
                                 </div>
                             </td>
-                            <td border="1" width="10%">
+                            {{-- <td border="1" width="10%">
                                 <div style="padding:2px;">
                                     <label for="inputFirstName" class="form-label">Tags</label>
                                     <input class="form-control" type="text" 
                                     name="tags" aria-label="default input example">
                                 </div>
-                            </td>
+                            </td> --}}
                             <td border="1" width="15%">
                                 <div style="padding:2px;">
                                     <label for="inputFirstName" class="form-label">Due Date</label>
                                     <input type="date" class="form-control" name="date" >
                                 </div> 
                             </td>
-                            <td border="1" width="45%">
+                            <td border="1" width="16%">
                                 <div style="padding:2px;">
                                 <label for="inputFirstName" class="form-label" style="margin-top:5px;">Comment / Remarks</label>
                                 <textarea class="form-control"   rows="1" name="comment"></textarea>
@@ -316,7 +316,7 @@
                                 <label for="inputFirstName" class="form-label" style="margin-top:15px;">Status</label>
                                 <select class="form-select mb-3" aria-label="Default select example"
                                 name="status" >
-                                <option >Select </option>
+                                <option value="" >Select </option>
                                 <option value="ongoing">ongoing</option>
                                 <option value="completed">completed</option>
                                 <option value="cancelled">cancelled</option>
@@ -1207,7 +1207,7 @@
                                                         <th>Client</th>
                                                         <th>Assigned</th>
                                                         <th>Status</th>
-                                                        <th>View</th>
+                                                        {{-- <th>View</th> --}}
 
                                                     </tr>
                                                 </thead>
@@ -1222,12 +1222,12 @@
                                                         <td>{{ $ongoing->bankname }}</td>
                                                         <td>{{ $ongoing->created_at }}</td>
                                                         <td>{{ $ongoing->status }}</td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#exampleLargeModal1"
                                                                 class="btn1 btn-outline-success view" id="{{ $ongoing->id }}"><i
                                                                     class="lni lni-remove-file"></i></button>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                     @endforeach
 

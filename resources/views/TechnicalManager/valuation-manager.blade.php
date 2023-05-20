@@ -122,6 +122,10 @@
                                                                                         <select class="form-select mb-3 areas" aria-label="Default select example"
                                                                                             name="area_id" id="area">
                                                                                             <option selected>Select </option>
+                                                                                            @foreach ($new_location as $new_location)                       
+                                                                                            <option value="{{$new_location->id}}" @if ($new_edit->area_id == $new_location->id)  
+                                                                                            @endif selected>{{$new_location->area}} </option>
+                                                                                            @endforeach
                                                                                         </select>
                                                                                     </div>
                                                                 </div>
@@ -132,6 +136,12 @@
                                                                     <select class="form-select mb-3" aria-label="Default select example"
                                                                                             name="field_executive_id" id="field">
                                                                                             <option selected>Select Field Executive</option>
+                                                                                            @foreach ($all_user as $user)
+                                                                                            @if ($user->role_name_id == 27)                            
+                                                                                            <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id)  
+                                                                                                @endif selected>{{$user->name}} </option>
+                                                                                            @endif 
+                                                                                            @endforeach
                                                                                         </select>
                                         
                                                                 </div>
@@ -143,6 +153,11 @@
                                                                     name="assistant_valuer_id" id="assist">
                                                                     <option selected>Select Assistant Valuer</option>
                                                                     {{-- <option></option> --}}
+                                                                    @foreach ($all_user as $user)
+                                                                    @if ($user->role_name_id == 29)                            
+                                                                    <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                    @endif 
+                                                                    @endforeach
                                         
                                                                 </select>
                                         
@@ -155,6 +170,11 @@
                                                                                             name="technical_manager_id" id="tech">
                                                                                             <option selected>Select Technical Manager</option>
                                                                                             {{-- <option></option> --}}
+                                                                                            @foreach ($all_user as $user)
+                                                                                            @if ($user->role_name_id == 30)                            
+                                                                                            <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                                            @endif 
+                                                                                            @endforeach
                                         
                                                                                         </select>
                                         
@@ -167,19 +187,17 @@
                                                                                             name="technical_head_id" id="tech_head">
                                                                                             <option selected>Select Technical Head</option>
                                                                                             {{-- <option></option> --}}
-                                        
+                                                                                            @foreach ($all_user as $user)
+                                                                                            @if ($user->role_name_id == 31)                            
+                                                                                            <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                                            @endif 
+                                                                                            @endforeach
                                                                                         </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         </table> 
     
-
-
-
-                                        
-                                        
-                                        
                                         {{-- third row --}}
                                                         <table width="100%" style="margin-top:0;">
                                                             <tr border="1" width="100%">
@@ -247,13 +265,13 @@
                                                                                             
                                                                         </div>
                                                                     </td>
-                                                                    <td border="1" width="10%">
+                                                                    {{-- <td border="1" width="10%">
                                                                         <div style="padding:2px;">
                                                                             <label for="inputFirstName" class="form-label">Tags</label>
                                                                              <input class="form-control mb-3" type="text" placeholder="Tags" name="tags"
                                                                         aria-label="default input example" value="{{ $edit_data->tags }}">
                                                                         </div>
-                                                                    </td>
+                                                                    </td> --}}
                                                                     <td border="1" width="15%">
                                                                         <div style="padding:2px;">
                                                                             <label for="inputFirstName" class="form-label">Due Date</label>
@@ -601,7 +619,7 @@ $update ->valuation_id= $request->valuation_id; --}}
                               <div style="padding:2px;">
                                   <label for="inputFirstName" class="form-label" style="margin-bottom:-5px">East</label>
                                   <input type="text" class="form-control" placeholder="" name="four_borders[]"
-                            required value="{{ $new_edit->four_borders[0] }}">
+                              value="{{ $new_edit->four_borders[0] }}">
                               </div>
                           </td>
                              <td border="1" width="14%">
@@ -832,7 +850,7 @@ $update ->valuation_id= $request->valuation_id; --}}
                             <div style="padding:3px;">
                                 <label for="inputFirstName" class="form-label" style="margin-bottom: -5px;">Road Type *</label>
                                <select class="multiple-select" data-placeholder="Choose anything"
-                                name="road_type" required>
+                                name="road_type">
                                 <option value="">Select</option>
                                 <option value="Tar Road" @if($new_edit->road_type =="Tar Road") selected @endif>Tar Road</option>
                                 <option value="Concrete Road" @if($new_edit->road_type =="Concrete Road") selected @endif>Concrete Road</option>
@@ -908,7 +926,7 @@ $update ->valuation_id= $request->valuation_id; --}}
                                 <div style="padding:2px;">
                                     <label for="inputFirstName" class="form-label"  style="margin-bottom: -5px;">Construction Stage *</label>
                                       <select class="multiple-select" data-placeholder="Choose anything"
-                                name="construction_stage" required>
+                                name="construction_stage">
                                 <option value="">Select</option>
                                 <option value="Yet To Start" @if($new_edit->construction_stage =="Yet To Start") selected @endif>Yet To Start</option>
                                 <option value="Ground Level" @if($new_edit->construction_stage =="Ground Level") selected @endif>Ground Level</option>
@@ -938,7 +956,7 @@ $update ->valuation_id= $request->valuation_id; --}}
                                     <label for="inputFirstName"  style="margin-bottom: -5px;" class="form-label">Relation With Owner*</label>
                                      
                               <select class="multiple-select" data-placeholder="Choose anything"
-                            name="relation_with_owner" required>
+                            name="relation_with_owner" >
                             <option value="">Select</option>
                             <option value="Friend" @if($new_edit->relation_with_owner =="Friend") selected @endif>Friend</option>
                             <option value="Relative" @if($new_edit->relation_with_owner =="Relative") selected @endif>Relative</option>

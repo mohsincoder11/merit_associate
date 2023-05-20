@@ -265,13 +265,13 @@
                                                                     
                                                 </div>
                                             </td>
-                                            <td border="1" width="10%">
+                                            {{-- <td border="1" width="10%">
                                                 <div style="padding:2px;">
                                                     <label for="inputFirstName" class="form-label">Tags</label>
                                                      <input class="form-control mb-3" type="text" placeholder="Tags" name="tags"
                                                 aria-label="default input example" value="{{ $edit_data->tags }}">
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                             <td border="1" width="15%">
                                                 <div style="padding:2px;">
                                                     <label for="inputFirstName" class="form-label">Due Date</label>
@@ -1108,13 +1108,15 @@
                                                     <td border="1" width="10%">
                                                         <div>
                                                             <label for="inputFirstName" class="form-label"  style="margin-bottom: -5px;">Last update By </label>
-                                                            <select class="form-select"  name="last_updated_by">
+                                                            <select class="form-select"  name="last_updated_by" required>
                                                                 <option>Select</option>
-                                                                <option value="Admin">Admin </option>
-                                                                <option value="Feild Executive" >Feild Executive </option>
+                                                                @foreach ($role as $roles)
+                                                                <option value="{{$roles->id}}">{{$roles->role_name}} </option>  
+                                                                @endforeach
+                                                                {{-- <option value="Feild Executive" >Feild Executive </option>
                                                                 <option value="Assistant Valuer"> Assistant Valuer</option>
                                                                 <option value="Technical Manager"> Technical Manager</option>
-                                                                <option value="Technical Head"> Technical Head</option>
+                                                                <option value="Technical Head"> Technical Head</option> --}}
                                                           
                                                             </select>
                     

@@ -325,7 +325,7 @@
 
                                                     </div>
                                                 </td>
-                                                <td border="1" width="10%">
+                                                {{-- <td border="1" width="10%">
                                                     <div style="padding:2px;">
                                                         <label for="inputFirstName" class="form-label">Tags</label>
                                                         <input class="form-control mb-3" type="text"
@@ -333,7 +333,7 @@
                                                             aria-label="default input example"
                                                             value="{{ $edit_data->tags }}">
                                                     </div>
-                                                </td>
+                                                </td> --}}
                                                 <td border="1" width="15%">
                                                     <div style="padding:2px;">
                                                         <label for="inputFirstName" class="form-label">Due Date</label>

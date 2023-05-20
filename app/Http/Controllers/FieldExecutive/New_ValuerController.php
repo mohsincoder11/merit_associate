@@ -18,6 +18,7 @@ use App\Models\Masters\Area;
 use App\Models\Status;
 use auth;
 use App\Models\User;
+use DB;
 
 class New_ValuerController extends Controller
 {
@@ -66,6 +67,7 @@ class New_ValuerController extends Controller
         $data=Add_news::orderby('id','desc')->get();
 
 
+        
 // echo json_encode(Auth::user());
 // exit(); 
         $ongoing=New_Valuer::where('status','ongoing')
@@ -98,6 +100,8 @@ class New_ValuerController extends Controller
 
 
         $new_edit = Add_news::find($id);
+        // echo json_encode($new_edit);
+        // exit();
         
         //$all_user = EmployeeRegistration :: 
         //where('area_id',$new_edit->area_id)
@@ -133,7 +137,14 @@ class New_ValuerController extends Controller
         ->select('add_news.*','employee_registraions.role_name_id','locations.locations')
         ->get();
 
-        return view('FieldExecutive.new_valuation',compact('new','data','emp','area','product','associatesbank','edit_data','property_type','tag','category','location','new_edit','add_new','ongoing','com','cancelled','pending','location1','tags','status','all_user','new_location'));
+        $role=DB::table('user_roles')
+        ->select('role_name','id')
+        ->orderby('order_no','asc')
+        ->get();
+
+//echo json_encode($role);
+// exit();
+        return view('FieldExecutive.new_valuation',compact('new','data','emp','area','product','associatesbank','edit_data','property_type','tag','category','location','new_edit','add_new','ongoing','com','cancelled','pending','location1','tags','status','all_user','new_location','role'));
     }
 
     public function create(Request $request)
