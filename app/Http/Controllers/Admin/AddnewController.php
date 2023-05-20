@@ -357,6 +357,7 @@ public function area(Request $request)
 
 
 
+  
 
 //modal pe data lane ke liye  humne ajax call kiya 
 public function  model_ongoing(Request $request)
