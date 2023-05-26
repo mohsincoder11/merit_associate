@@ -1,7 +1,6 @@
 @extends('layout')
 @section('content')
 
-
     <div class="page-wrapper">
         <div class="page-content">
             <div class="row">
@@ -10,10 +9,7 @@
                         <div class="card-body">
 
 
-
-
                             {{-- Admin --}}
-
                             <div class="accordion accordion-flush" id="accordionFlushExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-headingOne">
@@ -32,8 +28,8 @@
 
                                             <hr>
 
-                                            <form class="row g-2" style="border:#cccccc solid 2px;" method="post"
-                                                enctype="multipart/form-data" action={{ route('addnewupdate') }}>
+                             <form class="row g-2" style="border:#cccccc solid 2px;" method="post"
+                                                enctype="multipart/form-data" action="{{ route('addnewupdate') }}">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $edit_data->id }}">
 
@@ -142,104 +138,90 @@
 
                                                                 </select>
                                                             </div>
-                                                        </td>
+                                                        </td> 
                                                         <td border="1" width="15%">
                                                             <div style="padding:3px;">
-                                                                <label for="inputFirstName"
-                                                                    class="form-label">Area</label>
-                                                                <a href="" data-bs-toggle="modal"
-                                                                    data-bs-target="#exampleScrollableModal"
-                                                                    style="color:blue">[Add New]</a>
-                                                                </label>
-                                                                <select class="form-select mb-3 areas"
-                                                                    aria-label="Default select example" name="area_id"
-                                                                    id="area">
-                                                                    <option selected>Select </option>
-                                                                    @foreach ($new_location as $new_location)
-                                                                        <option value="{{ $new_location->id }}"
-                                                                            @if ($new_edit->area_id == $new_location->id)  @endif
-                                                                            selected>{{ $new_location->area }} </option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <label for="inputFirstName" class="form-label">Area</label>
+                                                                <a  href="" data-bs-toggle="modal" data-bs-target="#exampleScrollableModal" style="color:blue">[Add New]</a> 
+                                                                                    </label>
+                                                                                    <select class="form-select mb-3 areas" aria-label="Default select example"
+                                                                                        name="area_id" id="area">
+                                                                                        <option selected>Select </option>
+                                                                                        @foreach ($new_location as $new_location)                       
+                                                                                        <option value="{{$new_location->id}}" @if ($edit_data->area_id == $new_location->id)  
+                                                                                        @endif selected>{{$new_location->area}} </option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
                                                             </div>
-                                        </div>
-                                        </td>
-                                        <td border="1" width="15%">
-                                            <div style="padding:2px;">
-                                                <label for="inputFirstName" class="form-label">Field Executive</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="field_executive_id" id="field">
-                                                    <option selected>Select Field Executive</option>
-                                                    @foreach ($all_user as $user)
-                                                        @if ($user->role_name_id == 27)
-                                                            <option value="{{ $user->id }}"
-                                                                @if ($new_edit->user_id == $user->id)  @endif selected>
-                                                                {{ $user->name }} </option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-
-                                            </div>
-                                        </td>
-                                        <td border="1" width="15%">
-                                            <div style="padding:2px;">
-                                                <label for="inputFirstName" class="form-label"
-                                                    style="margin-top:5px;">Assistant Valuer</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="assistant_valuer_id" id="assist">
-                                                    <option selected>Select Assistant Valuer</option>
-                                                    {{-- <option></option> --}}
-                                                    @foreach ($all_user as $user)
-                                                        @if ($user->role_name_id == 29)
-                                                            <option value="{{ $user->id }}"
-                                                                @if ($new_edit->user_id == $user->id)  @endif selected>
-                                                                {{ $user->name }} </option>
-                                                        @endif
-                                                    @endforeach
-
-                                                </select>
-
-                                            </div>
-                                        </td>
-                                        <td border="1" width="15%">
-                                            <div style="padding:2px;">
-                                                <label for="inputFirstName" class="form-label"
-                                                    style="margin-top:10px;">Technical Manager</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="technical_manager_id" id="tech">
-                                                    <option selected>Select Technical Manager</option>
-                                                    {{-- <option></option> --}}
-                                                    @foreach ($all_user as $user)
-                                                        @if ($user->role_name_id == 30)
-                                                            <option value="{{ $user->id }}"
-                                                                @if ($new_edit->user_id == $user->id)  @endif selected>
-                                                                {{ $user->name }} </option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-
-                                            </div>
-                                        </td>
-                                        <td border="1" width="15%">
-                                            <div style="padding:2px;">
-                                                <label for="inputFirstName" class="form-label"
-                                                    style="margin-top:10px;">Technical Head</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="technical_head_id" id="tech_head">
-                                                    <option selected>Select Technical Head</option>
-                                                    {{-- <option></option> --}}
-                                                    @foreach ($all_user as $user)
-                                                        @if ($user->role_name_id == 31)
-                                                            <option value="{{ $user->id }}"
-                                                                @if ($new_edit->user_id == $user->id)  @endif selected>
-                                                                {{ $user->name }} </option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </td>
-                                        </tr>
-                                        </table>
+                                                        </td>
+                                                        <td border="1" width="15%">
+                                                            <div style="padding:2px;">
+                                                                <label for="inputFirstName" class="form-label">Field Executive</label>
+                                                                <select class="form-select mb-3" aria-label="Default select example"
+                                                                                        name="field_executive_id" id="field">
+                                                                                        <option selected>Select Field Executive</option>
+                                                                                        @foreach ($all_user as $user)
+                                                                                        @if ($user->role_name_id == 27)                            
+                                                                                        <option value="{{$user->id}}" @if ($edit_data->user_id == $user->id)  
+                                                                                            @endif selected>{{$user->name}} </option>
+                                                                                        @endif 
+                                                                                        @endforeach
+                                                                                    </select>
+                                    
+                                                            </div>
+                                                        </td>
+                                                        <td border="1" width="15%">
+                                                            <div style="padding:2px;">
+                                                                <label for="inputFirstName" class="form-label"  style="margin-top:5px;">Assistant Valuer</label>
+                                                                <select class="form-select mb-3" aria-label="Default select example"
+                                                                name="assistant_valuer_id" id="assist">
+                                                                <option selected>Select Assistant Valuer</option>
+                                                                {{-- <option></option> --}}
+                                                                @foreach ($all_user as $user)
+                                                                @if ($user->role_name_id == 29)                            
+                                                                <option value="{{$user->id}}" @if ($edit_data->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                @endif 
+                                                                @endforeach
+                                    
+                                                            </select>
+                                    
+                                                            </div> 
+                                                        </td>
+                                                        <td border="1" width="15%">
+                                                            <div style="padding:2px;">
+                                                            <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Manager</label>
+                                                            <select class="form-select mb-3" aria-label="Default select example"
+                                                                                        name="technical_manager_id" id="tech">
+                                                                                        <option selected>Select Technical Manager</option>
+                                                                                        {{-- <option></option> --}}
+                                                                                        @foreach ($all_user as $user)
+                                                                                        @if ($user->role_name_id == 30)                            
+                                                                                        <option value="{{$user->id}}" @if ($edit_data->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                                        @endif 
+                                                                                        @endforeach
+                                    
+                                                                                    </select>
+                                    
+                                                            </div>
+                                                        </td>
+                                                        <td border="1" width="15%">
+                                                            <div style="padding:2px;">
+                                                            <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Head</label>
+                                                            <select class="form-select mb-3" aria-label="Default select example"
+                                                                                        name="technical_head_id" id="tech_head">
+                                                                                        <option selected>Select Technical Head</option>
+                                                                                        {{-- <option></option> --}}
+                                                                                        @foreach ($all_user as $user)
+                                                                                        @if ($user->role_name_id == 31)                            
+                                                                                        <option value="{{$user->id}}" @if ($edit_data->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                                        @endif 
+                                                                                        @endforeach
+                                                                                    </select>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </table> 
 
 
 
@@ -396,7 +378,7 @@
                                                         <label for="inputFirstName" class="form-label">Upload
                                                             Documents</label>
                                                         <input type="file" class="form-control" id="image"
-                                                            accept="image/*">
+                                                            accept="">
                                                     </div>
                                                 </td>
                                                 <td border="1" width="10%">
@@ -425,7 +407,6 @@
                                             </tr>
                                         </table>
 
-                                        {{-- @json($edit_data->document_name) --}}
                                         <div class="col-md-12">
 
                                             <div class="row">
@@ -443,37 +424,77 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="add_more">
+{{-- 
 
-                                                            {{-- @json($new_edit->document_name)  --}}
                                                             @if (is_array($edit_data->document_name))
                                                                 @foreach ($edit_data->document_name as $demo)
                                                                     <tr>
-                                                                        <div class="col-md-4">
-                                                                            <th><input type="checkbox" class="del_check1"
-                                                                                    name="record">
-                                                                            </th>
-                                                                            <th>
-                                                                                <input type="hidden"
-                                                                                    value="{{ $edit_data->document_name[$loop->index] }}"
-                                                                                    name="document_name[]">
-                                                                                <input type="text" class="form-control"
-                                                                                    placeholder="" required
-                                                                                    value="{{ $edit_data->document_name[$loop->index] }}">
-                                                                            </th>
+                                                                        <td>
+                                                                            <input type="checkbox" class="del_check1"
+                                                                                name="record">
+                                                                        </td> --}}
+                                                                        {{-- <td><input type="hidden" name="category[]"  value="{{$demo}}">
+                                                                                    <input type="text" class="form-control"  value="{{$demo}}" >
+                                                                                </td> --}}
 
-                                                                            <th>
-                                                                                <input type="hidden"
-                                                                                    value="{{ $edit_data->image[$loop->index] }}"
-                                                                                    name="old_image[]">
-                                                                                <a href="{{ asset('images/New-valuation/' . $edit_data->image[$loop->index]) }}"
-                                                                                    download>
-                                                                                    {{ $edit_data->image[$loop->index] }}
-                                                                                </a>
-                                                                            </th>
-
+                                                                        {{-- <td>
+                                                                            <input type="text"
+                                                                                value="{{ $edit_data->document_name[$loop->index] }}"
+                                                                                name="document_name[]"><input
+                                                                                type="text" class="form-control"
+                                                                                step="0.1"
+                                                                                value="{{ $edit_data->document_name[$loop->index] }}">
+                                                                        </td> --}}
+                                                                        {{-- @json($edit_data->image) --}}
+                                                                        {{-- <td>
+                                                                            @php
+                                                                                $tag = App\Models\Admin\Add_news::whereIn('id', $edit_data->image)
+                                                                                    ->pluck('image')
+                                                                                    ->toArray();
+                                                                                $tag2 = implode(',', $tag);  --}}
+                                                                             {{-- // echo json_encode($tag);
+                                                                                // exit(); 
+                                                                         @endphp --}}
+                                                                            {{-- {{ $tag2 }} --}}
+                                                                            {{-- <input name="image_files[]" type="hidden"
+                                                                                value=""><a target="_blank"
+                                                                                href=""><img
+                                                                                    style="height:100px;width:auto;"
+                                                                                    src="{{ asset('image/New-valuation/' . $edit_data->image[$loop->index]) }}"></a>
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
-                                                            @endif
+                                                            @endif  --}}
+
+
+{{-- @json(count($edit_data->document_name)) --}}
+
+                                                        @if (is_array($edit_data->document_name))
+                                                                @foreach ($edit_data->document_name as $demo)
+
+                                                                <tr>
+                                                                    <div class="col-md-4">
+                                                                        <th><input type="checkbox"
+                                                                                class="del_check1" name="record">
+                                                                        </th>
+                                                                       <th>
+                                                                        <input type="hidden" value="{{$edit_data->document_name[$loop->index] }}" name="document_name[]">
+                                                                            <input type="text"
+                                                                                class="form-control" placeholder=""
+                                                                                required
+                                                                                value="{{$edit_data->document_name[$loop->index] }}">
+                                                                        </th>
+
+                                                                        <th>
+<input type="hidden" value="{{$edit_data->image[$loop->index]}}" name="old_image[]">
+{{-- yaha hame old file ke liye input liya loop me hi isliye name array me liya --}}
+                                                                          <a href="{{ asset('images/New-valuation/' . $edit_data->image[$loop->index]) }}" download>  {{$edit_data->image[$loop->index] }}
+                                                                            </a>
+                                                                        </th>
+                        
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                         </tbody>
                                                     </table>
 
@@ -489,40 +510,32 @@
                                                     class='bx bx-trophy me-0'></i> Submit</button>
                                         </div>
 
-
-
-
-                                        </form>
-
-
-
+                              </form>
 
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
-
-
-                        {{-- End Admin --}}
-
+                        {{-- end Admin --}}
 
 
 
 
-                        {{-- Feild Executive --}}
-                        <hr>
+                        {{-- Field Exceutive --}}
+
                         <div class="accordion accordion-flush" id="accordionFlushExample">
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
+                                <h2 class="accordion-header" id="flush-headingOne1">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseOne" aria-expanded="false"
                                         aria-controls="flush-collapseOne">
                                         Feild Executive
                                     </button>
                                 </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                    aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                    aria-labelledby="flush-headingOne1" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body">
 
 
@@ -1541,7 +1554,7 @@
                                                     <tr>
                                                         <td style="float:right; margin-right:20px;">
                                                             <button type="submit" class="btn btn-primary px-3"><i
-                                                                    class="fadeIn animated bx bx-plus"></i>Submit
+                                                                    class="fadeIn animated bx bx-plus"></i>Update
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -1557,628 +1570,313 @@
                             </div>
                         </div>
 
+                        {{-- <hr> --}}
 
-                    {{-- End Field Executive --}}
+                        {{-- Assistant Valuer --}}
+                        {{-- <h5>Assistant Valuer</h5> --}}
 
+                        {{-- <form method="post" action="{{ route('assit_update') }}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $new_edit->id }}">
 
+                            <table width="100%" style="margin-top:0;">
+                                <tr border="1" width="100%">
+                                    <td border="1" width="20%">
+                                    </td>
+                                    <td border="1" width="20%">
+                                        <div style="padding:3px;">
+                                            <label for="inputFirstName" class="form-label">File Name</label>
+                                            <input type="text" class="form-control" id="document11">
+                                        </div>
+                                    </td>
+                                    <td border="1" width="20%">
+                                        <div style="padding:2px;">
+                                            <label for="inputFirstName" class="form-label">Upload File</label>
+                                            <input type="file" class="form-control" id="image3"
+                                                accept="">
+                                        </div>
+                                    </td>
+                                    <td border="1" width="10%">
 
-
-                    {{-- Assistant valuer --}}
-                    <hr>
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                    aria-controls="flush-collapseOne">
-                                    Assistant Valuer
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <form class="row g-2" class="row g-2" style="border:#cccccc solid 2px;"
-                                        method="post" action="{{ route('assit_update') }} "
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $new_edit->id }}">
-
-                                        <table width="100%" style="margin-top:0;">
-                                            <tr border="1" width="100%">
-                                                <td border="1" width="20%">
-                                                    &nbsp;
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    <div style="padding:3px;">
-                                                        <label for="inputFirstName" class="form-label">File Name</label>
-                                                        <input type="text" class="form-control" id="document11">
-                                                    </div>
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    <div style="padding:2px;">
-                                                        <label for="inputFirstName" class="form-label">Upload
-                                                            File</label>
-                                                        <input type="file" class="form-control" id="image3"
-                                                            accept="">
-                                                    </div>
-                                                </td>
-                                                <td border="1" width="10%">
-
-                                                    <div class="form-group" align="center" style="margin-top:30px;">
-                                                        <button type="button" name="action_button"
-                                                            class="btn btn-warning " id="add_row3"><i
-                                                                class='bx bx-plus me-0'></i> Add</button>
-                                                    </div>
-
-                                                </td>
-                                                <td border="1" width="10%">
-
-                                                    <div class="form-group" align="center" style="margin-top:30px;">
-                                                        {{-- <button type="button" class="delete-row  " --}}
-                                                        {{-- style=" margin-top: 5px; color:red"><i class="bx bx-trash"></i></button> --}}
-                                                        <button type="button" class="btn btn-danger delete-row3"><i
-                                                                class='bx bx-trash me-0'></i> Delete</button>
-                                                    </div>
-
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    &nbsp;
-                                                </td>
-
-                                            </tr>
-                                        </table>
-
-
-                                        <div class="col-md-12">
-
-                                            <div class="row">
-                                                <div class="col-md-3"></div>
-                                                <div class="col-md-6 " style="float-left">
-
-                                                    <table class="items_table table table-bordered width80"
-                                                        id="items_table">
-                                                        <thead>
-                                                            <tr class="filters">
-                                                                <th></th>
-                                                                <th>File Name</th>
-
-                                                                <th>Files </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="add_more3">
-                                                            @if (is_array($new_edit->file_name))
-
-                                                                @foreach ($new_edit->file_name as $cat)
-                                                                    <tr>
-                                                                        <div class="col-md-4">
-                                                                            <th><input type="checkbox"
-                                                                                    class="del_check1" name="record">
-                                                                            </th>
-                                                                            <th>
-                                                                                <input type="text"
-                                                                                    class="form-control" placeholder=""
-                                                                                    required
-                                                                                    value="{{ $new_edit->file_name[$loop->index] }}">
-                                                                            </th>
-                                                                            <th>
-                                                                                <a href="{{ asset('images/AV-valuation/' . $new_edit->file[$loop->index]) }}"
-                                                                                    download>
-                                                                                    {{ $new_edit->file[$loop->index] }}
-                                                                            </th></a>
-                                                                            <div>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @endif
-
-
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
-                                            </div>
+                                        <div class="form-group" align="center" style="margin-top:30px;">
+                                            <button type="button" name="action_button" class="btn btn-warning "
+                                                id="add_row3"><i class='bx bx-plus me-0'></i> Add</button>
                                         </div>
 
-                                        <td border="1" width="10%">
-                                            &nbsp;
-                                        </td>
-                                        </tr>
-                                        </table>
+                                    </td>
+                                    <td border="1" width="10%">
 
-                                        <table width="100%" style="margin-top:0;">
+                                        <div class="form-group" align="center" style="margin-top:30px;"> --}}
+                                            {{-- <button type="button" class="delete-row  " --}}
+                                            {{-- style=" margin-top: 5px; color:red"><i class="bx bx-trash"></i></button> --}}
+                                            {{-- <button type="button" class="btn btn-danger delete-row1"><i
+                                                    class='bx bx-trash me-0'></i> Delete</button>
+                                        </div>
 
-                                            <tr border="1" width="100%" colspan="5">
+                                    </td>
+                                    <td border="1" width="20%">
+                                        &nbsp;
+                                    </td>
 
-                                                <td border="1" width="20%">
-                                                    &nbsp;
+                                </tr>
+                            </table>
 
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    <div style="padding:2px;">
-                                                        <label for="inputFirstName" class="form-label"
-                                                            style="margin-bottom: -5px;">Status</label>
-                                                        <select class="form-select" name="status">
-                                                            <option>Select</option>
-                                                            <option value="ongoing"
-                                                                @if ($new_edit->status == 'ongoing') selected @endif>ongoing
-                                                            </option>
-                                                            <option value="cancelled"
-                                                                @if ($new_edit->status == 'cancelled') selected @endif>
-                                                                cancelled </option>
-                                                            <option value="completed"
-                                                                @if ($new_edit->status == 'completed') selected @endif>
-                                                                completed</option>
-                                                            <option value="pending"
-                                                                @if ($new_edit->status == 'pending') selected @endif> pending
-                                                            </option>
 
-                                                        </select>
-                                                    </div>
-                                                </td>
+                            <div class="col-md-12">
 
-                                                <td border="1" width="20%">
-                                                    <div style="padding:2px;">
-                                                        <label for="inputFirstName" class="form-label"
-                                                            style="margin-bottom: -5px;">Reason</label>
-                                                        <textarea class="form-control" id="inputAddress" placeholder="reason / remarks" rows="2" name="reason">{{ $new_edit->reason }}</textarea>
-                                                    </div>
-                                                </td>
+                                <div class="row">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-6 " style="float-left">
 
-                                                <td border="1" width="20%">
-                                                    &nbsp;
+                                        <table class="items_table table table-bordered width80" id="items_table">
+                                            <thead>
+                                                <tr class="filters">
+                                                    <th></th>
+                                                    <th>File Name</th>
 
-                                                </td>
-
-                                            </tr>
-                                        </table>
-
-                                        <div style="margin-top:40px;">
-                                            <table width="100%">
-                                                <tr>
-                                                    <td style="float:right; margin-right:20px;">
-                                                        <button type="submit" class="btn btn-primary px-3"><i
-                                                                class="fadeIn animated bx bx-plus"></i>submit </button>
-                                                    </td>
+                                                    <th>Files </th>
                                                 </tr>
-                                            </table>
-                                        </div>
-                                        <br><br>
+                                            </thead>
+                                            <tbody id="add_more3">
+                                            </tbody>
+                                        </table>
 
-                                    </form>
-
-
-
-
-
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {{-- End Assistant --}}
 
-
-                    {{-- technical Manager --}}
-                    <hr>
-                    <br>
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                    aria-controls="flush-collapseOne">
-                                    Technical Manager
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                aria-labelledby="f  lush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <form class="row g-2" class="row g-2" style="border:#cccccc solid 2px;"
-                                        method="post" action="{{ route('tech_manager_update') }} "
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $new_edit->id }}">
-
-
-                                        <table width="100%" style="margin-top:0;">
-                                            <tr border="1" width="100%">
-                                                <td border="1" width="20%">
-                                                    &nbsp;
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    <div style="padding:3px;">
-                                                        <label for="inputFirstName" class="form-label">File Name</label>
-                                                        <input type="text" class="form-control" id="document5">
-                                                    </div>
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    <div style="padding:2px;">
-                                                        <label for="inputFirstName" class="form-label">Upload
-                                                            File</label>
-                                                        <input type="file" class="form-control" id="image5"
-                                                            accept="">
-                                                    </div>
-                                                </td>
-                                                <td border="1" width="10%">
-
-                                                    <div class="form-group" align="center" style="margin-top:30px;">
-                                                        <button type="button" name="action_button"
-                                                            class="btn btn-warning " id="add_row5"><i
-                                                                class='bx bx-plus me-0'></i> Add</button>
-                                                    </div>
-
-                                                </td>
-                                                <td border="1" width="10%">
-
-                                                    <div class="form-group" align="center" style="margin-top:30px;">
-                                                        {{-- <button type="button" class="delete-row  " --}}
-                                                        {{-- style=" margin-top: 5px; color:red"><i class="bx bx-trash"></i></button> --}}
-                                                        <button type="button" class="btn btn-danger delete-row5"><i
-                                                                class='bx bx-trash me-0'></i> Delete</button>
-                                                    </div>
-
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    &nbsp;
-                                                </td>
-
-                                            </tr>
-                                        </table>
-
-
-                                        <div class="col-md-12">
-
-                                            <div class="row">
-                                                <div class="col-md-3"></div>
-                                                <div class="col-md-6 " style="float-left">
-
-                                                    <table class="items_table table table-bordered width80"
-                                                        id="items_table">
-                                                        <thead>
-                                                            <tr class="filters">
-                                                                <th></th>
-                                                                <th>File Name</th>
-
-                                                                <th>Files </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="add_more5">
-                                                            @if (is_array($new_edit->file_name))
-
-                                                                @foreach ($new_edit->file_name as $cat)
-                                                                    <tr>
-                                                                        <div class="col-md-4">
-                                                                            <th><input type="checkbox"
-                                                                                    class="del_check5" name="record">
-                                                                            </th>
-                                                                            <th>
-                                                                                <input type="text"
-                                                                                    class="form-control" placeholder=""
-                                                                                    required
-                                                                                    value="{{ $new_edit->file_name[$loop->index] }}">
-                                                                            </th>
-
-                                                                            {{-- <th> <input type="text"
-                                                                                class="form-control"
-                                                                                placeholder=""value=" {{ \App\Models\Masters\Tags::find($new_edit->tag_id[$loop->index])->tag }}">
-                                                                        </th><br> --}}
-                                                                            <th>
-                                                                                <a href="{{ asset('images/AV-valuation/' . $new_edit->file[$loop->index]) }}"
-                                                                                    download>
-                                                                                    {{ $new_edit->file[$loop->index] }}
-                                                                            </th></a><br>
-                                                                            <div>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @endif
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <td border="1" width="10%">
-                                            &nbsp;
-                                        </td>
-                                        </tr>
-                                        </table>
-
-
-                                        <table width="100%" style="margin-top:0;">
-
-                                            <tr border="1" width="100%" colspan="5">
-
-                                                <td border="1" width="20%">
-                                                    &nbsp;
-
-                                                </td>
-                                                <td border="1" width="20%">
-                                                    <div style="padding:2px;">
-                                                        <label for="inputFirstName" class="form-label"
-                                                            style="margin-bottom: -5px;">Status</label>
-                                                        <select class="form-select" name="status">
-                                                            <option>Select</option>
-                                                            <option value="ongoing"
-                                                                @if ($new_edit->status == 'ongoing') selected @endif>ongoing
-                                                            </option>
-                                                            <option value="cancelled"
-                                                                @if ($new_edit->status == 'cancelled') selected @endif>
-                                                                cancelled </option>
-                                                            <option value="completed"
-                                                                @if ($new_edit->status == 'completed') selected @endif>
-                                                                completed</option>
-                                                            <option value="pending"
-                                                                @if ($new_edit->status == 'pending') selected @endif> pending
-                                                            </option>
-
-                                                        </select>
-                                                    </div>
-                                                </td>
-
-                                                <td border="1" width="20%">
-                                                    <div style="padding:2px;">
-                                                        <label for="inputFirstName" class="form-label"
-                                                            style="margin-bottom: -5px;">Reason</label>
-                                                        <textarea class="form-control" id="inputAddress" placeholder="reason / remarks" rows="2" name="reason">{{ $new_edit->reason }}</textarea>
-                                                    </div>
-                                                </td>
-
-                                                <td border="1" width="20%">
-                                                    &nbsp;
-
-                                                </td>
-
-                                            </tr>
-                                        </table>
-
-                                        <div style="margin-top:-20px;">
-                                            <table width="100%">
-                                                <tr>
-                                                    <td style="float:right; margin-right:20px;">
-                                                        <button type="submit" class="btn btn-primary px-3"><i
-                                                                class="fadeIn animated bx bx-plus"></i>Submit </button>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- End technical Manager --}}
-
-
-                    {{-- Tech Head --}}
-                    <hr>
-                    <h5>Technical Head</h5>
-                    <form method="post" action="{{ route('tech_head_update') }}">
-                        @csrf
-                        <input type="hidden" name="id" value="{{ $new_edit->id }}">
-
-                        <table width="100%" style="margin-top:0;">
-                            <tr border="1" width="100%">
-                                <td border="1" width="20%">
-                                    &nbsp;
-                                </td>
-                                <td border="1" width="20%">
-                                    <div style="padding:3px;">
-                                        <label for="inputFirstName" class="form-label">File Name</label>
-                                        <input type="text" class="form-control" id="document2">
-                                    </div>
-                                </td>
-                                <td border="1" width="20%">
-                                    <div style="padding:2px;">
-                                        <label for="inputFirstName" class="form-label">Upload File</label>
-                                        <input type="file" class="form-control" id="image4" accept="">
-                                    </div>
-                                </td>
-                                <td border="1" width="10%">
-
-                                    <div class="form-group" align="center" style="margin-top:30px;">
-                                        <button type="button" name="action_button" class="btn btn-warning "
-                                            id="add_row4"><i class='bx bx-plus me-0'></i> Add</button>
-                                    </div>
-
-                                </td>
-                                <td border="1" width="10%">
-
-                                    <div class="form-group" align="center" style="margin-top:30px;">
-                                        {{-- <button type="button" class="delete-row  " --}}
-                                        {{-- style=" margin-top: 5px; color:red"><i class="bx bx-trash"></i></button> --}}
-                                        <button type="button" class="btn btn-danger delete-row4"><i
-                                                class='bx bx-trash me-0'></i> Delete</button>
-                                    </div>
-
-                                </td>
-                                <td border="1" width="20%">
-                                    &nbsp;
-                                </td>
-
+                            <td border="1" width="10%">
+                                &nbsp;
+                            </td>
                             </tr>
-                        </table>
-
-
-                        <div class="col-md-12">
-
+                            </table> --}}
+                            {{-- <div class="col-md-12" style="margin-top:-30px;">
                             <div class="row">
                                 <div class="col-md-3"></div>
+    
                                 <div class="col-md-6 " style="float-left">
-
-                                    <table class="items_table table table-bordered width80" id="items_table">
+                                    <table class="items_table table table-bordered width80"
+                                        id="items_table">
+    
                                         <thead>
                                             <tr class="filters">
                                                 <th></th>
-                                                <th>File Name</th>
-
-                                                <th>Files </th>
+                                                <th>Category</th>
+                                                <th>Tag</th>
+                                                <th>Image </th>
+    
                                             </tr>
                                         </thead>
-                                        <tbody id="add_more4">
+                                        <tbody id="add_more3">
+                                            @if (is_array($new_edit->category_id))
+    
+                                                @foreach ($new_edit->category_id as $cat)
+                                                    <tr>
+                                                        <div class="col-md-4">
+                                                            <th><input type="checkbox"
+                                                                    class="del_check3" name="record">
+                                                            </th>
+                                                            <th>
+                                                                <input name="category_id[]"
+                                                                    type="hidden"
+                                                                    value="{{ $new_edit->category_id[$loop->index] }}">
+    
+                                                                <input name="tag_id[]" type="hidden"
+                                                                    value="{{ $new_edit->tag_id[$loop->index] }}">
+    
+                                                                <input type="text"
+                                                                    class="form-control" placeholder=""
+                                                                    required
+                                                                    value="{{ \App\Models\Masters\Category::find($new_edit->category_id[$loop->index])->category }}">
+                                                            </th>
+    
+                                                            <th> <input type="text"
+                                                                    class="form-control"
+                                                                    placeholder=""value=" {{ \App\Models\Masters\Tags::find($new_edit->tag_id[$loop->index])->tag }}">
+                                                            </th><br>
+                                                            <th>
+                                                                <img height="50" width="50"
+                                                                    src="{{ asset('images/FE-valuation/' . $new_edit->image[$loop->index]) }}"
+                                                                    alt="">
+                                                            </th><br>
+                                                            <div>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
-                        </div>
-
-                        <td border="1" width="10%">
-                            &nbsp;
-                        </td>
-                        </tr>
-                        </table>
+                        </div> --}}
 
 
-                        <table width="100%" style="margin-top:0;">
+                            {{-- <table width="100%" style="margin-top:0;">
 
-                            <tr border="1" width="100%" colspan="5">
+                                <tr border="1" width="100%" colspan="5">
 
-                                <td border="1" width="20%">
-                                    &nbsp;
+                                    <td border="1" width="20%">
+                                        &nbsp;
 
-                                </td>
-                                <td border="1" width="20%">
-                                    <div style="padding:2px;">
-                                        <label for="inputFirstName" class="form-label"
-                                            style="margin-bottom: -5px;">Status</label>
-                                        <select class="form-select" name="status">
+                                    </td> --}}
+
+
+                                    {{-- <td border="1" width="20%">
+                                    <div>
+                                        <label for="inputFirstName" class="form-label"  style="margin-bottom: -5px;">Last update By </label>
+                                        <select class="form-select"  name="last_updated_by">
                                             <option>Select</option>
-                                            <option value="ongoing" @if ($new_edit->status == 'ongoing') selected @endif>
-                                                ongoing </option>
-                                            <option value="cancelled" @if ($new_edit->status == 'cancelled') selected @endif>
-                                                cancelled </option>
-                                            <option value="completed" @if ($new_edit->status == 'completed') selected @endif>
-                                                completed</option>
-                                            <option value="pending" @if ($new_edit->status == 'pending') selected @endif>
-                                                pending</option>
-
+                                            <option value="Admin">Admin </option>
+                                            <option value="Feild Executive" >Feild Executive </option>
+                                            <option value="Assistant Valuer"> Assistant Valuer</option>
+                                            <option value="Technical Manager"> Technical Manager</option>
+                                            <option value="Technical Head"> Technical Head</option>
+                                      
                                         </select>
+        
                                     </div>
-                                </td>
+                                </td> --}}
 
-                                <td border="1" width="20%">
-                                    <div style="padding:2px;">
-                                        <label for="inputFirstName" class="form-label"
-                                            style="margin-bottom: -5px;">Reason</label>
-                                        <textarea class="form-control" id="inputAddress" placeholder="reason / remarks" rows="2" name="reason"></textarea>
-                                    </div>
-                                </td>
+                                    {{-- <td border="1" width="20%">
+                                        <div style="padding:2px;">
+                                            <label for="inputFirstName" class="form-label"
+                                                style="margin-bottom: -5px;">Status</label>
+                                            <select class="form-select" name="status">
+                                                <option>Select</option>
+                                                <option value="ongoing"
+                                                    @if ($new_edit->status == 'ongoing') selected @endif>ongoing </option>
+                                                <option value="cancelled"
+                                                    @if ($new_edit->status == 'cancelled') selected @endif>cancelled </option>
+                                                <option value="completed"
+                                                    @if ($new_edit->status == 'completed') selected @endif> completed</option>
+                                                <option value="pending"
+                                                    @if ($new_edit->status == 'pending') selected @endif> pending</option>
 
-                                <td border="1" width="20%">
-                                    &nbsp;
-
-                                </td>
-
-                            </tr>
-                        </table>
-                        <div style="margin-top:-20px;">
-                            <table width="100%">
-                                <tr>
-                                    <td style="float:right; margin-right:20px;">
-                                        <button type="submit" class="btn btn-primary px-3"><i
-                                                class="fadeIn animated bx bx-plus"></i>Submit </button>
+                                            </select>
+                                        </div>
                                     </td>
+
+                                    <td border="1" width="20%">
+                                        <div style="padding:2px;">
+                                            <label for="inputFirstName" class="form-label"
+                                                style="margin-bottom: -5px;">Reason</label>
+                                            <textarea class="form-control" id="inputAddress" placeholder="reason / remarks" rows="2" name="reason" required></textarea>
+                                        </div>
+                                    </td>
+
+                                    <td border="1" width="20%">
+                                        &nbsp;
+
+                                    </td>
+
                                 </tr>
                             </table>
-                        </div>
 
-                    </form>
-                    {{-- End Tech Head --}}
+                            <div style="margin-top:40px;">
+                                <table width="100%">
+                                    <tr>
+                                        <td style="float:right; margin-right:20px;">
+                                            <button type="submit" class="btn btn-primary px-3"><i
+                                                    class="fadeIn animated bx bx-plus"></i>submit </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br><br>
 
-
-
+                        </form> --}}
+                        {{-- End Assistant --}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     </div>
-    </div>
-
-
 @stop
 @section('js')
 
-    <script>
-        $(document).ready(function() {
-            $("#location").on('change', function() {
+<script>
+    $(document).ready(function() {
+        $("#location").on('change', function() {
                 $.ajax({
-                    url: "{{ route('get_area_id') }}",
+                    url: "{{route('get_area_id')}}",
                     data: {
                         id: $(this).val(),
                     },
                     success: function(data) {
                         $("#area").empty();
                         $("#area").append(' <option selected>Select </option>');
-                        $.each(data, function(a, b) {
-                            $("#area").append('<option value="' + b.id + '">' + b.area +
-                                '</option>');
+                        $.each(data, function(a, b)
+                         {
+                            $("#area").append('<option value="' + b.id + '">' + b.area + '</option>');
                         })
                         // $("#area").selectpicker('refresh');
                     }
                 });
             })
-
+    
         });
-    </script>
+    
+        </script>
 
     <script>
-        $(document).ready(function() {
+         $(document).ready(function() {
             //to get area  wise role names
 
             $("#area").on('change', function() {
-                //alert($(this).val());
-                $.ajax({
-                    url: "{{ route('get_name_id') }}",
-                    type: 'get',
-                    data: {
-                        field: $(this).val()
+                    //alert($(this).val());
+                    $.ajax({
+                        url: "{{ route('get_name_id') }}",
+                        type: 'get',
+                        data: {
+                            field: $(this).val()
 
-                    },
-                    cache: false,
-                    success: function(result) {
-                        $("#field").empty();
-                        // $("#field").append(' <option value=""> Select </option>');
-                        $.each(result, function(a, b) {
+                        },
+                        cache: false,
+                        success: function(result) {
 
-                            //27 is id for field executive role in user_roles table
-                            if (b.role_name_id == 27) {
+                            $("#field").empty();
+                           // $("#field").append(' <option value=""> Select </option>');
+                            $.each(result, function(a, b) {
+                                
+                                //27 is id for field executive role in user_roles table
+                                if (b.role_name_id == 27)
+                                 {
 
-                                $("#field").append(' <option value="' + b
-                                    .id + '">' + b.name + '</option>');
-                            }
+                                    $("#field").append(' <option value="' + b
+                                        .id + '">' + b.name + '</option>');
+                                }
 
-                            //29 is id for assitant valuer role in user_roles table
-                            if (b.role_name_id == 29) {
-                                $("#assist").empty();
+                                //29 is id for assitant valuer role in user_roles table
+                                if (b.role_name_id == 29) 
+                                {
+                                    $("#assist").empty();
 
-                                $("#assist").append(' <option value="' + b
-                                    .id + '">' + b.name + '</option>');
-                            }
+                                    $("#assist").append(' <option value="' + b
+                                        .id + '">' + b.name + '</option>');
+                                }
+                            
+                                //30 is id for technical manager in user_roles table
+                                if (b.role_name_id == 30) 
+                                {
+                                    $("#tech").empty();
 
-                            //30 is id for technical manager in user_roles table
-                            if (b.role_name_id == 30) {
-                                $("#tech").empty();
+                                    $("#tech").append(' <option value="' + b
+                                        .id + '">' + b.name + '</option>');
+                                }
 
-                                $("#tech").append(' <option value="' + b
-                                    .id + '">' + b.name + '</option>');
-                            }
+                                //31 is id for technical head in user_roles table
+                                if (b.role_name_id == 31)
+                                 {
+                                    $("#tech_head").empty();
 
-                            //31 is id for technical head in user_roles table
-                            if (b.role_name_id == 31) {
-                                $("#tech_head").empty();
+                                    $("#tech_head").append(' <option value="' +
+                                        b.id + '">' + b.name + '</option>');
+                                }
 
-                                $("#tech_head").append(' <option value="' +
-                                    b.id + '">' + b.name + '</option>');
-                            }
-
-                        })
-                    }
-
-                })
-            });
-
-
+                            })
+                        }
+                    })
+                });
             //append document
 
 
@@ -2303,9 +2001,6 @@
         //end field ex
 
 
-        //Assistant valuer
-
-
         $(document).ready(function() {
 
             setTimeout(() => {
@@ -2330,7 +2025,7 @@
                 console.log(upload);
 
                 var markup =
-                    '<tr><td><input type="checkbox" class="del_check3" name="record"></td><td><input class="form-control" type="text" value="' +
+                    '<tr><td><input type="checkbox" class="del_check1" name="record"></td><td><input class="form-control" type="text" value="' +
                     document1 +
                     '" name="file_name[]" ></td><td><input name="image_filess[]" type="hidden" value="' +
                     blob + '"><input  type="text" class="form-control" value="' +
@@ -2343,8 +2038,8 @@
 
             });
 
-            $(".delete-row3").click(function() {
-                $('.del_check3').each(function() {
+            $(".delete-row").click(function() {
+                $('.del_check').each(function() {
                     // alert();
                     if ($(this).is(":checked")) {
                         var perticular = $(this).parents("tr").find('input[name="perticular[]"]')
@@ -2358,132 +2053,10 @@
                     }
                 });
             });
+
         });
-
-
 
         // End Assistant
-
-
-        //tech manager
-        $(document).ready(function() {
-
-            setTimeout(() => {
-                console.clear();
-            }, 1500);
-            //var src;
-            var blob;
-            $("#image5").on('change', function(e) {
-                // src=URL.createObjectURL(e.target.files[0]);
-                let file = e.target.files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function(e) {
-                    blob = e.target.result;
-                };
-            })
-
-
-            $("#add_row5").click(function() {
-                var document1 = $('#document5').val();
-                var upload = $('#image5').val().replace(/C:\\fakepath\\/i, '');
-                console.log(upload);
-
-                var markup =
-                    '<tr><td><input type="checkbox" class="del_check5" name="record"></td><td><input class="form-control" type="text" value="' +
-                    document1 +
-                    '" name="file_name[]" ></td><td><input name="image_filess[]" type="hidden" value="' +
-                    blob + '"><input  type="text" class="form-control" value="' + upload + '"></td></tr>';
-                $("#add_more5").append(markup);
-
-                $("#document5").val('');
-                $("#image5").val('');
-
-
-            });
-
-            $(".delete-row5").click(function() {
-                $('.del_check5').each(function() {
-                    // alert();
-                    if ($(this).is(":checked")) {
-                        var perticular = $(this).parents("tr").find('input[name="perticular[]"]')
-                            .val();
-                        var price = $(this).parents("tr").find('input[name="price[]"]').val();
-                        var minus_amount = parseFloat(price);
-                        var old_amount = $("#total_amount2").val();
-                        $("#total_amount2").val(parseFloat(old_amount) - parseFloat(minus_amount));
-                        $(this).parents().parents("tr").remove();
-
-                    }
-                });
-            });
-        });
-
-
-
-
-
-
-        //end tech manager
-
-
-        // tech head
-
-        //tech manager
-        $(document).ready(function() {
-
-            setTimeout(() => {
-                console.clear();
-            }, 1500);
-            //var src;
-            var blob;
-            $("#image4").on('change', function(e) {
-                // src=URL.createObjectURL(e.target.files[0]);
-                let file = e.target.files[0];
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function(e) {
-                    blob = e.target.result;
-                };
-            })
-
-            $("#add_row4").click(function() {
-                var document1 = $('#document2').val();
-                var upload = $('#image4').val().replace(/C:\\fakepath\\/i, '');
-                console.log(upload);
-
-                var markup =
-                    '<tr><td><input type="checkbox" class="del_check4" name="record"></td><td><input class="form-control" type="text" value="' +
-                    document1 +
-                    '" name="file_name[]" ></td><td><input name="image_filess[]" type="hidden" value="' +
-                    blob + '"><input  type="text" class="form-control" value="' +
-                    upload + '"></td></tr>';
-                $("#add_more4").append(markup);
-
-                $("#document2").val('');
-                $("#image4").val('');
-
-
-            });
-
-            $(".delete-row4").click(function() {
-                $('.del_check4').each(function() {
-                    // alert();
-                    if ($(this).is(":checked")) {
-                        var perticular = $(this).parents("tr").find('input[name="perticular[]"]')
-                            .val();
-                        var price = $(this).parents("tr").find('input[name="price[]"]').val();
-                        var minus_amount = parseFloat(price);
-                        var old_amount = $("#total_amount2").val();
-                        $("#total_amount2").val(parseFloat(old_amount) - parseFloat(minus_amount));
-                        $(this).parents().parents("tr").remove();
-
-                    }
-                });
-            });
-
-        });
-        //end tech head
     </script>
 
 

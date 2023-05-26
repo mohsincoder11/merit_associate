@@ -141,11 +141,14 @@ Route::get('log_out',[LoginController::class,'log_out'])->name('log_out');
 
 
 //Add New 08-05-23
+
+
     Route::get('addnew',[AddnewController::class,'index_add_new'])->name('addnew');
     Route::post('addnewinsert',[AddnewController::class,'insert'])->name('addnewinsert');
     Route::get('addnewdelete/{id}',[AddnewController::class,'delete'])->name('addnewdelete');
     Route::get('addnewedit/{id}',[AddnewController::class,'edit'])->name('addnewedit');
     Route::post('addnewupdate',[AddnewController::class,'update'])->name('addnewupdate');
+    Route::post('update_new',[AddnewController::class,'update_new'])->name('update_new');
     Route::get('addnewarea',[AddnewController::class,'insert_area'])->name('addnewarea');
     Route::post('ongoingmodel',[AddnewController::class,'index_model'])->name('ongoingmodel');
     Route::get('ongoingmodelvalue',[AddnewController::class,'model_ongoing'])->name('ongoingmodelvalue');
@@ -166,6 +169,7 @@ Route::get('log_out',[LoginController::class,'log_out'])->name('log_out');
     Route::post('FE/update',[New_ValuerController::class,'update'])->name('FE.update');
     Route::get('FE/ongoingmodel',[Valuation_ReportController::class,'index_model'])->name('FE.ongoingmodel');
     Route::get('FE/ongoingmodelvalue',[Valuation_ReportController::class,'model_ongoing'])->name('FE.ongoingmodelvalue');
+    Route::get('FE/new_valuation/{id}',[New_ValuerController::class,'new_valuation_report'])->name('FE.new_valuation');
 
 
     //assistant valuer 
@@ -182,6 +186,8 @@ Route::get('technicalmanager_report',[ValuationManagerController::class,'index_r
 
 Route::get('technicalmanager_edit/{id}',[ValuationManagerController::class,'index'])->name('technicalmanager_edit');
 Route::post('tech_manager_update',[ValuationManagerController::class,'update'])->name('tech_manager_update');
+Route::post('tech_update',[ValuationManagerController::class,'tech_update'])->name('tech_update');
+
 // Technical Manager Controller  08-05-23
 //routes for model of technical manager
 Route::post('technicalmanagermodel',[ValuationManagerController::class,'index_model'])->name('technicalmanagermodel');
@@ -198,4 +204,15 @@ Route::post('tech_head_update',[ValuationHeadController::class,'update'])->name(
 
 
  });
+
+ Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return redirect()->back();
+    //return "All cache cleared!";
+});
+
+Route::get('edit_add_new/{id}',[AddnewController::class,'edit'])->name('edit_add_new');
 

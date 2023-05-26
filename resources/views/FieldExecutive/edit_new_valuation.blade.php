@@ -503,7 +503,7 @@
 
 
                                     <div class="col-md-3" style="margin-left: 2%;">
-                                        <label for="inputFirstName" class="form-label">Discription of Property
+                                        <label for="inputFirstName" class="form-label">Description Of Property
                                             (1BHK/2BHK) *</label>
                                     </div>
 
@@ -844,7 +844,7 @@
                                     Right:-   {{ $new->side_marginal_distance_in_feet[3] }}
 
 
-                                    Discription Of Property
+                                    Description Of Property
                                     GF:-   {{ $new->discription_of_property[0] }}
                                     FF:-   {{ $new->discription_of_property[1] }}
                                     SF:-   {{ $new->discription_of_property[2] }}

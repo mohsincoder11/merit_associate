@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-12 mx-auto">
 
-
+                    {{-- @json(get_user_permission()) --}}
                     <div class="card">
                         <div class="card-body">
 
@@ -113,88 +113,89 @@
                                         </select>
                                         </div>
                                     </td>
+                                  
                                     <td border="1" width="15%">
                                         <div style="padding:3px;">
                                             <label for="inputFirstName" class="form-label">Area</label>
                                             <a  href="" data-bs-toggle="modal" data-bs-target="#exampleScrollableModal" style="color:blue">[Add New]</a> 
                                                                 </label>
-                                                                <select class="form-select mb-3 areas" aria-label="Default select example" name="area_id"
-                                                                id="area">
-                                                                <option selected>Select </option>
-                                                                @foreach ($area as $area)
-                                                                    <option value="{{ $area->id }}" @if ($edit_data->area_id == $area->id) selected @endif>
-                                                                        {{ $area->area }} </option>
-                                                                @endforeach
-                                
-                                                            </select>
+                                                                <select class="form-select mb-3 areas" aria-label="Default select example"
+                                                                    name="area_id" id="area">
+                                                                    <option selected>Select </option>
+                                                                    @foreach ($new_location as $new_location)                       
+                                                                    <option value="{{$new_location->id}}" @if ($new_edit->area_id == $new_location->id)  
+                                                                    @endif selected>{{$new_location->area}} </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                         </div>
                                     </td>
                                     <td border="1" width="15%">
                                         <div style="padding:2px;">
                                             <label for="inputFirstName" class="form-label">Field Executive</label>
-                                            <select class="form-select mb-3" aria-label="Default select example" name="field_executive_id"
-                                            id="field">
-                                            <option selected>Select</option>
-                
-                                            @foreach ($emp as $emp1)
-                                                <option value="{{ $emp1->id }}" @if ($edit_data->field_executive_id == $emp1->id) selected @endif>
-                                                    {{ $emp1->name }} </option>
-                                            @endforeach
-                
-                                        </select>
+                                            <select class="form-select mb-3" aria-label="Default select example"
+                                                                    name="field_executive_id" id="field">
+                                                                    <option selected>Select Field Executive</option>
+                                                                    @foreach ($all_user as $user)
+                                                                    @if ($user->role_name_id == 27)                            
+                                                                    <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id)  
+                                                                        @endif selected>{{$user->name}} </option>
+                                                                    @endif 
+                                                                    @endforeach
+                                                                </select>
                 
                                         </div>
                                     </td>
                                     <td border="1" width="15%">
                                         <div style="padding:2px;">
                                             <label for="inputFirstName" class="form-label"  style="margin-top:5px;">Assistant Valuer</label>
-                                            <select class="form-select mb-3" aria-label="Default select example" name="assistant_valuer_id"
-                                                id="assist">
-                                                <option selected>Select Assistant Valuer</option>
-                                                @foreach ($emp as $emp2)
-                                                    <option value="{{ $emp2->id }}" @if ($edit_data->assistant_valuer_id == $emp2->id) selected @endif>
-                                                        {{ $emp2->name }} </option>
-                                                @endforeach
+                                            <select class="form-select mb-3" aria-label="Default select example"
+                                            name="assistant_valuer_id" id="assist">
+                                            <option selected>Select Assistant Valuer</option>
+                                            {{-- <option></option> --}}
+                                            @foreach ($all_user as $user)
+                                            @if ($user->role_name_id == 29)                            
+                                            <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                            @endif 
+                                            @endforeach
                 
-                
-                                            </select>
+                                        </select>
                 
                                         </div> 
                                     </td>
                                     <td border="1" width="15%">
                                         <div style="padding:2px;">
                                         <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Manager</label>
-                                        <select class="form-select mb-3" aria-label="Default select example" name="technical_manager_id"
-                                        id="tech">
-                                        <option selected>Select Technical Manager</option>
-                                        @foreach ($emp as $emp3)
-                                            <option value="{{ $emp3->id }}" @if ($edit_data->technical_manager_id == $emp3->id) selected @endif>
-                                                {{ $emp3->name }} </option>
-                                        @endforeach
-                
-                                    </select>
+                                        <select class="form-select mb-3" aria-label="Default select example"
+                                                                    name="technical_manager_id" id="tech">
+                                                                    <option selected>Select Technical Manager</option>
+                                                                    {{-- <option></option> --}}
+                                                                    @foreach ($all_user as $user)
+                                                                    @if ($user->role_name_id == 30)                            
+                                                                    <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                    @endif 
+                                                                    @endforeach
+                                                                </select>
                 
                                         </div>
                                     </td>
                                     <td border="1" width="15%">
                                         <div style="padding:2px;">
                                         <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Head</label>
-                                        <select class="form-select mb-3" aria-label="Default select example" name="technical_head_id"
-                                        id="tech_head">
-                                        <option selected>Select Technical Head</option>
-                                        @foreach ($emp as $emp4)
-                                            <option value="{{ $emp4->id }}" @if ($edit_data->technical_head_id == $emp4->id) selected @endif>
-                                                {{ $emp4->name }} </option>
-                                        @endforeach
-                
-                
-                                    </select>
+                                        <select class="form-select mb-3" aria-label="Default select example"
+                                                                    name="technical_head_id" id="tech_head">
+                                                                    <option selected>Select Technical Head</option>
+                                                                    {{-- <option></option> --}}
+                                                                    @foreach ($all_user as $user)
+                                                                    @if ($user->role_name_id == 31)                            
+                                                                    <option value="{{$user->id}}" @if ($new_edit->user_id == $user->id) @endif selected>{{$user->name}} </option>
+                                                                    @endif 
+                                                                    @endforeach
+                                                                </select>
                                         </div>
                                     </td>
                                 </tr>
                                 </table> 
-                
                 
                 
                 {{-- third row --}}
@@ -264,13 +265,13 @@
                                                                     
                                                 </div>
                                             </td>
-                                            <td border="1" width="10%">
+                                            {{-- <td border="1" width="10%">
                                                 <div style="padding:2px;">
                                                     <label for="inputFirstName" class="form-label">Tags</label>
                                                      <input class="form-control mb-3" type="text" placeholder="Tags" name="tags"
                                                 aria-label="default input example" value="{{ $edit_data->tags }}">
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                             <td border="1" width="15%">
                                                 <div style="padding:2px;">
                                                     <label for="inputFirstName" class="form-label">Due Date</label>
@@ -391,7 +392,7 @@
                                                             // exit();
                                                         @endphp
                                                         {{-- {{ $tag2 }} --}}   
-                                                            <input name="image_files[]" type="hidden" value=""><a target="_blank" href=""><img style="height:100px;width:auto;" src="{{asset('images/New-valuation/' .$edit_data->image[0])}}"></a>
+                                                            <input name="image_files[]" type="hidden" value=""><a target="_blank" href=""><img style="height:100px;width:auto;" src="{{asset('images/New-valuation/' .$edit_data->image[$loop->index])}}"></a>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -638,9 +639,257 @@
                                         </table> 
                                      &nbsp;
     
+                                        <table>
+                                            <h6>Plot Area (Dimension in Feet) </h6>
+                                            <tr>
+    
+                                                <th>East</th>
+                                                <th>West</th>
+                                                <th>North</th>
+                                                <th>South</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="plot_area[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="plot_area[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="plot_area[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="plot_area[]">
+    
+    
+                                                </td>
+    
+                                            </tr>
+    
+                                        </table>
+    
+                                    
+                                        <table>
+                                            <h6> Plot Area
+                                                (Built Up Area)</h6>
+                                            <tr>
+    
+                                                <th>Ground Floor</th>
+                                                <th>First Floor</th>
+                                                <th>Second Floor</th>
+                                                <th>Third Floor</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="up_area[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="up_area[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="up_area[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="up_area[]">
+    
+    
+                                                </td>
+    
+                                            </tr>
+    
+                                        </table>
+    
+                                    
+                                        <table>
+                                        
+                                            <h6>Construction Year </h6>
+                                            <tr>
+    
+                                                <th>Ground Floor</th>
+                                                <th>First Floor</th>
+                                                <th>Second Floor</th>
+                                                <th>Third Floor</th>
+                                            
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="date" class="form-control" placeholder="" name="GF">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" placeholder="" name="FF">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" placeholder="" name="SF">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" placeholder="" name="TF">
+    
+    
+                                                </td>
+                                        
+                                            </tr>
+    
+                                        </table>
+                                    
+                                        <table>
+                                            <h6>Four Borders</h6>
+                                            <tr>
+    
+                                                <th>East</th>
+                                                <th>West</th>
+                                                <th>North</th>
+                                                <th>South</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="four_borders[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="four_borders[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="four_borders[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="four_borders[]">
+    
+    
+                                                </td>
+    
+                                            </tr>
+    
+                                        </table>
+    
+                                    
+    
+    
+                                        <table>
+                                            <h6>Whether Boundaries Matching</h6>
+                                            <tr>
+    
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select class="multiple-select" data-placeholder="Choose anything" name="whether_boundaries_matching[]">
+                                                        <option value="United States" selected>Yes</option>
+                                                        <option value="United States" selected>No</option>
+                                                    </select>
+    
+                                                </td>
+                                                <td>
+                                                    <select class="multiple-select" data-placeholder="Choose anything" name="whether_boundaries_matching[]">
+                                                        <option value="United States" selected>Yes</option>
+                                                        <option value="United States" selected>No</option>
+                                                    </select>
+    
+                                                </td>
+                                                <td>
+                                                    <select class="multiple-select" data-placeholder="Choose anything" name="whether_boundaries_matching[]">
+                                                        <option value="United States" selected>Yes</option>
+                                                        <option value="United States" selected>No</option>
+                                                    </select>
+    
+                                                </td>
+                                                <td>
+                                                    <select class="multiple-select" data-placeholder="Choose anything" name="whether_boundaries_matching[]">
+                                                        <option value="United States" selected>Yes</option>
+                                                        <option value="United States" selected>No</option>
+                                                    </select>
+    
+    
+                                                </td>
+    
+                                            </tr>
+    
+                                        </table>
+                                    
+                                        <table>
+    
+                                            <h6>Side Marginal
+                                                (Distance in Feet)</h6>
+                                            <tr>
+    
+                                                <th>Front</th>
+                                                <th>Back</th>
+                                                <th>Left</th>
+                                                <th>Right</th>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="side_marginal_distance_in_feet[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="side_marginal_distance_in_feet[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="side_marginal_distance_in_feet[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="side_marginal_distance_in_feet[]">
+    
+    
+                                                </td>
+                                        
+                                            </tr>
+    
+                                        </table>
+    
+                                        <table>
+                                            <h6>Description Of Property
+                                                (1BHK/2BHK)</h6>
+                                            <tr>
+    
+                                                <th>Ground Floor</th>
+                                                <th>First Floor</th>
+                                                <th>Second Floor</th>
+                                                <th>Third Floor</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="discription_of_property[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="discription_of_property[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="discription_of_property[]">
+    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="" name="discription_of_property[]">
+    
+    
+                                                </td>
+    
+                                            </tr>
+    
+                                        </table>
     
     
     
+{{--     
                                         <table width="100%" style="margin-top:0;">
                                             <tr border="1" width="100%">
                                               <td border="1" width="14%" style="background-color: #D9FFD9; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Plot Area <br>&nbsp;&nbsp;(Dimention in Feet)</strong></td>
@@ -649,7 +898,7 @@
                                               <td border="1" width="14%" style="background-color: #FFE8C4; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Four Borders</strong></td>
                                               <td border="1" width="14%" style="background-color: #FFDDEE; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Whether <br>&nbsp;&nbsp;Boundaries Matching</strong></td>
                                               <td border="1" width="14%" style="background-color: #E1E1F4; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Side Marginal <br>&nbsp;&nbsp;(Distance in Feet)</strong></td>
-                                              <td border="1" width="16%" style="background-color: #FFFFCC; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Discription of Property <br>&nbsp;&nbsp;(1BHK/2BHK)</strong></td>
+                                              <td border="1" width="16%" style="background-color: #FFFFCC; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Description Of Property <br>&nbsp;&nbsp;(1BHK/2BHK)</strong></td>
                                             </tr>
                                             </table>
                                           <table width="100%" style="margin-top:0;">	
@@ -879,7 +1128,7 @@
                                                   </div>
                                               </td>
                                             </tr>
-                                           </table> 
+                                           </table>  --}}
     
     
     <hr>
@@ -1107,13 +1356,15 @@
                                                     <td border="1" width="10%">
                                                         <div>
                                                             <label for="inputFirstName" class="form-label"  style="margin-bottom: -5px;">Last update By </label>
-                                                            <select class="form-select"  name="last_updated_by">
+                                                            <select class="form-select"  name="last_updated_by" required>
                                                                 <option>Select</option>
-                                                                <option value="Admin">Admin </option>
-                                                                <option value="Feild Executive" >Feild Executive </option>
+                                                                @foreach ($role as $roles)
+                                                                <option value="{{$roles->id}}">{{$roles->role_name}} </option>  
+                                                                @endforeach
+                                                                {{-- <option value="Feild Executive" >Feild Executive </option>
                                                                 <option value="Assistant Valuer"> Assistant Valuer</option>
                                                                 <option value="Technical Manager"> Technical Manager</option>
-                                                                <option value="Technical Head"> Technical Head</option>
+                                                                <option value="Technical Head"> Technical Head</option> --}}
                                                           
                                                             </select>
                     
@@ -1318,7 +1569,7 @@
     <!-- <h6 class="mb-0 text-uppercase">DataTable</h6> -->
     <hr />
 
-    {{-- <div class="card">
+     {{-- <div class="card">
         <div class="card-body">
             <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered">
@@ -1330,28 +1581,28 @@
                             <th>Area</th>
                             <th>Category</th>
                             <th>Tag</th>
-                            <th>Image</th>
-                            {{-- <th> Address</th> --}}
-                            {{-- <th>Location</th>
-                            <th>Tags</th>
-                            <th>Road Name</th>
+                            <th>Image</th> --}}
+                            {{-- <th> Address</th> 
+                          <th>Location</th> --}}
+                            {{-- <th>Tags</th> --}}
+                            {{-- <th>Road Name</th>
                             <th>Colony</th>
                             <th>Pin Code</th>
-                            <th>Meter No</th>
+                            <th>Meter No</th> --}}
+                            {{-- <th></th>
                             <th></th>
-                            <th></th>
-                            <th></th> --}}
+                            <th></th>  --}}
                             {{-- <th></th> --}}
-                            {{-- <th>Action</th> --}}
-                        {{-- </tr>
-                    </thead>
-                    <tbody>
+                           {{-- <th>Action</th> 
+                       </tr>
+                    </thead> --}}
+                     {{-- <tbody>
                         @foreach ($new as $new)
                             <tr>
-                                <td>{{ $loop->iteration }}</td> --}}
-                                {{-- <td> {{ $new->name }}</td> --}}
+                                <td>{{ $loop->iteration }}</td>  
+                                <td> {{ $new->name }}</td> 
 
-                                 {{-- <td data-bs-toggle="tooltip" data-bs-placement="right" title="Name:- {{ $new->name }}
+                                  <td data-bs-toggle="tooltip" data-bs-placement="right" title="Name:- {{ $new->name }}
                                         Contact No:- {{ $new->contact_no }}
                                         colony:- {{ $new->colony }}
                                         Pin Code:- {{ $new->pin_code }}
@@ -1386,75 +1637,74 @@
 
 
                                 <td data-bs-toggle="tooltip" data-bs-placement="right" title="
-                                    Plot Area
+                                Plot Area
 
-                                    East:-   {{ $new->plot_area[0] }}
-                                    West:-  {{ $new->plot_area[1] }}
-                                    North:-   {{ $new->plot_area[2] }}
-                                    South:-   {{ $new->plot_area[3] }}
-                                    
-                                Up Area
-                                    GF:-   {{ $new->up_area[0] }}
-                                    FF:-   {{ $new->up_area[1] }}
-                                    SF:-   {{ $new->up_area[2] }}
-                                    TF:-   {{ $new->up_area[3] }}
+                                East:-   {{ is_array($new->plot_area) ? $new->plot_area[0] : '' }}
+                                West:-  {{ is_array($new->plot_area) ? $new->plot_area[1] : '' }}
+                                North:-   {{ is_array($new->plot_area) ? $new->plot_area[2] : '' }}
+                                South:-   {{ is_array($new->plot_area) ?  $new->plot_area[3] : '' }}
+                                
+                            Up Area
+                                GF:-   {{ is_array($new->up_area) ? $new->up_area[0] : '' }}
+                                FF:-   {{ is_array($new->up_area) ? $new->up_area[1] : '' }}
+                                SF:-   {{ is_array($new->up_area) ? $new->up_area[2] : '' }}
+                                TF:-   {{ is_array($new->up_area) ? $new->up_area[3] : '' }}
 
-                                Four Borders
-                                    East:-   {{ $new->four_borders[0] }}
-                                    West:-   {{ $new->four_borders[1] }}
-                                    North:-   {{ $new->four_borders[2] }}
-                                    South:-   {{ $new->four_borders[3] }}
+                            Four Borders
+                                East:-   {{ is_array($new->four_borders) ? $new->four_borders[0] : '' }}
+                                West:-   {{ is_array($new->four_borders) ? $new->four_borders[1] : '' }}
+                                North:-   {{ is_array($new->four_borders) ? $new->four_borders[2] : '' }}
+                                South:-   {{ is_array($new->four_borders) ? $new->four_borders[3] : '' }}
 
-                                Whether Boundaries Matching
-                                    Yes/No:-   {{ $new->whether_boundaries_matching[0] }}
-                                    Yes/No:-   {{ $new->whether_boundaries_matching[1] }}
-                                    Yes/No:-   {{ $new->whether_boundaries_matching[2] }}
-                                    Yes/No:-   {{ $new->whether_boundaries_matching[3] }}
-
-
-                                    Side Marginal Distance In Feet
-                                    Front:-   {{ $new->side_marginal_distance_in_feet[0] }}
-                                    Back:-   {{ $new->side_marginal_distance_in_feet[1] }}
-                                    Left:-   {{ $new->side_marginal_distance_in_feet[2] }}
-                                    Right:-   {{ $new->side_marginal_distance_in_feet[3] }}
+                            Whether Boundaries Matching
+                                Yes/No:-   {{ is_array($new->whether_boundaries_matching) ? $new->whether_boundaries_matching[0] : '' }}
+                                Yes/No:-   {{ is_array($new->whether_boundaries_matching) ? $new->whether_boundaries_matching[1] : '' }}
+                                Yes/No:-   {{ is_array($new->whether_boundaries_matching) ? $new->whether_boundaries_matching[2] : '' }}
+                                Yes/No:-   {{ is_array($new->whether_boundaries_matching) ? $new->whether_boundaries_matching[3] : '' }}
 
 
-                                    Discription Of Property
-                                    GF:-   {{ $new->discription_of_property[0] }}
-                                    FF:-   {{ $new->discription_of_property[1] }}
-                                    SF:-   {{ $new->discription_of_property[2] }}
-                                    TF:-   {{ $new->discription_of_property[3] }}
+                                Side Marginal Distance In Feet
+                                Front:-   {{ is_array($new->side_marginal_distance_in_feet) ? $new->side_marginal_distance_in_feet[0] : '' }}
+                                Back:-   {{ is_array($new->side_marginal_distance_in_feet) ? $new->side_marginal_distance_in_feet[1] : '' }}
+                                Left:-   {{ is_array($new->side_marginal_distance_in_feet) ? $new->side_marginal_distance_in_feet[2] : '' }}
+                                Right:-   {{ is_array($new->side_marginal_distance_in_feet) ? $new->side_marginal_distance_in_feet[3] : '' }}
+
+                                
+                                Description Of Property
+                                GF:-   {{ is_array($new->discription_of_property) ? $new->discription_of_property[0] : '' }}
+                                FF:-   {{ is_array($new->discription_of_property) ?  $new->discription_of_property[1] : '' }}
+                                SF:-   {{ is_array($new->discription_of_property) ?  $new->discription_of_property[2] : '' }}
+                                TF:-   {{ is_array($new->discription_of_property) ?  $new->discription_of_property[3] : '' }}
 
 
-                                    ">{{ $new->plot_area[0] }}</td>  --}}
+                                    "></td>
 
 
-                                {{-- <td>{{ $new->plot_area }}</td> --}}
-                                {{-- <td>
+                             {{-- <td>{{ $new->plot_area }}</td>  --}}
+                               {{-- <td> --}}
                                     {{-- @json($new->tag_id) --}}
-                                    {{-- @php
+                                     {{-- @php
                                         $category = App\Models\Masters\Category::whereIn('id', $new->category_id)
                                             ->pluck('category')
                                             ->toArray();
-                                        $category2 = implode(',', $category);
-                                        // echo json_encode($cuisine);
-                                        // exit();
-                                    @endphp
-                                    {{ $category2 }}
-                                </td>
- --}}
-
-                                {{-- <td>
+                                        $category2 = implode(',', $category); --}}
+                                        {{-- // echo json_encode($cuisine);
+                                        // exit(); --}}
+                                    {{-- @endphp
+                                    {{ $category2 }} --}}
+                                {{-- </td> --}}
+ 
+                               {{-- <td> --}}
                                     {{-- @json($new->tag_id) --}}
-                                    {{-- @php
+                                {{-- @php
                                         $tag = App\Models\Masters\Tags::whereIn('id', $new->tag_id)
                                             ->pluck('tag')
                                             ->toArray();
-                                        $tag2 = implode(',', $tag);
-                                        // echo json_encode($tag);
-                                        // exit();
-                                    @endphp
-                                    {{ $tag2 }} --}}
+                                        $tag2 = implode(',', $tag); --}}
+                                        {{-- // echo json_encode($tag);
+                                        // exit(); --}}
+                                    {{-- @endphp
+                                    {{ $tag2 }}  --}}
                                 {{-- </td> --}} 
 
                                 {{-- <td>
@@ -1465,40 +1715,40 @@
                                             style="height:50px;width:auto;" alt="">
                                     </a>
                                     @endforeach
-                                </td> --}} 
+                                </td>   --}}
 
-                                {{-- {{ $new->image[0]}} --}}
-                                {{-- {{ $new->image[1]}} --}}
+                                {{-- {{ $new->image[0]}} 
+                            {{ $new->image[1]}}  --}}
 
                                 {{-- <td>{{ $new->GF }} </td>
                                 <td>{{ $new->tag }}</td>
                                 <td>{{ $new->FF }} </td>
                                 <td>{{ $new->SF }} </td>
                                 <td>{{ $new->TF }}</td>
-                                <td>{{ $new->categoty }} </td> --}}
-                                {{-- <td>{{ $new->up_area }} </td> --}}
-                                {{-- <td>{{ $new->whether_boundaries_matching }} </td> --}}
-                                {{-- <td> {{ $new->side_marginal_distance_in_feet }} </td>
+                                <td>{{ $new->categoty }} </td>
+                      <td>{{ $new->up_area }} </td>
+                                <td>{{ $new->whether_boundaries_matching }} </td> 
+                              <td> {{ $new->side_marginal_distance_in_feet }} </td>
                                 <td>{{ $new->four_borders }}</td>
                                 <td>{{ $new->image }} </td>
-                                <td>{{ $new->discription_of_property }}</td> --}}
-                                {{-- <td> --}}
-                                    {{-- <a href="{{ route('FE.edit', $new->id) }}"><button type="button" class="btn1 btn-outline-success"><i
-                                            class='bx bx-edit-alt me-0'></i></button></a> --}}
-                                         {{-- <button type="button" class="btn1 btn-outline-success"><i
+                                <td>{{ $new->discription_of_property }}</td>  --}}
+                              {{-- <td>
+                                    <a href="{{ route('FE.edit', $new->id) }}"><button type="button" class="btn1 btn-outline-success"><i
+                                            class='bx bx-edit-alt me-0'></i></button></a> 
+                                       <button type="button" class="btn1 btn-outline-success"><i
                                                 class='bx bx-edit-alt me-0'></i></button>
                                     <a onclick="return confirm('Are You Sure To Delete This?')"
                                         href="{{ route('FE.delete', $new->id) }}"><button type="button"
                                             class="btn1 btn-outline-danger"><i class='bx bx-trash me-0'></i></button></a>
-                                </td>
-                            </tr>
+                                </td> --}}
+                            {{-- </tr>
                         @endforeach
-                    </tbody>
+                    </tbody>  --}}
                 </table>
             </div>
-        </div> --}}
-    {{-- </div>
-   --}}
+        </div> 
+     </div>
+   
 
 
     </div>
@@ -1507,51 +1757,33 @@
 @stop
 @section('js')
 
-    <script>
-        $(document).ready(function() 
-        {
-            setTimeout(() => 
-            {
-                console.clear();
-            }, 1500);
-
-            var src;
-            var blob;
-
-          
-
-           
-// admin
-
-//to get location 
-
-
-
-
-$("#location").on('change', function() {
+<script>
+    $(document).ready(function() {
+        $("#location").on('change', function() {
                 $.ajax({
-                    url: "{{ route('get_area_id') }}",
-                    type: 'get',
+                    url: "{{route('get_area_id')}}",
                     data: {
-                        area: $(this).val()
+                        id: $(this).val(),
                     },
-                    cache: false,
-                    success: function(result) {
-                        console.log(result);
+                    success: function(data) {
                         $("#area").empty();
-                        $("#area").append(' <option value=""> Select </option>');
-                        $.each(result, function(a, b) {
-                            $("#area").append(' <option value="' + b.id + '">' + b
-                                .area + '</option>');
+                        $("#area").append(' <option selected>Select </option>');
+                        $.each(data, function(a, b)
+                         {
+                            $("#area").append('<option value="' + b.id + '">' + b.area + '</option>');
                         })
+                        // $("#area").selectpicker('refresh');
                     }
                 });
-                });
+            })
+    
+        });
+    
+        </script>
 
-
-
-
-                  //to get area  wise role names
+    <script>
+         $(document).ready(function() {
+            //to get area  wise role names
 
             $("#area").on('change', function() {
                     //alert($(this).val());
@@ -1564,11 +1796,11 @@ $("#location").on('change', function() {
                         },
                         cache: false,
                         success: function(result) {
-
-                            console.log(result);
                             $("#field").empty();
-                            $("#field").append(' <option value=""> Select </option>');
+                           // $("#field").append(' <option value=""> Select </option>');
                             $.each(result, function(a, b) {
+        
+                                //27 is id for field executive role in user_roles table
                                 if (b.role_name_id == 27)
                                  {
 
@@ -1576,6 +1808,7 @@ $("#location").on('change', function() {
                                         .id + '">' + b.name + '</option>');
                                 }
 
+                                //29 is id for assitant valuer role in user_roles table
                                 if (b.role_name_id == 29) 
                                 {
                                     $("#assist").empty();
@@ -1583,7 +1816,8 @@ $("#location").on('change', function() {
                                     $("#assist").append(' <option value="' + b
                                         .id + '">' + b.name + '</option>');
                                 }
-
+                            
+                                //30 is id for technical manager in user_roles table
                                 if (b.role_name_id == 30) 
                                 {
                                     $("#tech").empty();
@@ -1592,6 +1826,7 @@ $("#location").on('change', function() {
                                         .id + '">' + b.name + '</option>');
                                 }
 
+                                //31 is id for technical head in user_roles table
                                 if (b.role_name_id == 31)
                                  {
                                     $("#tech_head").empty();
@@ -1602,9 +1837,9 @@ $("#location").on('change', function() {
 
                             })
                         }
+                       
                     })
                 });
-
 
 //append document
 

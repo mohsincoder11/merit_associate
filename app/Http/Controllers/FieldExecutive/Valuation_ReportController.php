@@ -26,12 +26,15 @@ class Valuation_ReportController extends Controller
         //this condition will apply when user is not admin. admin has role 26
         return $q->where('field_executive_id', Auth::id());
     })
+    ->leftjoin('new_valuer','new_valuer.valuation_id','=','add_news.valuation_id')
+
     ->leftjoin('locations','locations.id','=','add_news.location_id')
-    ->select('add_news.*','locations.locations')
+    ->leftjoin('status','status.id','=','add_news.status')
+    ->select('add_news.*','locations.locations','status.statu','new_valuer.id as new_valuer_id')
     ->get();
 
-        //  echo json_encode($add_new);
-        //  exit();
+         //echo json_encode($add_new[1]);
+       //  exit();
           $area_all=Area::join('locations','locations.id','=','areas.location_id')
           ->select('areas.*','locations.locations')
             ->orderby('areas.id','desc')

@@ -34,7 +34,8 @@ class Add_news extends Model
     'date',
     'comment',
     'document_name',
-    'image'
+    'image',
+    'static_status'
 ];
 
     protected $casts = 

@@ -729,6 +729,41 @@
     <script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
     <script src="{{ asset('js/popover-tooltip.js') }} "></script>
 
+    <script>
+        $(document).ready(function() {
+            var now = new Date();
+            var month = (now.getMonth() + 1);
+            var day = now.getDate();
+            if (month < 10)
+                month = "0" + month;
+            if (day < 10)
+                day = "0" + day;
+            var today = now.getFullYear() + '-' + month + '-' + day;
+            $('.datePicker').val(today);
+        });
+
+        $(function() {
+            $("#file-simple").fileinput({
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-danger",
+                fileType: "any"
+            });
+            $("#filetree").fileTree({
+                root: '/',
+
+                expandSpeed: 100,
+                collapseSpeed: 100,
+                multiFolder: false
+            }, function(file) {
+                alert(file);
+            }, function(dir) {
+                setTimeout(function() {
+                    page_content_onresize();
+                }, 200);
+            });
+        });
+    </script>
 
     <script>
         var canvas = document.getElementById("canvas");
@@ -826,6 +861,12 @@
     </script>
     @yield('js')
 
-
+    <script>
+        $(document).ready(function(){
+            setTimeout(() => {
+                $(".alert_close").trigger('click');//alert_Close is class of close button
+            }, 2500);
+        })
+    </script>
 
 </body>

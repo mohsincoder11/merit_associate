@@ -269,7 +269,7 @@
                                     <td border="1" width="14%" style="background-color: #FFE8C4; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Four Borders</strong></td>
                                     <td border="1" width="14%" style="background-color: #FFDDEE; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Whether <br>&nbsp;&nbsp;Boundaries Matching</strong></td>
                                     <td border="1" width="14%" style="background-color: #E1E1F4; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Side Marginal <br>&nbsp;&nbsp;(Distance in Feet)</strong></td>
-                                    <td border="1" width="16%" style="background-color: #FFFFCC; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Discription of Property <br>&nbsp;&nbsp;(1BHK/2BHK)</strong></td>
+                                    <td border="1" width="16%" style="background-color: #FFFFCC; color:#000000; padding-top:5px; padding-bottom:5px;" colspan="8"><strong>&nbsp;&nbsp;Description Of Property <br>&nbsp;&nbsp;(1BHK/2BHK)</strong></td>
                                   </tr>
       							</table>
                                 <table width="100%" style="margin-top:0;">	
