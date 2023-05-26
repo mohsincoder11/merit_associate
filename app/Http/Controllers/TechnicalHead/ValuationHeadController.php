@@ -11,9 +11,11 @@ use App\Models\Masters\AssociatesBank;
 use App\Models\Masters\Products;
 use App\Models\Masters\Area;
 use App\Models\Masters\EmployeeRegistration;
-
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use auth;
+use DB;
 
 class ValuationHeadController extends Controller
 {
@@ -56,6 +58,7 @@ class ValuationHeadController extends Controller
         $location = Location :: all();
         $location2 = Location :: all();
         $location3 = Location :: all();
+        $location1 = Location :: all();
 
  //admin
        // $edit_data=Add_news::find($id);
@@ -65,6 +68,18 @@ class ValuationHeadController extends Controller
        ->select('add_news.*','new_valuer.valuation_id')
        ->first();
 
+       $all_user = User ::
+       where('id',$edit_data->field_executive_id)
+       ->orwhere('id',$edit_data->assistant_valuer_id)
+       ->orwhere('id',$edit_data->technical_manager_id)
+       ->orwhere('id',$edit_data->technical_head_id)
+       ->select('users.id','users.name','users.role_name_id')
+       ->get();
+
+       $new_location = Location:: where('locations.id', $edit_data->location_id)
+       ->join('areas','areas.location_id','=','locations.id')
+       ->select('locations.locations','areas.area')
+      ->get();
 
       //  echo json_encode($edit_data);
       //  exit();
@@ -88,9 +103,13 @@ class ValuationHeadController extends Controller
         ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
         ->get();
 
+        $role=DB::table('user_roles')
+        ->select('role_name','id')
+        ->orderby('order_no','asc')
+        ->get();
        
         $tag = Tags :: all();
-        return view('TechnicalHead.valuation_head',compact('category1','category2','property_type1','tag1','tag2','new_valuer_all','new_edit','property_type','category','tag','location4','edit_data','property_type','category3','associatesbank','product','area','emp','data','location3','location','property_type2','location2','tag3','property_type3'));
+        return view('TechnicalHead.valuation_head',compact('category1','category2','property_type1','tag1','tag2','new_valuer_all','new_edit','property_type','category','tag','location4','edit_data','property_type','category3','associatesbank','product','area','emp','data','location3','location','property_type2','location2','tag3','property_type3','new_location','all_user','role','location1'));
     }
 
     public function update(Request $request)
@@ -122,10 +141,16 @@ class ValuationHeadController extends Controller
 
             $update->save();
       
-      //  echo json_encode($update->file);    
+      //  echo json_encode(Auth::user()->role_name_id);    
       //  exit();
 
+      if(Auth::user()->role_name_id==30){
+        return redirect()->route('Av.new',$request->id)->with(['success' => true, 'message' => 'Data Successfully Updated !']);
+      
+       }
+       else{
        return redirect()->route('technicalhead_report')->with(['success' => true, 'message' => 'Data Successfully Updated !']);
+       }
     }
 
 

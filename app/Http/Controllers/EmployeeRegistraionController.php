@@ -20,8 +20,8 @@ class EmployeeRegistraionController extends Controller
         $location=Location::all();
         $areas=Area::all();
         $role1=UserRole::all();
-        echo_json_encode($role1);
-        exit();
+        // echo_json_encode($role1);
+        // exit();
 
 
 

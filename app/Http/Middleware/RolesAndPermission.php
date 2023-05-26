@@ -39,8 +39,7 @@ class RolesAndPermission
         $current_route=Route::currentRouteName();
 
         $permission=get_user_permission();
-        //  echo json_encode($permission);
-        //    exit();
+        
 
             if(in_array($current_route,$permission) || in_array('all',$permission))
             {
