@@ -54,7 +54,7 @@
                                         placeholder="Bank Address" name="bankaddress" value="{{$edit_data->bankaddress}}">
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label for="inputFirstName" class="form-label">GST_No<span style="color:red">*</span></label>
                                     <input type="text" class="form-control" id="inputFirstName"
                                         placeholder="GST number" name="gst_no" 
@@ -62,7 +62,7 @@
                                 </div>
 
 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label for="inputFirstName" class="form-label">State<span style="color:red">*</span></label>
                                     <input type="text" class="form-control" id="inputFirstName"
                                         placeholder="" name="state" 

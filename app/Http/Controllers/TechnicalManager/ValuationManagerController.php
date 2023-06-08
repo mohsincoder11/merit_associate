@@ -15,7 +15,10 @@ use App\Models\Masters\Area;
 use App\Models\Masters\Products;
 use DB;
 use App\Models\User;
-
+use App\Models\Masters\Status;
+use Auth;
+use App\Models\AssistantValuer\Assistant_Valuer;
+use App\Models\TechnicalManager\Technical_Manager;
 
 class ValuationManagerController extends Controller
 {
@@ -27,9 +30,13 @@ class ValuationManagerController extends Controller
     ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
     ->leftjoin('tags','tags.id','=','new_valuer.tag_id')
     ->leftjoin('locations','locations.id','=','new_valuer.location_id')
-    ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
+    ->leftjoin('status','status.id','=','new_valuer.status')
+    ->leftjoin('technical_manager','technical_manager.valuation_id','=','new_valuer.valuation_id')
+    ->leftjoin('status as technical_status','technical_status.id','=','technical_manager.status')
+    ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property','status.statu','technical_manager.id as technical_manager_id','technical_status.statu as technical_manager_status')
     ->get();
 
+  
     // echo json_encode($new_valuer_all);
     // exit();
     return view('TechnicalManager.valuation_manager_report',compact('new_valuer_all'));
@@ -44,7 +51,7 @@ class ValuationManagerController extends Controller
       // exit();
       $property_type = Property :: all();
         $category = Category :: all();
-        $tag = Tags :: all();
+        $tags = Tags :: all();
         $location = Location :: all();
       $property_type1 = Property :: all();
       $property_type2 = Property :: all();
@@ -64,6 +71,7 @@ class ValuationManagerController extends Controller
 
         // echo json_encode( $edit_data);
         // exit();
+
         $all_user = User ::
         where('id',$edit_data->field_executive_id)
         ->orwhere('id',$edit_data->assistant_valuer_id)
@@ -74,7 +82,7 @@ class ValuationManagerController extends Controller
 
         $new_location = Location:: where('locations.id', $edit_data->location_id)
         ->join('areas','areas.location_id','=','locations.id')
-        ->select('locations.locations','areas.area')
+        ->select('areas.*')
        ->get();
 
        
@@ -112,13 +120,36 @@ class ValuationManagerController extends Controller
         ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
         ->leftjoin('tags','tags.id','=','new_valuer.tag_id')
         ->leftjoin('locations','locations.id','=','new_valuer.location_id')
-        ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
+        ->leftjoin('status','status.id','=','new_valuer.status')
+       ->leftjoin('technical_manager','technical_manager.valuation_id','=','new_valuer.valuation_id')
+        ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property','technical_manager.id as technical_manager_id','status.statu')
         ->get();
 
-       
+        $status = Status:: where('role_name_id',25)
+        ->get();
+        //   echo json_encode($status);
+        // exit();
 
-        
-        return view('TechnicalManager.valuation-manager',compact('new_valuer_all','new_edit','property_type','category','tag','location','edit_data','property_type1','category1','tag1','location1','associatesbank','product','area','emp','data','location2','category2','category3','property_type2','tag2','tag3','property_type3','location2','location3','all_user','new_location'));
+        $status_FE = Status:: where('role_name_id',27)
+        ->get();
+
+        $status_AV = Status:: where('role_name_id',29)
+        ->get();
+
+        $status_TM = Status:: where('role_name_id',Auth::user()->role_name_id)
+        ->get();
+
+        $loc=Location::orderby('id','desc')->get();
+
+        //$edit_data = Add_news::find($id);
+
+        $av_table = Assistant_Valuer::where('assistant_valuer.valuation_id',$edit_data->valuation_id)->first(); 
+
+        //   echo json_encode($av_table);
+        // exit();
+
+
+        return view('TechnicalManager.valuation-manager',compact('new_valuer_all','new_edit','property_type','category','tags','location','edit_data','property_type1','category1','tag1','location1','associatesbank','product','area','emp','data','location2','category2','category3','property_type2','tag2','tag3','property_type3','location2','location3','all_user','new_location','status','status_FE','status_AV','loc','role','av_table','status_TM'));
     }
 
 
@@ -203,4 +234,231 @@ $update->save();
   return response()->json(['onview'=>$onview,'value_addnew'=>$value_addnew]);//shedule script me jo var read kiya hai sme ressult.shedule hai
 
 }
+
+public function tech_update(Request $request)
+{
+   
+  //dd($request->all());
+$update = New_Valuer::where('id', $request->id)->first();
+
+
+        $update -> file_name  = $request-> file_name;
+        $update ->status = $request->status;
+     
+        $update ->reason = $request->reason;
+
+        $image_name_array=[];
+        if (isset($request->image_filess) && !empty($request->image_filess) 
+        && count($request->image_filess)>0) {
+            foreach ($request->image_filess as $key => $image) {
+            $extension= explode('/', mime_content_type($image))[1];
+            $data = base64_decode(substr($image, strpos($image, ',') + 1));
+            $imgname='av'.rand(000,999).$key . time() . '.' .$extension;
+            file_put_contents(public_path('images/AV-valuation') . '/' . $imgname, $data);
+            $image_name_array[]=$imgname;
+        }
+
+        $update -> file  = $image_name_array;
+
+    }
+
+        $update->save();
+  
+//    echo json_encode($update->file);    
+//    exit();
+
+   return redirect()->route('technicalmanager_report')->with(['success' => true, 'message' => 'Data Successfully Updated !']);
+}
+
+
+public function create_tm(Request $request)
+{
+   
+  //dd($request->all());
+$update = new Technical_Manager();
+
+        $update -> valuation_id  = $request-> valuation_id;
+        $update -> file_name  = $request-> file_name;
+        $update -> status = $request->status;
+     
+        $update ->reason = $request->reason;
+
+        $image_name_array=[];
+        if (isset($request->image_filess) && !empty($request->image_filess) 
+        && count($request->image_filess)>0) {
+            foreach ($request->image_filess as $key => $image) {
+            $extension= explode('/', mime_content_type($image))[1];
+            $data = base64_decode(substr($image, strpos($image, ',') + 1));
+            $imgname='av'.rand(000,999).$key . time() . '.' .$extension;
+            file_put_contents(public_path('images/TM-valuation') . '/' . $imgname, $data);
+            $image_name_array[]=$imgname;
+        }
+
+        $update -> file  = $image_name_array;
+
+    }
+
+        $update->save();
+  
+  //  echo json_encode($update);    
+  //  exit();
+
+   return redirect()->route('technicalmanager_report')->with(['success'=>'Data succesfully submitted.']);
+}
+
+public function update_tm(Request $request)
+{
+   
+  //dd($request->all());
+$update = Technical_Manager::where('valuation_id',$request->valuation_id)->first();
+//      echo json_encode($update);    
+//    exit();
+
+       // $update -> valuation_id  = $request-> valuation_id;
+        $update -> file_name  = $request-> file_name;
+        $update -> status = $request->status;
+     
+        $update ->reason = $request->reason;
+
+        $image_name_array=[];
+        if (isset($request->image_filess) && !empty($request->image_filess) 
+        && count($request->image_filess)>0) {
+            foreach ($request->image_filess as $key => $image) {
+            $extension= explode('/', mime_content_type($image))[1];
+            $data = base64_decode(substr($image, strpos($image, ',') + 1));
+            $imgname='av'.rand(000,999).$key . time() . '.' .$extension;
+            file_put_contents(public_path('images/TM-valuation') . '/' . $imgname, $data);
+            $image_name_array[]=$imgname;
+        }
+
+        $update -> file  = $image_name_array;
+
+    }
+
+        $update->save();
+  
+  //  echo json_encode($update);    
+  //  exit();
+  
+
+   return redirect()->route('technicalmanager_report')->with(['success'=>'Data succesfully updated.']);
+
+}
+public function tm_valuation_view(Request $request)
+    {
+    
+        
+        // echo json_encode($new);
+        // exit();
+
+        $edit_data=Add_news::where('new_valuer.id',$request->id)
+        ->join('new_valuer','new_valuer.valuation_id','=','add_news.valuation_id')
+        ->select('add_news.*','new_valuer.valuation_id')
+        ->first();
+
+        //   echo json_encode($edit_data);
+        // exit();
+
+
+        $new = New_Valuer :: leftjoin('propertys','propertys.id','=','new_valuer.property_type_id') 
+        ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
+        ->leftjoin('tags','tags.id','=','new_valuer.tag_id')
+        ->leftjoin('locations','locations.id','=','new_valuer.location_id')
+        ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
+       // ->where('new_valuer.valuation_id',$edit_data->valuation_id)
+        ->first();
+
+            //$all_user = EmployeeRegistration :: 
+        //where('area_id',$new_edit->area_id)
+        $all_user = User ::
+        where('id',$edit_data->field_executive_id)
+        ->orwhere('id',$edit_data->assistant_valuer_id)
+        ->orwhere('id',$edit_data->technical_manager_id)
+        ->orwhere('id',$edit_data->technical_head_id)
+        ->select('users.id','users.name','users.role_name_id')
+        ->get();
+
+        $new_location = Location:: where('locations.id', $edit_data->location_id)
+        ->join('areas','areas.location_id','=','locations.id')
+        ->select('areas.*')
+       ->get();
+
+       
+       $role=DB::table('user_roles')
+       ->select('role_name','id')
+       ->orderby('order_no','asc')
+       ->get();
+
+        
+        $associatesbank=AssociatesBank::all();
+        $property_type = Property :: all();
+        $property_type1 = Property :: all();
+        $property_type2 = Property :: all();
+
+
+        $category = Category :: all();
+        $tags = Tags :: all();
+        
+        $location = Location :: all();
+        $location1 = Location :: all();
+        $location2 = Location :: all();
+
+
+        $product=Products::all();
+        $area=Area::all();
+        $emp=EmployeeRegistration::all();
+        $data=Add_news::orderby('id','desc')->get();
+
+        //accordin admin
+
+
+        //assitant Valuer
+        $category1 = Category :: all();
+        $tag2 = Tags :: all();
+        //
+        // echo json_encode($tag2);
+        // exit();
+
+       
+
+        $new_edit = New_Valuer::where('new_valuer.valuation_id',$edit_data->valuation_id)->first(); 
+        // echo json_encode($new_edit);
+        // exit();
+
+        $av_table = Assistant_Valuer::where('assistant_valuer.valuation_id',$edit_data->valuation_id)->first(); 
+
+
+        $tm_table = Technical_Manager::where('technical_manager.valuation_id',$edit_data->valuation_id)->first(); 
+// echo json_encode($tm_table);
+//         exit();
+
+        $add_new = Add_news:: leftjoin('employee_registraions','employee_registraions.id','=','add_news.field_executive_id')
+        ->leftjoin('locations','locations.id','=','add_news.location_id')
+        ->select('add_news.*','employee_registraions.role_name_id','locations.locations')
+        ->first();
+
+        $product=Products::all();
+        $product=Products::all();
+
+        $status_AV = Status:: where('role_name_id',29)
+        ->get();
+       
+        $status = Status:: where('role_name_id',25)
+        ->get();
+
+        $status_FE = Status:: where('role_name_id',27)
+        ->get();
+
+        $status_TM = Status:: where('role_name_id',Auth::user()->role_name_id)
+        ->get();
+
+       
+        $loc=Location::orderby('id','desc')->get();
+
+        return view('TechnicalManager.tech_manager_edit',compact('new','data'  ,'area','emp','product','edit_data','associatesbank','property_type','tags','category','location','new_edit','add_new','category1','tag2','property_type1','property_type2','location1','location2','all_user','new_location','role','status_FE','status','status_AV','loc','av_table','status_TM','tm_table'));
+
+    }
+
+    
+
 }

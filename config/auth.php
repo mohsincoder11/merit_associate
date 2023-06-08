@@ -40,6 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'associatesbanks' => [
+            'driver' => 'session',
+            'provider' => 'associatesbanks',
+        ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ]
     ],
 
     /*
@@ -69,6 +78,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'associatesbanks' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Masters\AssociatesBank::class,
+        ]
     ],
 
     /*

@@ -16,7 +16,7 @@
 								</h6>
 								<hr />
 								<div style="overflow-x: scroll;">
-									<table class="table mb-0 table-striped">
+									{{-- <table class="table mb-0 table-striped">
 										<thead>
 											<tr>
 												<th scope="col">VALUATION FOR</th>
@@ -54,13 +54,13 @@
 												<td>Equitas Small Finance Bank Ltd</td>
 											</tr>
 										</tbody>
-									</table>
+									</table> --}}
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-6" style="margin-top: 5%;">
+					{{-- <div class="col-md-6" style="margin-top: 5%;">
 
 						<div class="card">
 							<div class="card-body">
@@ -84,7 +84,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>

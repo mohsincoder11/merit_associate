@@ -31,7 +31,7 @@
                                     <div class="col-md-10">
                                         <input type="checkbox" id="fe" name="page_name[]" value="Field Executive"
                                             @if (in_array('1', $edit_data->page_name)) checked @endif>
-                                        <label for="op"> Operator</label>&nbsp; &nbsp; &nbsp;
+                                        <label for="op"> Operation Manager</label>&nbsp; &nbsp; &nbsp;
 
                                         <input type="checkbox" id="am" name="page_name[]" value="Admin"
                                             @if (in_array('2', $edit_data->page_name)) checked @endif>

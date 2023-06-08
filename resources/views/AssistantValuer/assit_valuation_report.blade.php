@@ -77,47 +77,48 @@
 
                                         Plot Area
 
-                                        East:-   {{ $new_valuer_all->plot_area[0] }}
-                                        West:-  {{ $new_valuer_all->plot_area[1] }}
-                                        North:-   {{ $new_valuer_all->plot_area[2] }}
-                                        South:-   {{ $new_valuer_all->plot_area[3] }}
+                                        East:-   {{ is_array($new_valuer_all->plot_area) ? $new_valuer_all->plot_area[0] : '' }}
+                                        West:-  {{ is_array($new_valuer_all->plot_area) ?      $new_valuer_all->plot_area[1] : '' }}
+                                        North:-   {{ is_array($new_valuer_all->plot_area) ?      $new_valuer_all->plot_area[2] : '' }}
+                                        South:-   {{ is_array($new_valuer_all->plot_area) ?      $new_valuer_all->plot_area[3] : '' }}
                                         
                                     Up Area
-                                        GF:-   {{ $new_valuer_all->up_area[0] }}
-                                        FF:-   {{ $new_valuer_all->up_area[1] }}
-                                        SF:-   {{ $new_valuer_all->up_area[2] }}
-                                        TF:-   {{ $new_valuer_all->up_area[3] }}
+                                        GF:-   {{ is_array($new_valuer_all->up_area) ? $new_valuer_all->up_area[0] : '' }}
+                                        FF:-   {{ is_array($new_valuer_all->up_area) ? $new_valuer_all->up_area[1] : '' }}
+                                        SF:-   {{ is_array($new_valuer_all->up_area) ? $new_valuer_all->up_area[2] : '' }}
+                                        TF:-   {{ is_array($new_valuer_all->up_area) ? $new_valuer_all->up_area[3] : '' }}
     
                                     Four Borders
-                                        East:-   {{ $new_valuer_all->four_borders[0] }}
-                                        West:-   {{ $new_valuer_all->four_borders[1] }}
-                                        North:-   {{ $new_valuer_all->four_borders[2] }}
-                                        South:-   {{ $new_valuer_all->four_borders[3] }}
+                                        East:-   {{ is_array($new_valuer_all->four_borders) ? $new_valuer_all->four_borders[0] : '' }}
+                                        West:-   {{ is_array($new_valuer_all->four_borders) ? $new_valuer_all->four_borders[1] : '' }}
+                                        North:-   {{ is_array($new_valuer_all->four_borders) ? $new_valuer_all->four_borders[2] : '' }}
+                                        South:-   {{ is_array($new_valuer_all->four_borders) ? $new_valuer_all->four_borders[3] : '' }}
     
                                     Whether Boundaries Matching
-                                        Yes/No:-   {{ $new_valuer_all->whether_boundaries_matching[0] }}
-                                        Yes/No:-   {{ $new_valuer_all->whether_boundaries_matching[1] }}
-                                        Yes/No:-   {{ $new_valuer_all->whether_boundaries_matching[2] }}
-                                        Yes/No:-   {{ $new_valuer_all->whether_boundaries_matching[3] }}
+                                        Yes/No:-   {{ is_array($new_valuer_all->whether_boundaries_matching) ? $new_valuer_all->whether_boundaries_matching[0] : '' }}
+                                        Yes/No:-   {{ is_array($new_valuer_all->whether_boundaries_matching) ? $new_valuer_all->whether_boundaries_matching[1] : '' }}
+                                        Yes/No:-   {{ is_array($new_valuer_all->whether_boundaries_matching) ? $new_valuer_all->whether_boundaries_matching[2] : '' }}
+                                        Yes/No:-   {{ is_array($new_valuer_all->whether_boundaries_matching) ? $new_valuer_all->whether_boundaries_matching[3] : '' }}
     
     
                                         Side Marginal Distance In Feet
-                                        Front:-   {{ $new_valuer_all->side_marginal_distance_in_feet[0] }}
-                                        Back:-   {{ $new_valuer_all->side_marginal_distance_in_feet[1] }}
-                                        Left:-   {{ $new_valuer_all->side_marginal_distance_in_feet[2] }}
-                                        Right:-   {{ $new_valuer_all->side_marginal_distance_in_feet[3] }}
+                                        Front:-   {{ is_array($new_valuer_all->side_marginal_distance_in_feet) ? $new_valuer_all->side_marginal_distance_in_feet[0] : '' }}
+                                        Back:-   {{ is_array($new_valuer_all->side_marginal_distance_in_feet) ? $new_valuer_all->side_marginal_distance_in_feet[1] : '' }}
+                                        Left:-   {{ is_array($new_valuer_all->side_marginal_distance_in_feet) ? $new_valuer_all->side_marginal_distance_in_feet[2] : '' }}
+                                        Right:-   {{ is_array($new_valuer_all->side_marginal_distance_in_feet) ? $new_valuer_all->side_marginal_distance_in_feet[3] : '' }}
     
-    
-                                        Discription Of Property
-                                        GF:-   {{ $new_valuer_all->discription_of_property[0] }}
-                                        FF:-   {{ $new_valuer_all->discription_of_property[1] }}
-                                        SF:-   {{ $new_valuer_all->discription_of_property[2] }}
-                                        TF:-   {{ $new_valuer_all->discription_of_property[3] }}
+                                        
+                                        Description Of Property
+                                        GF:-   {{ is_array($new_valuer_all->discription_of_property) ? $new_valuer_all->discription_of_property[0] : '' }}
+                                        FF:-   {{ is_array($new_valuer_all->discription_of_property) ?  $new_valuer_all->discription_of_property[1] : '' }}
+                                        SF:-   {{ is_array($new_valuer_all->discription_of_property) ?  $new_valuer_all->discription_of_property[2] : '' }}
+                                        TF:-   {{ is_array($new_valuer_all->discription_of_property) ?  $new_valuer_all->discription_of_property[3] : '' }}
     
     
                                         " 
-                                        >{{ $new_valuer_all->created_at }}</td>
-                                        <td>{{ $new_valuer_all->status }}</td>
+    
+                                        >{{ date("d-m-Y  h:i a", strtotime($new_valuer_all->created_at)) }}</td>
+                                        <td>{{ $new_valuer_all->assistant_valuer_status }}</td>
                                         {{-- <td>{{ $new_valuer_all->last_updated_by }}</td> --}}
 
                                         <td>
@@ -125,6 +126,15 @@
                                                     class="btn1 btn-outline-success view"><i
                                                         class="lni lni-remove-file"></i></button>
                                             </a>
+
+
+                                            @if(isset($new_valuer_all->assistant_valuer_id))
+                                            <a href="{{ route('AV.av_valuation_view',$new_valuer_all->id) }}"><button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#exampleLargeModal2"
+                                                class="btn1 btn-outline-success view1"><i
+                                                    class="lni lni-eye"></i></button></a>
+                                                    @endif
+
                                         </td>
                                 </tr>
                                 @endforeach

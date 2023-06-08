@@ -172,7 +172,7 @@
                                                 </label>
                                                 <select class="form-select mb-3 areas" aria-label="Default select example"
                                                     name="area_id" id="area">
-                                                    <option selected>Select </option>
+                                                    <option value="">Select </option>
                                                 </select>
                                             </div>
                         </div>
@@ -181,8 +181,8 @@
                         <div style="padding:2px;">
                             <label for="inputFirstName" class="form-label">Field Executive</label>
                             <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="field_executive_id" id="field">
-                                                    <option selected>Select Field Executive</option>
+                                                    name="field_executive_id" id="field" required>
+                                                    <option value="">Select Field Executive</option>
                                                 </select>
 
                         </div>
@@ -191,8 +191,8 @@
                         <div style="padding:2px;">
                             <label for="inputFirstName" class="form-label"  style="margin-top:5px;">Assistant Valuer</label>
                             <select class="form-select mb-3" aria-label="Default select example"
-                            name="assistant_valuer_id" id="assist">
-                            <option selected>Select Assistant Valuer</option>
+                            name="assistant_valuer_id" id="assist" required>
+                            <option value="">Select Assistant Valuer</option>
                             {{-- <option></option> --}}
 
                         </select>
@@ -203,8 +203,8 @@
                         <div style="padding:2px;">
                         <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Manager</label>
                         <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="technical_manager_id" id="tech">
-                                                    <option selected>Select Technical Manager</option>
+                                                    name="technical_manager_id" id="tech" required>
+                                                    <option value="">Select Technical Manager</option>
                                                     {{-- <option></option> --}}
 
                                                 </select>
@@ -215,8 +215,8 @@
                         <div style="padding:2px;">
                         <label for="inputFirstName" class="form-label" style="margin-top:10px;">Technical Head</label>
                         <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="technical_head_id" id="tech_head">
-                                                    <option selected>Select Technical Head</option>
+                                                    name="technical_head_id" id="tech_head" required>
+                                                    <option value="">Select Technical Head</option>
                                                     {{-- <option></option> --}}
 
                                                 </select>
@@ -234,13 +234,13 @@
                             <div style="padding:3px;">
                                 <label for="inputFirstName" class="form-label">Contact Number</label>
                                 <input class="form-control" type="text" aria-label="default input example"
-                                name="contact_no">
+                                name="contact_no" maxlength="10">
                             </div>
                         </td>
                         <td border="1" width="15%">
                             <div style="padding:3px;">
                                 <label for="inputFirstName" class="form-label" style="margin-top:-3px;">Alternate Contact </label>
-                                <input class="form-control" type="text" aria-label="default input example" name="alt_cont_no">
+                                <input class="form-control" type="text" aria-label="default input example" name="alt_cont_no" maxlength="10">
                                                 
                             </div>
                         </td>
@@ -302,7 +302,7 @@
                             <td border="1" width="15%">
                                 <div style="padding:2px;">
                                     <label for="inputFirstName" class="form-label">Due Date</label>
-                                    <input type="date" class="form-control" name="date" >
+                                    <input type="date" class="form-control datePicker" name="date" >
                                 </div> 
                             </td>
                             <td border="1" width="16%">
@@ -317,14 +317,14 @@
                                 <select class="form-select mb-3" aria-label="Default select example"
                                 name="status" >
                                 <option value="" >Select </option>
-                                <option value="ongoing">ongoing</option>
+                                {{-- <option value="ongoing">ongoing</option>
                                 <option value="completed">completed</option>
                                 <option value="cancelled">cancelled</option>
-                                <option value="pending">pending</option>
-                                {{-- @foreach ($status as $status)
+                                <option value="pending">pending</option> --}}
+                                @foreach ($status as $status)
                                     <option value="{{ $status->id }}"> {{ $status->statu }}
                                     </option>
-                                @endforeach --}}
+                                @endforeach
 
                             </select>
                             </td>
@@ -404,292 +404,8 @@
                                 <div style="margin-top:20px; padding:20px;">
                                     <button type="submit" class="btn btn-success"><i class='bx bx-trophy me-0'></i> Submit</button>
                                 </div>
-                          
-
-
 
     </form>
-
-
-{{-- 
-                                        <form class="row g-2" method="post" enctype="multipart/form-data"
-                                            action={{ route('addnewinsert') }}>
-                                            @csrf
-
-                                            <p>Valuation for</p>
-
-                                            <div class="col-md-3">
-                                                <label>First Name</label>
-                                                <input class="form-control mb-3" type="text" name="firstname"
-                                                    placeholder="First Name" aria-label="default input example">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label>Middle Name</label>
-                                                <input class="form-control mb-3" type="text" name="middelname"
-                                                    placeholder="Middle Name" aria-label="default input example">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label>Last Name</label>
-                                                <input class="form-control mb-3" type="text" name="lastname"
-                                                    placeholder="Last Name" aria-label="default input example">
-                                            </div>
-
-
-                                            <div class="col-md-3">
-                                                <label>Valuation ID</label>
-                                                <input class="form-control mb-3" type="text" name="valuation_id"
-                                                    placeholder="Valuation ID" aria-label="default input example">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label>Client</label> --}}
-                                                {{-- <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="associatesbanks_id">
-                                                    <option selected>Select Client</option>
-                                                    @foreach ($associatesbank as $associatesbank)
-                                                        <option value="{{ $associatesbank->id }}">
-                                                            {{ $associatesbank->bankname }} </option>
-                                                    @endforeach
-
-                                                </select> --}}
-                                            {{-- </div> --}}
-{{-- 
-                                            <div class="col-md-3">
-                                                <label>Product</label> --}}
-                                                {{-- <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="product_id">
-                                                    <option selected>Select Product</option>
-                                                    @foreach ($product as $product)
-                                                        <option value="{{ $product->id }}"> {{ $product->products }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select> --}}
-                                            {{-- </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Location</label> --}}
-                                                {{-- <select class="form-select mb-3 location" aria-label="Default select example"
-                                                    name="location_id" id="location">
-
-                                                    <option value="">Select Location</option>
-                                                    @foreach ($location as $location)
-                                                        <option value="{{ $location->id }}"> {{ $location->locations }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select> --}}
-                                            {{-- </div> --}}
-
-{{-- 
-                                            <div class="col-md-3">
-                                                <label>Area  --}}
-                                                    {{-- <label>[Add New]</label> --}}
-                                                    {{-- <a  href="" data-bs-toggle="modal" data-bs-target="#exampleScrollableModal" style="color:blue">[Add New]</a> 
-                                                </label>
-                                                <select class="form-select mb-3 areas" aria-label="Default select example"
-                                                    name="area_id" id="area">
-                                                    <option selected>Select </option> --}}
-
-                                                    {{-- @foreach ($area as $area)
-												<option value="{{ $area->id }}" > {{ $area->area }} </option>
-												@endforeach --}}
-
-                                                {{-- </select>
-                                            </div> --}}
-                                            {{-- <div class="col"> --}}
-                                                <!-- Button trigger modal -->
-                                                {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Basic modal</button> --}}
-                                                <!-- Modal -->
-                                         
-                                                {{-- </div> --}}
-                                            {{-- </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Field Executive</label> --}}
-                                                {{-- <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="field_executive_id" id="field">
-                                                    <option selected>Select</option>
-                                                    
-                                                    {{-- @foreach ($ as $associatesbank)
-                                                        <option value="{{ $associatesbank->id }}">
-                                                            {{ $associatesbank->bankname }} </option>
-                                                    @endforeach --}}
-
-                                                {{-- </select>  --}}
-{{-- 
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Assistant Valuer</label> --}}
-                                                {{-- <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="assistant_valuer_id" id="assist">
-                                                    <option selected>Select Assistant Valuer</option>
-                                                    <option></option>
-
-                                                </select> --}}
-
-                                            {{-- </div> --}}
-
-
-                                            {{-- <div class="col-md-3">
-                                               
-                                                <label>Technical Manager</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="technical_manager_id" id="tech">
-                                                    <option selected>Select Technical Manager</option>
-                                                    <option></option>
-
-                                                </select>
-
-                                            </div> --}}
-
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Technical Head</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="technical_head_id" id="tech_head">
-                                                    <option selected>Select Technical Head</option>
-                                                    <option></option>
-
-                                                </select>
-
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Contact Number</label>
-                                                <input class="form-control mb-3" type="text"
-                                                    placeholder="Contact Number" aria-label="default input example"
-                                                    name="contact_no">
-                                            </div> --}}
-
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Alternate Contact Number</label>
-                                                <input class="form-control mb-3" type="text"
-                                                    placeholder="Alternate Contact Number"
-                                                    aria-label="default input example" name="alt_cont_no">
-                                            </div>  --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Address of Individual</label>
-                                                <textarea class="form-control" id="inputAddress" placeholder="Address..." rows="2" name="address"></textarea>
-                                            </div> --}}
-{{-- 
-                                            <div class="col-md-3">
-                                                <label>City</label>
-                                                <input class="form-control mb-3" type="text" placeholder="City"
-                                                    name="city" aria-label="default input example">
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>State</label>
-                                                <input class="form-control mb-3" type="text" placeholder="State"
-                                                    name="state" aria-label="default input example">
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Pincode</label>
-                                                <input class="form-control mb-3" type="text" placeholder="Pincode"
-                                                    name="pincode" aria-label="default input example">
-                                            </div> --}}
-{{-- 
-                                            <div class="col-md-3">
-                                                <label>Longitude</label>
-                                                <input class="form-control mb-3" type="text" placeholder="Longitude" --}} 
-                                                    {{-- {{-- name="longitude" aria-label="default input example">
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Latitude</label>
-                                                <input class="form-control mb-3" type="text" placeholder="Latitude"
-                                                    name="latitute" aria-label="default input example">
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Tags</label>
-                                                <input class="form-control mb-3" type="text" placeholder="Tags"
-                                                    name="tags" aria-label="default input example">
-                                            </div> --}}
-
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Due Date</label>
-                                                <input type="date" class="form-control" name="date" >
-                                            </div> --}}
-
-{{-- 
-                                            <div class="col-md-3">
-                                                <label>Comment / Remarks</label>
-                                                <textarea class="form-control" id="inputAddress" placeholder="Comment / Remarks" rows="3" name="comment"></textarea>
-
-                                            </div> --}}
-
-                                            {{-- <div class="col-md-3">
-                                                <label>Status</label>
-                                                <select class="form-select mb-3" aria-label="Default select example"
-                                                    name="status" >
-                                                    <option >Select </option>
-                                                    <option value="ongoing">ongoing</option>
-                                                    <option value="completed">completed</option>
-                                                    <option value="cancelled">cancelled</option>
-                                                    <option value="pending">pending</option>
-                                                </select>
-                                            </div> --}}
-{{-- 
-
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label>Documents Name</label>
-                                                    <input type="text" class="form-control" name="document_name[]" id="document1">
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label>Upload Document</label>
-                                                    <input type="file" class="form-control" name="image[]" id="image" accept="image/*">
-                                                    
-                                                </div>
-
-                                                 <div class="col-md-2 form-group">
-                                                <label></label>
-                                                <div class="form-group" align="center" style="width:full;margin-top: 3vh;">
-                                                    <button type="button" name="action_button" class="btn btn-warning " id="add_row"
-                                                         >Add More</button>
-                                                </div>
-                                            </div>
-
-                                            </div> --}}
-
-                                           
-                                            {{-- <div class="col-md-10 " style="">
-                                                <table class="items_table table table-bordered width80" id="items_table">
-                                                    <thead>
-                                                        <tr class="filters">
-                                                            <th></th>
-                                                            <th>Document Name</th>
-                                                     
-                                                            <th>Documents </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="add_more">
-                                                    </tbody>
-                                                </table>
-                                                <button type="button" class="delete-row btn btn-danger"
-                                                    style="margin-left: 80%; margin-top: 5px;">Delete Row</button>
-                                            </div>
-
-                                            
-                                     
-                                            <div class="col-md-3" style="padding:8px"><br>
-                                                <button type="submit" class=" btn btn-primary"><i
-                                                        class="fadeIn animated bx bx-plus"></i> Submit </button>
-                                            </div>
-
-
-                                        </form> --}}
-
 
                                             <div class="modal fade" id="exampleScrollableModal" tabindex="-1" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-scrollable">
@@ -741,10 +457,6 @@
 
                                             </div>
                                        
-                                       
-
-
-
                                     </div>
 
                                 </div>
@@ -780,7 +492,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title">Valuation for AASIF YUSUF SHAIKH
-                                                            </h5>
+                                                            </h5>      
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
@@ -791,6 +503,7 @@
                                                         <div class="modal-body">
                                                             <div class="card">
                                                                 <h5 align="center">Valuation Details</h5>
+                                                             
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="col-md-3">
@@ -811,7 +524,7 @@
                                                                         <div class="col-md-4">
 
                                                                             <label><b>Client</b></label><br>
-                                                                            <label  id="client"></label>
+                                                                            {{-- <label  id="client"></label> --}}
 
 
                                                                         </div>
@@ -930,9 +643,13 @@
                                                                                                     <p id="longitute"></p>
                                                                                                 </td>
 
-                                                                                                <td>
+                                                                                                {{-- <td>
                                                                                                     <label>Tags</label>
                                                                                                     <p id="tags"></p>
+                                                                                                </td> --}}
+                                                                                                <td>
+                                                                                                    <label>Status</label>
+                                                                                                    <p id="status"></p>
                                                                                                 </td>
                                                                                             </tr>
 
@@ -1037,7 +754,7 @@
                                                                                 <div class="row">
                                                                                     <label>Document Name</label><label id="docnamemodel"></label>
                                                                                     <label>Document </label>
-                                                                                    <label><img src=" " id="img"></label>
+                                                                                    <label><img src="" id="img"></label>
                                                                                    
                                     
                                                                                 </div>
@@ -1085,98 +802,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {{-- <div class="row ">
-                                                                <div class="col-md-5 card">
-                                                                    <div class="card-body">
-                                                                        <div class="table-responsive">
-                                                                            <div class="card-header text-uppercase ">
-                                                                                IMAGES &nbsp;
-                                                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                                                                &nbsp; &nbsp; &nbsp
-                                                                                <br class="d-md-none">
-                                                                                <button type="button"
-                                                                                    class="btn btn-success waves-effect waves-light m-1"
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#formemodal2"> <i
-                                                                                        class="fa fa-plus"></i>
-                                                                                    <span>UPLOAD
-                                                                                        IMAGES</span> </button>
-
-
-
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> --}}
-
-{{-- 
-                                                                <div class="col-md-6 card">
-                                                                    <div class="card-body">
-                                                                        <div class="table-responsive">
-                                                                            <div class="card-header text-uppercase ">
-                                                                                REMINDERS &nbsp;
-                                                                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                                                                &nbsp; &nbsp; &nbsp
-                                                                                <br class="d-md-none">
-                                                                                <button type="button"
-                                                                                    class="btn btn-primary"
-                                                                                    data-bs-toggle="modal"
-                                                                                    data-bs-target="#exampleVerticallycenteredModal"><i
-                                                                                        class="lni lni-circle-plus"></i>New
-                                                                                    Reminder</button>
-
-
-
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div> --}}
-                                                            
-{{-- 
-                                                            <div class="col-md-12 card">
-                                                                <div class="card-body">
-                                                                    <div class="table-responsive">
-                                                                        <div class="card-header text-uppercase ">
-                                                                            DISCUSSIONS &nbsp;
-                                                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                                                            &nbsp; &nbsp
-                                                                            <br class="d-md-none">
-
-                                                                        </div>
-                                                                        <div class="media align-items-center">
-
-
-                                                                            <div class="card-body">
-                                                                                <div class="list-group">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-6">
-                                                                                            <textarea class="form-control" id="inputAddress" placeholder="Enter Comments..." rows="3"></textarea>
-
-                                                                                        </div>
-                                                                                        <div class="col-md-2">
-                                                                                            <button type="button"
-                                                                                                class="btn btn-secondary"
-                                                                                                data-bs-dismiss="modal">Send</button>
-                                                                                        </div>
-                                                                                    </div>
-
-
-
-
-
-                                                                                </div>
-                                                                            </div>
-
-
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> --}}
+                                                        
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
@@ -1207,7 +833,7 @@
                                                         <th>Client</th>
                                                         <th>Assigned</th>
                                                         <th>Status</th>
-                                                        {{-- <th>View</th> --}}
+                                                        <th>View</th>
 
                                                     </tr>
                                                 </thead>
@@ -1220,14 +846,20 @@
                                                         <td>{{ $ongoing->firstname }}</td>
                                                         <td>{{ $ongoing->locations }}</td>
                                                         <td>{{ $ongoing->bankname }}</td>
-                                                        <td>{{ $ongoing->created_at }}</td>
-                                                        <td>{{ $ongoing->status }}</td>
+                                                        <td>{{ date("d-m-Y  h:i a", strtotime($ongoing->created_at)) }}</td>
+                                                        <td>{{ $ongoing->statu }}</td>
                                                         {{-- <td>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#exampleLargeModal1"
                                                                 class="btn1 btn-outline-success view" id="{{ $ongoing->id }}"><i
                                                                     class="lni lni-remove-file"></i></button>
                                                         </td> --}}
+                                                        <td>
+                                                            <a href="{{ route('edit_add_new', $ongoing->id) }}">
+                                                                <button type="button" class="btn1 btn-outline-success"><i
+                                                                        class='lni lni-remove-file'></i></button></a>
+                                                            
+                                                        </td>
                                                     </tr>
                                                     @endforeach
 
@@ -1711,12 +1343,18 @@
                                                         <td>{{ $completed->bankname }}</td>
                                                         <td>{{ $completed->created_at }}</td>
                                                         <td>{{ $completed->status }}</td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <button type="button" data-bs-toggle="modal"
                                                                 data-bs-target="#exampleLargeModal2"
                                                                 class="btn1 btn-outline-success view1" id="{{ $completed->id }}"><i
                                                                     class="lni lni-remove-file"></i></button>
-                                                        </td>
+                                                        </td> --}}
+                                                        {{-- <td>
+                                                            <a href="{{ route('edit_add_new', $completed->id) }}">
+                                                                <button type="button" class="btn1 btn-outline-success"><i
+                                                                        class='bx bx-edit-alt me-0'></i></button></a>
+                                                            
+                                                        </td> --}}
                                                     </tr>
                                                     @endforeach
 
@@ -2752,7 +2390,7 @@
          $(document).ready(function() {
             //to get area  wise role names
 
-            $("#area").on('change', function() {
+            $("#location").on('change', function() {
                     //alert($(this).val());
                     $.ajax({
                         url: "{{ route('get_name_id') }}",
@@ -2841,10 +2479,6 @@ area:$("#area_ajax").val(),
         })
 </script>
 
-    
-
-
-
 <script>
     $(document).ready(function()
     {
@@ -2860,6 +2494,7 @@ id:$(this).attr('id')
 cache: false,
 success: function(result){
     var lable=result.onview;
+    let base_url = '{{ asset('public/images') }}';
     var value_adddoc=result.value_adddoc;
    
 $("#valuation_id").text(lable.valuation_id);
@@ -2878,14 +2513,22 @@ $("#pincode").text(lable.pincode);
 $("#latitute").text(lable.latitute);
 $("#longitute").text(lable.longitude);
 $("#tags").text(lable.tags);
+$("#status").text(lable.status);
 $("#comment").text(lable.comment);
+
+
+                $("#img").empty();
+                $.each(lable,function(a,b)
+                          {
+                              $("#img").append('<tr><td>  <input class="form-check-input" type="radio" value="'+b.id +'" id="document_name" name="payment"></td><td>'+b.document_name+'</td><img height="50px" width="50px" src="{{asset('public/images/New-valuation')}}' + '/' + b.image +'" alt=""></td></tr>');
+                            })
 
 console.log(value_adddoc[0].upd);
 $('#img').attr('src',value_adddoc[0].upd)
 $('#document_name').text(value_adddoc[0].docnamemodel)
 $("#document_area").empty();
 $.each(value_adddoc,function (a,b){
-    $("#document_area").append('<img height="50" width="50" src="'+a.upd+'"> <label>'+a.docnamemodel+'<label>');
+    $("#document_area").append('<img height="50" width="50" src="{{asset('images/New-valuation/')}}'+ '/' + a.upd+'" alt="ss"> <label>'+a.docnamemodel+'<label>');
 })
 // $("#ongoingdocname").text(value_adddoc.docname[]);
 // $("#ongoingdoc").text(value_adddoc.upd[]);

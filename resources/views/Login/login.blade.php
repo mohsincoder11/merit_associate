@@ -31,7 +31,7 @@
 				<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
 					<div class="col mx-auto">
 						<div class="mb-4 text-center">
-					<img src="{{asset('images/icon1.png')}}" width="100" alt="111" /> 
+					<img src="{{asset('images/meritlogo.png')}}" width="150" alt="111" /> 
 						</div>
 						<div class="card">
 							<div class="card-body">
@@ -55,7 +55,7 @@
 											<div class="col-12">
 												<label for="inputChoosePassword" class="form-label">Enter Password</label>
 												<div class="input-group" id="show_hide_password">
-													<input name="password" type="password" class="form-control border-end-0" id="inputChoosePassword" value="12345678" placeholder="Enter Password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+													<input name="password" type="password" class="form-control border-end-0" id="inputChoosePassword"  placeholder="Enter Password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
 												</div>
 											</div>
 											<!-- <div class="col-md-6">

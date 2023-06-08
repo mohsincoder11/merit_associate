@@ -41,14 +41,21 @@
                                     <td>{{ $add_new->firstname }}</td>
                                     <td>{{ $add_new->locations }}</td>
                                     {{-- <td>{{ $add_new->bankname }}</td> --}}
-                                    <td>{{ $add_new->created_at }}</td>
-                                    <td>{{ $add_new->status }}</td>
+                                    <td>{{ date("d-m-Y  h:i a", strtotime($add_new->created_at)) }}</td>
+                                    <td>{{ $add_new->statu }}</td>
                                     <td>
                                         <a href="{{ route('FE.new',$add_new->id) }}"><button type="button" data-bs-toggle="modal"
                                             data-bs-target="#exampleLargeModal2"
                                             class="btn1 btn-outline-success view1"><i
                                                 class="lni lni-remove-file"></i></button></a>
-                                    </td>
+                                  
+                                  @if(isset($add_new->new_valuer_id))
+                                        <a href="{{ route('FE.new_valuation',$add_new->id) }}"><button type="button" data-bs-toggle="modal"
+                                            data-bs-target="#exampleLargeModal2"
+                                            class="btn1 btn-outline-success view1"><i
+                                                class="lni lni-eye"></i></button></a>
+                                                @endif
+                                            </td>
                                 </tr>
                                 @endforeach
 

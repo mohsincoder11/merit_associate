@@ -12,6 +12,7 @@ use App\Models\Masters\Location;
 use App\Models\Masters\Products;
 use App\Models\Masters\EmployeeRegistration;
 use App\Models\Masters\Area;
+use App\Models\AssistantValuer\Assistant_Valuer;
 
 use DB;
 
@@ -37,14 +38,23 @@ class AssitValuationReport extends Controller
     ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
     ->leftjoin('tags','tags.id','=','new_valuer.tag_id')
     ->leftjoin('locations','locations.id','=','new_valuer.location_id')
-    ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
+    ->leftjoin('status','status.id','=','new_valuer.status')
+    ->leftjoin('assistant_valuer','assistant_valuer.valuation_id','=','new_valuer.valuation_id')
+    ->leftjoin('status as assistant_valuer_status','assistant_valuer_status.id','=','assistant_valuer.status')
+    ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property','status.statu','assistant_valuer.id as assistant_valuer_id','assistant_valuer_status.statu as assistant_valuer_status')
     ->get();
  
- 
+//  echo json_encode($new_valuer_all);
+//  exit();
           
+ $status_av = Assistant_Valuer :: 
+// where('valuation_id',$new_valuer_all->valuation_id)
+ leftjoin('status','status.id','=','assistant_valuer.status')
+ ->select('status.statu')
+ ->get();
  
- 
- 
+//  echo json_encode($status_av);
+//  exit();
  //joins for dispalying data on onging tab in table
            $completed=Add_news::where('status','completed')
            ->leftjoin('locations','locations.id','=','add_news.location_id')
@@ -93,7 +103,7 @@ class AssitValuationReport extends Controller
          $associatesbank=AssociatesBank::all();
          $product=Products::all();
          $area=Area::all();
-         return view('AssistantValuer.assit_valuation_report',compact('add_new_all','new_valuer_all','location','associatesbank','product','area','data','area_all','completed','cancelled'));
+         return view('AssistantValuer.assit_valuation_report',compact('add_new_all','new_valuer_all','location','associatesbank','product','area','data','area_all','completed','cancelled','status_av'));
         
      }
  

@@ -40,7 +40,7 @@
 									
 									<div class="col-md-2">
 										<label for="inputFirstName" class="form-label">Contact <span style="color:red">*</span></label>
-										<input type="text" class="form-control" id="inputFirstName" placeholder="Contact Person" name="contact" required>
+										<input type="text" class="form-control" id="inputFirstName" placeholder="Contact Person" name="contact" maxlength="10" required>
 									</div>
 
 									{{-- <div class="col-md-2">
@@ -197,7 +197,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($emp as $emp)
+									@foreach ($emp1 as $emp)
 									<tr>
 										<td>{{ $loop->index + 1 }}</td>
 										<td>{{ $emp->role_name }}</td>
@@ -218,13 +218,21 @@
 										>{{ $emp->bankname }}</td>
 										
 										<td>{{ $emp->area}}</td>
-										<td>{{ $emp->adhar }}</td>
-										<td>{{ $emp->pan}}</td>
-										<td>{{ $emp->photo}}</td>
-										<td>{{ $emp->other}}</td>
+										<td>
+											<a href="{{ asset('images/adhrcards/' . $emp->adhar)}}" download>
+											{{ $emp->adhar }}
+										</a>
+										</td>
+										<td><a href="{{ asset('images/pancards/' . $emp->pan)}}" download>
+											{{ $emp->pan}}</a></td>
+										<td><a href="{{ asset('images/photos/' . $emp->photo)}}" download>
+											{{ $emp->photo}}</a></td>
+										<td>
+											<a href="{{ asset('images/other/' . $emp->other)}}" download>{{ $emp->other}}
+											</a></td>
 										<td><a href="{{ route('empregistedit', $emp->user_id) }}">	<button type="button" class="btn1 btn-outline-success"><i class='bx bx-edit-alt me-0'></i></button> </a>
 
-											<a href="{{ route('empregistdelete', $emp->user_id) }}"><button type="button" class="btn1 btn-outline-danger" onclick="return confirm('Are You Sure To Delete This?')"><i class='bx bx-trash me-0'></i></button> </a>	
+											{{-- <a href="{{ route('empregistdelete', $emp->user_id) }}"><button type="button" class="btn1 btn-outline-danger" onclick="return confirm('Are You Sure To Delete This?')"><i class='bx bx-trash me-0'></i></button> </a>	 --}}
 								
 
 											

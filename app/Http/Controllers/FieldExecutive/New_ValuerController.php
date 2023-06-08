@@ -15,17 +15,21 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Masters\AssociatesBank;
 use App\Models\Masters\Products;
 use App\Models\Masters\Area;
-use App\Models\Status;
 use auth;
 use App\Models\User;
 use DB;
+use App\Models\Masters\Status;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class New_ValuerController extends Controller
 {
     public function index( $id)
     {
         
-        $new = New_Valuer :: leftjoin('propertys','propertys.id','=','new_valuer.property_type_id') 
+        $new = New_Valuer :: where('new_status','1')
+        ->leftjoin('propertys','propertys.id','=','new_valuer.property_type_id') 
         ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
         ->rightjoin('tags','tags.id','=','new_valuer.tag_id')
         ->leftjoin('locations','locations.id','=','new_valuer.location_id')
@@ -95,9 +99,12 @@ class New_ValuerController extends Controller
         ->get();
 
 
-        $status = Status:: where('role_name_id',Auth::user()->role_name_id)
+        $status = Status:: where('role_name_id',25)
         ->get();
 
+
+        $status_FE = Status:: where('role_name_id',Auth::user()->role_name_id)
+        ->get();
 
         $new_edit = Add_news::find($id);
         // echo json_encode($new_edit);
@@ -105,18 +112,17 @@ class New_ValuerController extends Controller
         
         //$all_user = EmployeeRegistration :: 
         //where('area_id',$new_edit->area_id)
-        $all_user = User ::
-        where('id',$new_edit->field_executive_id)
+        $all_user = User ::where('id',$new_edit->field_executive_id)
         ->orwhere('id',$new_edit->assistant_valuer_id)
         ->orwhere('id',$new_edit->technical_manager_id)
         ->orwhere('id',$new_edit->technical_head_id)
         ->select('users.id','users.name','users.role_name_id')
         ->get();
 
-        $new_location = Location:: where('locations.id', $new_edit->location_id)
-        ->join('areas','areas.location_id','=','locations.id')
-        ->select('locations.locations','areas.area')
-       ->get();
+        $new_location = Location:: where('locations.id', $edit_data->location_id)
+          ->join('areas','areas.location_id','=','locations.id')
+          ->select('areas.*')
+         ->get();
 
 // echo json_encode($new_edit->area_id);
 // exit();
@@ -141,10 +147,15 @@ class New_ValuerController extends Controller
         ->select('role_name','id')
         ->orderby('order_no','asc')
         ->get();
+        
+        $status = Status:: where('role_name_id',25)
+        ->get();
 
-//echo json_encode($role);
+        $loc=Location::orderby('id','desc')->get();
+
+// echo json_encode($status);
 // exit();
-        return view('FieldExecutive.new_valuation',compact('new','data','emp','area','product','associatesbank','edit_data','property_type','tag','category','location','new_edit','add_new','ongoing','com','cancelled','pending','location1','tags','status','all_user','new_location','role'));
+        return view('FieldExecutive.new_valuation',compact('new','data','emp','area','product','associatesbank','edit_data','property_type','tag','category','location','new_edit','add_new','ongoing','com','cancelled','pending','location1','tags','status','all_user','new_location','role','status_FE','loc'));
     }
 
     public function create(Request $request)
@@ -168,10 +179,16 @@ class New_ValuerController extends Controller
            'valuation_id'=> $request->valuation_id,
             'contact_no'  => $request-> contact_no,
             'property_type_id'  => $request-> property_type_id,
-            'property_address'  => $request-> property_address,
-            'address'  => $request-> address,
+            //'property_address'  => $request-> property_address,
+            //'address'  => $request-> address,
+            'house_no'  => $request-> house_no,
             'road_name'  => $request-> road_name,
+            'building_name'  => $request-> building_name,
+            'wing_no'  => $request-> wing_no,
             'colony'  => $request-> colony,
+            'village_city'  => $request-> village_city,
+            'tehsil'  => $request-> tehsil,
+            'district'  => $request-> district,
             'pin_code'  => $request-> pin_code,
             'landmark'  => $request-> landmark,
             'meter_no'  => $request-> meter_no,
@@ -209,15 +226,15 @@ class New_ValuerController extends Controller
             'image'  => $image_name_array,
             'status'=>'ongoing',
             'reason'=>$request->reason,
-            'last_updated_by'=>$request->last_updated_by
+            'last_updated_by'=>$request->last_updated_by,
+            'new_status' => '1'
         ]);
 
         // echo json_encode($insert);
         // exit();
 
 
-        return Redirect()->route('FE.ongoingmodel')->with(['success' => true, 'message' => 'Data Successfully Submitted !']);
-
+        return Redirect()->route('FE.ongoingmodel')->with(['success'=>'Data succesfully Submitted.']);
 
         
     }
@@ -246,7 +263,8 @@ class New_ValuerController extends Controller
         ->first();
 // echo json_encode($edit_new);
 // exit();
-
+$status = Status:: where('role_name_id',25)
+->get();
 
         $property_type = Property :: all();
         $category = Category :: all();
@@ -259,28 +277,56 @@ class New_ValuerController extends Controller
         // ->leftjoin('locations','locations.id','=','add_news.location_id')
         // ->select('add_news.*','employee_registraions.role','locations.locations')
         // ->get();
-        return view('FieldExecutive.edit_new_valuation',compact('property_type','tag','category','location','edit_new'));
+        return view('FieldExecutive.edit_new_valuation',compact('status','property_type','tag','category','location','edit_new'));
        
         
     }
 
     public function update(Request $request)
     {
-        // $request->validate([
-        //     'service' => 'required',
-        // ]);
+        //dd($request->all());
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'contact_no' => 'required|max:10',
+                // 'valuation_id'=>['unique:users,email'],
+               //  'valuation_id'=>'unique:new_valuer,valuation_id'
+            ],
+              [
+                        'contact_no.required' => 'Please enter contact number.',
+                        // 'email'=>'must be contain special character',
+                         //'valuation_id'=>'please enter unique valuation id'
+                    
+                        ]
+                    ); 
+        
+                    if ($validator->fails()) {
+                      $error = '';
+                      $messages = $validator->messages();
+                      foreach ($messages->all() as $message) {
+                          $error .= $message . "<br>";
+                      }
+                      return redirect()->back()->with(['error'=>$error]);
+                  
+                      }
         
        
     $update = New_Valuer::where('id', $request->id)->first();
     
             $update -> name = $request->name;
-            $update ->valuation_id= $request->valuation_id;
+           // $update ->valuation_id= $request->valuation_id;
             $update -> contact_no  = $request-> contact_no;
             $update -> property_type_id  = $request-> property_type_id;
-            $update -> property_address  = $request-> property_address;
-            $update -> address  = $request-> address;
+            //$update -> property_address  = $request-> property_address;
+            //$update -> address  = $request-> address;
+            $update -> house_no  = $request-> house_no;
             $update -> road_name  = $request-> road_name;
+            $update -> building_name  = $request-> building_name;
+            $update -> wing_no  = $request-> wing_no;
             $update -> colony  = $request-> colony;
+            $update -> village_city  = $request-> village_city;
+            $update -> tehsil  = $request-> tehsil;
+            $update -> district  = $request-> district;
             $update -> pin_code  = $request-> pin_code;
             $update -> landmark  = $request-> landmark;
             $update -> meter_no = $request-> meter_no;
@@ -316,27 +362,156 @@ class New_ValuerController extends Controller
             $update -> category_id  = $request-> category_id;
             $update -> tag_id  = $request-> tag_id;
             $update ->last_updated_by=$request->last_updated_by;
+            $update -> reason = $request-> reason;
 
             $image_name_array=[];
-            if (isset($request->image_files) and !empty($request->image_files)) {
+           // $image_name=$update->image;
+
+            if (isset($request->image_files) && !empty($request->image_files)) {
                 foreach ($request->image_files as $key => $image) {
                 $extension= explode('/', mime_content_type($image))[1];
                 $data = base64_decode(substr($image, strpos($image, ',') + 1));
                 $imgname='fe'.rand(000,999).$key . time() . '.' .$extension;
                 file_put_contents(public_path('images/FE-valuation') . '/' . $imgname, $data);
                 $image_name_array[]=$imgname;
+               //array_push($image_name_array,$image_name);
             }
 
             $update -> image  = $image_name_array;
 
         }
     
-
+// echo json_encode($update);
+// exit();
             $update->save();
       
 
        // dd($update);
-        return redirect()->route('FE.ongoingmodel')->with(['success' => true, 'message' => 'Data Successfully Updated !']);
+       if(Auth::user()->role_name_id==29){
+        return redirect()->route('Av.new',$request->id)->with(['success'=>'Data succesfully updated.']);
+       }
+       elseif(Auth::user()->role_name_id==30)
+       {
+        return redirect()->route('technicalmanager_edit',$request->id)->with(['success'=>'Data succesfully updated.']);
+       }
+       elseif(Auth::user()->role_name_id==31)
+       {
+        return redirect()->route('technicalhead_edit',$request->id)->with(['success'=>'Data succesfully updated.']);
+       }
+       else{
+        return redirect()->route('FE.ongoingmodel')->with(['success'=>'Data succesfully updated.']);
+       }
+    }
+
+    // public function new_valuation_report()
+    // {
+    //     $new = New_Valuer :: where('new_status','1')
+    //     ->leftjoin('propertys','propertys.id','=','new_valuer.property_type_id') 
+    //     ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
+    //     ->rightjoin('tags','tags.id','=','new_valuer.tag_id')
+    //     ->leftjoin('locations','locations.id','=','new_valuer.location_id')
+    //     ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
+    //     ->get();
+
+    //     echo json_encode($new);
+    //     exit();
+
+    //     return view('FieldExecutive.new_valuation_report',compact('new'));
+
+    // }
+
+    public function new_valuation_report($id)
+    {
+    
+        
+        // echo json_encode($new);
+        // exit();
+
+        $edit_data = Add_news::find($id);
+        $new = New_Valuer :: leftjoin('propertys','propertys.id','=','new_valuer.property_type_id') 
+        ->leftjoin('categorys','categorys.id','=','new_valuer.category_id') 
+        ->leftjoin('tags','tags.id','=','new_valuer.tag_id')
+        ->leftjoin('locations','locations.id','=','new_valuer.location_id')
+        ->select('new_valuer.*','categorys.category','tags.tag','locations.locations','propertys.property')
+        ->where('new_valuer.valuation_id',$edit_data->valuation_id)
+        ->first();
+
+            //$all_user = EmployeeRegistration :: 
+        //where('area_id',$new_edit->area_id)
+        $all_user = User ::
+        where('id',$edit_data->field_executive_id)
+        ->orwhere('id',$edit_data->assistant_valuer_id)
+        ->orwhere('id',$edit_data->technical_manager_id)
+        ->orwhere('id',$edit_data->technical_head_id)
+        ->select('users.id','users.name','users.role_name_id')
+        ->get();
+
+        $new_location = Location:: where('locations.id', $edit_data->location_id)
+        ->join('areas','areas.location_id','=','locations.id')
+        ->select('areas.*')
+       ->get();
+
+       
+       $role=DB::table('user_roles')
+       ->select('role_name','id')
+       ->orderby('order_no','asc')
+       ->get();
+
+        
+        $associatesbank=AssociatesBank::all();
+        $property_type = Property :: all();
+        $property_type1 = Property :: all();
+        $property_type2 = Property :: all();
+
+
+        $category = Category :: all();
+        $tags = Tags :: all();
+        
+        $location = Location :: all();
+        $location1 = Location :: all();
+        $location2 = Location :: all();
+
+
+        $product=Products::all();
+        $area=Area::all();
+        $emp=EmployeeRegistration::all();
+        $data=Add_news::orderby('id','desc')->get();
+
+        //accordin admin
+
+
+        //assitant Valuer
+        $category1 = Category :: all();
+        $tag2 = Tags :: all();
+        //
+        // echo json_encode($tag2);
+        // exit();
+
+       
+
+        $new_edit = New_Valuer::where('new_valuer.valuation_id',$edit_data->valuation_id)->first(); 
+        // echo json_encode($new_edit);
+        // exit();
+
+        $add_new = Add_news:: leftjoin('employee_registraions','employee_registraions.id','=','add_news.field_executive_id')
+        ->leftjoin('locations','locations.id','=','add_news.location_id')
+        ->select('add_news.*','employee_registraions.role_name_id','locations.locations')
+        ->first();
+
+        $product=Products::all();
+        $product=Products::all();
+
+        $status_FE = Status:: where('role_name_id',Auth::user()->role_name_id)
+        ->get();
+       
+        $status = Status:: where('role_name_id',25)
+        ->get();
+
+        $loc=Location::orderby('id','desc')->get();
+
+
+        return view('FieldExecutive.new_valuation_report',compact('new','data'  ,'area','emp','product','edit_data','associatesbank','property_type','tags','category','location','new_edit','add_new','category1','tag2','property_type1','property_type2','location1','location2','all_user','new_location','role','status_FE','status','loc'));
+
     }
 
 

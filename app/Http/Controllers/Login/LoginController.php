@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Login;
 use App\Models\Login\Login;
 use Hash;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Setting\UserRole;
 
 
@@ -43,15 +43,16 @@ class LoginController extends Controller
         // dd($request->all());
         if (Auth::attempt(['user_name' =>$request->user_name, 'password' => $request->password]))
         {
-            
-
-        //     echo json_encode(Auth::user());
+           
+        //  echo json_encode(Auth::user());
+        //  exit();
+        
          $user_role=UserRole::find(Auth::user()->role_name_id);
-        // echo json_encode($user_role);
 
-        //     exit();
+    //     echo json_encode($user_role);
+    //    exit();
 
-            if($user_role->role_name=="Operator")
+            if($user_role->role_name=="Operation Manager")
             {
                
                 return redirect()->route('addnew');
@@ -115,6 +116,37 @@ class LoginController extends Controller
       
       return redirect()->route('login');
     }
+
+    public function bank_login_page()
+    {
+     return view('Bank_panel.bank_login');
+    }
+ 
+    public function bank_login_submit(Request $request)
+    {
+ 
+      
+ if (Auth::guard('associatesbanks')->attempt(array('userid' => $request['userid'], 'password' => $request['password']))) 
+ {
+    // echo json_encode(Auth::guard('associatesbanks')->user());
+    // exit();
+  
+    return redirect()->route('bank_dashboard');
+ }
+ else{
+
+  return redirect()->back()->with('error','Invalid Login Credentials.');  
+    }
+ 
+    }
+    public function bank_log_out()
+    {
+       Auth::guard('associatesbanks')->logout();
+      
+      return redirect()->route('bank_login_page');
+    }
+
+   
 
 }
 

@@ -12,7 +12,10 @@ use App\Models\Masters\Location;
 use App\Models\Masters\AssociatesBank;
 use App\Models\Masters\Products;
 use App\Models\Masters\Property;
+use App\Models\Masters\Category;
+use App\Models\Masters\Tags;
 use DB;
+use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
@@ -53,30 +56,36 @@ class ApiController extends Controller
 
     // Check User
 
-    // public function user_registration(Request $request)
-    // {
-		
-    //     $user = EmployeeRegistration::where('role_name_id',27)
-    //     ->where('contact', '=', $request->contact)
-    //     //->select('employee_registraions.contact')
-    //     ->first(); //check already exist 
-    //     if (isset($user) && $user != null) {
-    //         //   return $user;			
-    //         return response()->json(['status' => true, 'data' => $user]); //return already exist user
-    //     } else {
+     public function user_registration(Request $request)
+     {
+        $user = EmployeeRegistration::where('role_name_id',27)
+       ->where('contact', '=', $request->contact)
+        //->select('employee_registraions.contact')
+        ->first(); //check already exist 
+        if (isset($user) && $user != null) {
+            //   return $user;			
+             return response()->json(['status' => true, 'data' => $user]); //return already exist user
+        } else {
 
-    //         return response()->json(['status' => false, 'data' => 'please register yourself']);
-    //     }
-    // }
+             return response()->json(['status' => false, 'data' => 'please register yourself']);
+         }
+     }
 
     public function get_all_data_admin(Request $request)
     {
-        $data = Add_news::where('add_news.id',$request->id)
+        $data = Add_news::where('add_news.field_executive_id',$request->user_id)
         ->leftjoin('user_roles','user_roles.id','=','add_news.field_executive_id')
         ->leftjoin('locations','locations.id','=','add_news.location_id')
-        ->leftjoin('areas','areas.location_id','=','add_news.location_id')
+		->leftjoin('products','products.id','=','add_news.product_id')
+		->leftjoin('users','users.id','=','add_news.field_executive_id')
+		->leftjoin('users as assistant','assistant.id','=','add_news.assistant_valuer_id')
+		->leftjoin('users as technical_manager','technical_manager.id','=','add_news.technical_manager_id')
+		->leftjoin('users as technical_head','technical_head.id','=','add_news.technical_head_id')	
+		->leftjoin('areas','areas.id','=','add_news.area_id')
+		->leftjoin('status','status.id','=','add_news.status')
+        //->leftjoin('areas','areas.location_id','=','add_news.location_id')//
         ->leftjoin('associatesbanks','associatesbanks.id','=','add_news.associatesbanks_id')
-        ->select('add_news.*','user_roles.role_name','associatesbanks.bankname','locations.locations','areas.area')
+        ->select('add_news.*','user_roles.role_name','associatesbanks.bankname','locations.locations','products.products','users.name as field_executive_name', 'assistant.name as assistant_valuer_name', 'technical_manager.name as technical_manager_name', 'technical_head.name as technical_head_name','areas.area','status.statu')
         ->get();
         if ($data) {			
             return response()->json(['status' => true, 'data' => $data]); 
@@ -122,7 +131,7 @@ class ApiController extends Controller
     $data->state=$request->get('state') ?$request->get('state') : $data->state;
     $data->pincode=$request->get('pincode') ? $request->get('pincode') : $data->pincode;
     $data->longitude=$request->get('longitude') ? $request->get('longitude') :  $data->longitude;
-    $data->latitute=$request->get('latitute') ?$request->get('latitute') : $data->latitute;
+    $data->latitute=$request->get('latitude') ?$request->get('latitude') : $data->latitute;
     $data->tags=$request->get('tags') ? $request->get('tags') : $data->tags;
     $data->date=$request->get('date') ? $request->get('date'):  $data->date;
     $data->comment=$request->get('comment') ? $request->get('comment') :  $data->comment;
@@ -131,6 +140,196 @@ class ApiController extends Controller
     $data->save();
     }
 }
+
+public function field_executive_step1(Request $request)
+{
+      $validators = Validator::make($request->all(), [
+           // 'name' => 'required',
+           // 'contact_no' => 'required',
+            //'property_type_id' => 'required',
+            //'house_no'  => 'required',
+           // 'road_name'  => 'required',
+            //'building_name'  => 'required',
+           // 'wing_no'  => 'required',
+           // 'colony'  => 'required',
+            //'village_city'  => 'required',
+           // 'tehsil'  => 'required',
+           // 'district'  =>'required',
+           // 'landmark'  => 'required',
+          //  'pin_code'  =>'required',
+           // 'meter_no'  =>'required',
+           // 'valuation_id'=>'required',
+        ]);
+        if ($validators->fails()){
+            $validator['status'] = false;
+            $validator['messages'] = $validators->errors()->all();
+            return response()->json($validator);
+        } 
+    $insert = New_Valuer::updateOrCreate(
+        [
+            'valuation_id'=>$request->valuation_id
+        ],
+        [
+        'name' => $request->name,
+        'contact_no'  => $request-> contact_no,
+        'property_type_id'  => $request-> property_type_id,
+        'house_no'  => $request-> house_no,
+        'road_name'  => $request-> road_name,
+        'building_name'  => $request-> building_name,
+        'wing_no'  => $request-> wing_no,
+        'colony'  => $request-> colony,
+        'village_city'  => $request-> village_city,
+        'tehsil'  => $request-> tehsil,
+        'district'  => $request-> district,
+        'landmark'  => $request-> landmark,
+        'pin_code'  => $request-> pin_code,
+        'meter_no'  => $request-> meter_no,
+    ]
+);
+
+    if ($insert) {
+        return response()->json(['status' => true, 'message' => 'Data Submitted Successfully']);
+    } else {
+        return response()->json(['status' => false, 'message' => 'Something error occurred']);
+    }
+}
+
+
+public function field_executive_step2(Request $request)
+{
+      $validators = Validator::make($request->all(), [
+        //'plot_area'=>'required',
+       // 'up_area'=>'required',
+        //'GF'=>'required',
+        //'FF'=>'required',
+        //'SF'=>'required',
+        //'TF'=>'required',
+       // 'occupancy_status'  => 'required',
+       // 'occupied_by'  =>'required',
+       // 'four_borders'  => 'required',
+        //'whether_boundaries_matching'  => 'required',
+       // 'rate_range'  => 'required',
+        //'plot_range'  => 'required',
+        //'road_type'  => 'required',
+        //'road_width_in_feet'  => 'required',
+        //'type_of_structure'  => 'required',
+        //'remark_on_boundaries_matching'  => 'required',
+        //'lat'  => 'required',
+        //'long'  => 'required',
+        //'construction_stage'  => 'required',
+        //'side_marginal_distance_in_feet'  => 'required',
+        //'discription_of_property'  => 'required',
+        //'valuation_id'=>'required',
+        ]);
+        if ($validators->fails()){
+            $validator['status'] = false;
+            $validator['messages'] = $validators->errors()->all();
+            return response()->json($validator);
+        } 
+    $insert = New_Valuer::updateOrCreate(
+        [
+            'valuation_id'=>$request->valuation_id
+        ],
+        [
+            'plot_area'  => $request-> plot_area,
+            'up_area'  => $request-> up_area,
+            'GF'  => $request->  GF,
+            'FF'  => $request-> FF,
+            'SF'  => $request-> SF,
+            'TF'  => $request-> TF,
+            'occupancy_status'  => $request->occupancy_status, 
+            'occupied_by'  => $request-> occupied_by,
+            'four_borders'  => $request-> four_borders,
+            'whether_boundaries_matching'  => $request-> whether_boundaries_matching,
+            'rate_range'  => $request-> rate_range,
+            'plot_range'  => $request-> plot_range,
+            'road_type'  => $request-> road_type,
+            'road_width_in_feet'  => $request-> road_width_in_feet,
+            'type_of_structure'  => $request-> type_of_structure,
+            'remark_on_boundaries_matching'  => $request-> remark_on_boundaries_matching,
+            'lat'  => $request-> lat,
+            'long'  => $request-> long,
+            'construction_stage'  => $request-> construction_stage,
+            'side_marginal_distance_in_feet'  => $request-> side_marginal_distance_in_feet,
+            'discription_of_property'  => $request-> discription_of_property,
+           
+    ]
+);
+
+    if ($insert) {
+        return response()->json(['status' => true, 'message' => 'Data Submitted Successfully']);
+    } else {
+        return response()->json(['status' => false, 'message' => 'Something error occurred']);
+    }
+}
+
+
+public function field_executive_step3(Request $request)
+{
+      $validators = Validator::make($request->all(), [
+        'person_met_at_site'  => 'required',
+        'relation_with_owner'  => 'required',
+        'remark_on_property'  => 'required',
+        'deviation'  => 'required',
+        'rate_referenace'  => 'required',
+        'date_of_visit'  => 'required',
+        'name_of_FE_visited_the_property_id'  => 'required',
+        'location_id'  =>'required',
+        'category_id'  => 'required',
+        'tag_id'  => 'required',
+        'status'=>'required',
+        'reason'=>'required',
+        'last_updated_by'=>'required',
+        'valuation_id'=>'required',
+
+        ]);
+        if ($validators->fails()){
+            $validator['status'] = false;
+            $validator['messages'] = $validators->errors()->all();
+            return response()->json($validator);
+        } 
+        $image_name_array=[];
+        if (isset($request->image_files) && !empty($request->image_files) 
+        && count($request->image_files)>0){
+            foreach ($request->image_files as $key => $image) {
+            $extension= explode('/', mime_content_type($image))[1];
+            $data = base64_decode(substr($image, strpos($image, ',') + 1));
+            $imgname='fe'.rand(000,999).$key . time() . '.' .$extension;
+            file_put_contents(public_path('images/FE-valuation') . '/' . $imgname, $data);
+            $image_name_array[]=$imgname;
+        }
+    }
+    $insert = New_Valuer::updateOrCreate(
+        [
+            'valuation_id'=>$request->valuation_id
+        ],
+        [
+            'person_met_at_site'  => $request-> person_met_at_site,
+            'relation_with_owner'  => $request-> relation_with_owner,
+            'remark_on_property'  => $request-> remark_on_property,
+            'deviation'  => $request-> deviation,
+            'rate_referenace'  => $request-> rate_referenace,
+            'date_of_visit'  => $request-> date_of_visit,
+            'name_of_FE_visited_the_property_id'  => $request-> name_of_FE_visited_the_property,
+            'location_id'  => $request-> location_id,
+            'category_id'  => $request-> category_id,
+            'tag_id'  => $request-> tag_id,
+            'image'  => $image_name_array,
+            'status'=>'ongoing',
+            'reason'=>$request->reason,
+            'last_updated_by'=>$request->last_updated_by,
+           
+    ]
+);
+
+    if ($insert) {
+        return response()->json(['status' => true, 'message' => 'Data Submitted Successfully']);
+    } else {
+        return response()->json(['status' => false, 'message' => 'Something error occurred']);
+    }
+}
+
+
 
 public function field_executive(Request $request)
 {
@@ -209,7 +408,7 @@ public function field_executive(Request $request)
     
 }
 
-function get_area_by_id(Request $request)
+public function get_area_by_id(Request $request)
     {
         $data = Area::where('location_id', $request->location_id)->orderby('area', 'asc')->get();
         if ($data) {
@@ -284,6 +483,46 @@ function get_area_by_id(Request $request)
             return response()->json(['status' => false, 'message' => 'User not found']);
         }
     }
+    public function role()
+    {
+    $role=DB::table('user_roles')
+    ->select('role_name','id')
+    ->orderby('order_no','asc')
+    ->get();
+    }
+	
+	public function get_user_data(Request $request)
+    {
+        $data = EmployeeRegistration::where('user_id', $request->user_id)
+			->leftjoin('user_roles','user_roles.id', '=', 'employee_registraions.role_name_id')
+			->select('employee_registraions.*','user_roles.role_name')
+			->first();
+        if ($data) {
+            return response()->json(['status' => true, 'data' => $data]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'User not found']);
+        }
+    }
 
+    public function category(Request $request)
+    {
+        $category=Category::all();
+        if ($category) {
+            return response()->json(['status' => true, 'data' => $category]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'User not found']);
+        }
+    }
+
+    public function tags(Request $request)
+    {
+        $tags=Tags::where('category_id',$request->category_id)
+        ->get();
+        if ($tags) {
+            return response()->json(['status' => true, 'data' => $tags]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'User not found']);
+        }
+    }
 
 }

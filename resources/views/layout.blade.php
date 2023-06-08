@@ -651,10 +651,21 @@
                             </li>
                         </ul>
                     </div>
+
+                    <?php
+                    $data = DB::table('employee_registraions')
+                        // ->where('status', 'pending')
+                       ->where('user_id',auth()->user()->id)
+                       ->select('employee_registraions.*')
+                       ->first();
+                    //     ->count();
+                    // echo '<h3>' . $count1 . '</h3>';
+                    ?>
+{{-- @json($data->user_id) --}}
                     <div class="user-box dropdown">
                         <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret"
                             href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('images/avatars/user.png') }}" class="user-img" alt="user avatar">
+                   <img src="{{ asset('images/photos/' . $data->photo) }}" class="user-img" alt="user avatar">
                             <div class="user-info ps-3">
                                 <p class="user-name mb-0">{{auth()->user()->name}}</p>
                                 <p class="designattion mb-0"></p>
@@ -679,9 +690,13 @@
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
                             </li> --}}
+                            <li><a class="dropdown-item" href="{{route('profile')}}"><i
+                                class="bx bx-user"></i><span>Profile</span></a>
+                    </li>
                             <li><a class="dropdown-item" href="{{route('log_out')}}"><i
                                         class='bx bx-log-out-circle'></i><span>Logout</span></a>
                             </li>
+                          
                         </ul>
                     </div>
                 </nav>
@@ -729,6 +744,41 @@
     <script src="https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js"></script>
     <script src="{{ asset('js/popover-tooltip.js') }} "></script>
 
+    <script>
+        $(document).ready(function() {
+            var now = new Date();
+            var month = (now.getMonth() + 1);
+            var day = now.getDate();
+            if (month < 10)
+                month = "0" + month;
+            if (day < 10)
+                day = "0" + day;
+            var today = now.getFullYear() + '-' + month + '-' + day;
+            $('.datePicker').val(today);
+        });
+
+        $(function() {
+            $("#file-simple").fileinput({
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-danger",
+                fileType: "any"
+            });
+            $("#filetree").fileTree({
+                root: '/',
+
+                expandSpeed: 100,
+                collapseSpeed: 100,
+                multiFolder: false
+            }, function(file) {
+                alert(file);
+            }, function(dir) {
+                setTimeout(function() {
+                    page_content_onresize();
+                }, 200);
+            });
+        });
+    </script>
 
     <script>
         var canvas = document.getElementById("canvas");
@@ -826,6 +876,12 @@
     </script>
     @yield('js')
 
-
+    <script>
+        $(document).ready(function(){
+            setTimeout(() => {
+                $(".alert_close").trigger('click');//alert_Close is class of close button
+            }, 2500);
+        })
+    </script>
 
 </body>

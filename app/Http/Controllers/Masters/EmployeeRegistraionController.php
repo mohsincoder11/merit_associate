@@ -9,14 +9,15 @@ use Hash;
 use Illuminate\Support\Facades\Validator;
 use  App\Models\Masters\Area;
 use App\Models\Setting\UserRole;
-use App\Models\Login\User;
+//use App\Models\Login\User;
 use App\Models\Setting\User_Permission;
+use App\Models\User;
 
 class EmployeeRegistraionController extends Controller
 {
     public function index_emp_registraion()
     {
-        $emp=User::join('employee_registraions','employee_registraions.user_id','=','users.id')
+        $emp1=User::join('employee_registraions','employee_registraions.user_id','=','users.id')
         ->leftjoin('locations','locations.id','=','employee_registraions.location_id')
         ->leftjoin('areas','areas.id','=','employee_registraions.area_id')
         ->leftjoin('user_roles','user_roles.id','=','employee_registraions.role_name_id')
@@ -27,9 +28,10 @@ class EmployeeRegistraionController extends Controller
         $areas=Area::all();
         $role1=UserRole::orderby('order_no','asc')
         ->get();
-        // echo json_encode($emp);
+        // echo json_encode($emp1);
         // exit();
-        return view('Masters.employee_registration',compact('location','emp','areas','role1'));
+
+        return view('Masters.employee_registration',compact('location','emp1','areas','role1'));
     }
 
 
@@ -137,18 +139,26 @@ class EmployeeRegistraionController extends Controller
     }
 
 
-    public function delete_emp_regist($id)  
+    public function delete_emp_regist(Request $request)  
     {  
-      $data=EmployeeRegistration::find($id);  
-        $data->delete();  
+
+       $data=EmployeeRegistration::where('user_id',$request->id)->delete();
+      //  echo json_encode($data);
+      //  exit();
+
+        $data1=user::where('id',$request->id)->delete(); 
+
+        $data2=User_Permission::where('user_id',$request->id)->delete(); 
+
         return redirect(route('empregistration'))->with(['success'=>'Data deleted successfully.']); 
     } 
+
 
     public function edit_emp_registration(request $request)
     {
       $data1=User::join('employee_registraions','employee_registraions.user_id','=','users.id')
       ->where('users.id',$request->id)->select('users.user_id as user_unique_id','employee_registraions.*')->first();
-     
+      
 
       $emp=User::join('employee_registraions','employee_registraions.user_id','=','users.id')
       ->leftjoin('locations','locations.id','=','employee_registraions.location_id')
@@ -161,25 +171,31 @@ class EmployeeRegistraionController extends Controller
       $areas=Area::all();
       $role1=UserRole::orderby('order_no','asc')
       ->get();
-      // echo json_encode($data1);
-      // exit();
+     
     return view('Masters.edit_emp_regist',['edit_data'=>$data1,'emp'=>$emp,'location'=>$location,'area'=>$areas, 'role1' => $role1]);
     }
 
     public function update_emp_regist(Request $request)
   {
-    //dd($request->all());
-    $user=User::find($request->id);
-$user->role_name_id=$request->get('role_name_id');
-$user->name=$request->get('name');
-$user->email=$request->get('email');
-//$user->user_id=$request->get('user_id');
-$user->user_name=$request->get('user_name');
-$user->password=Hash::make($request->password);
-$user->save();
 
- $data =EmployeeRegistration::where('user_id',$request->id)->first();
- 
+    $user= User :: where('id',$request->id)->first();
+    $user->role_name_id=$request->get('role_name_id');
+    $user->name=$request->get('name');
+    $user->email=$request->get('email');
+    $user->user_id=$request->get('user_id');
+    $user->user_name=$request->get('user_name');
+    $user->password=Hash::make($request->password);
+//  echo json_encode($user);
+//     exit();
+
+   
+    $user->save();
+
+
+  $data =EmployeeRegistration::where('user_id',$request->id)->first();
+    // echo json_encode($data);
+    // exit();
+
  $data->role_name_id=$request->get('role_name_id');
  $data->name=$request->get('name');
  $data->contact=$request->get('contact');
@@ -224,9 +240,21 @@ if ($request->hasFile('other')) {
   $data->other= $filename;
 }
 
+//echo json_encode($data);
+//exit();
+
  $data->save();
 
 
+
+ $user_permission= User_Permission :: where('user_id',$request->id)->first();
+ $user_permission->user_id=$user->id;
+ $user_permission->role_id=[$request->get('role_name_id')];
+
+ //echo json_encode($user_permission);
+ //exit();
+
+ $user_permission->save();
 
  return redirect(route('empregistration'))->with(['success'=>'Data successfully updated.']);
 }

@@ -17,6 +17,14 @@ class New_Valuer extends Model
         'property_type_id',
         // 'property_address',
         'address',
+        
+        'house_no',
+        'building_name',
+        'wing_no',
+        'village_city',
+        'tehsil',
+        'district',
+        
         'road_name',
         'colony',
         'pin_code',
@@ -58,7 +66,10 @@ class New_Valuer extends Model
         'file_name',
         'reason',
         'last_updated_by',
-        'file'
+        'file',
+        'new_status',
+        'assistant_valuer_status',
+        'assistant_valuer_remark'
     ];
 
     protected $casts = [

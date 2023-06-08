@@ -50,7 +50,7 @@
                                     <label for="inputFirstName" class="form-label">Area <span
                                             style="color:red">*</span></label>
                                     <select class="multiple-select" name="area_id[]" multiple placeholder="Select Area" id="area">
-                                        <option>Select</option>
+                                        {{-- <option value="">Select</option> --}}
                                         {{-- @foreach($area as $area)
                                         <option value={{ $area->id}}> {{ $area->area }}</option>
                                         @endforeach --}}
@@ -139,7 +139,7 @@
 $(document).ready(function() {
 	$(document).on("change", "#location", function() {
             $.ajax({
-                url: "{{route('get_area_by_id')}}",
+                url: "{{route('get_area_by_id_for_new')}}",
                 data: {
                     id: $(this).val(),
                 },
